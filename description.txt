@@ -1,0 +1,1 @@
+ChaosTerraria is a mod that lets you train neural networks to do various things in Terraia using the ChaosNet backend
