@@ -1,22 +1,18 @@
 ﻿using ChaosTerraria.World;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Runtime.Remoting.Messaging;
-using System.Threading;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 
 namespace ChaosTerraria.Tiles
 {
+    //Modify to store spawn point ID
     class SpawnBlock : ModTile
     {
         public Point BlockPos;
-
         public override void PlaceInWorld(int i, int j, Item item)
         {
-            ChaosWorld.AddToSpawnPoints(this);
+            //ChaosWorld.AddToSpawnPoints(this);
+            ChaosWorld.spawnBlocks.Add(BlockPos);
             BlockPos.X = i;
             BlockPos.Y = j;
             Main.NewText("Spawn Block added!" + " Total Spawn Blocks: " + ChaosWorld.GetSpawnBlockCount());
@@ -34,6 +30,9 @@ namespace ChaosTerraria.Tiles
             Main.tileLavaDeath[Type] = false;
             Main.tileWaterDeath[Type] = false;
             Main.tileFrameImportant[Type] = true;
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Spawn Block");
+            AddMapEntry(new Color(160, 49, 209), name);
         }
     }
 }

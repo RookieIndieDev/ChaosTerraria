@@ -21,9 +21,19 @@ namespace ChaosTerraria
 
                 if (UIHandler.isLoginUiVisible)
                 {
-                    ChaosTerraria.loginInterface.SetState(ChaosTerraria.loginScreen);
+                    UIHandler.ShowLoginScreen();
                 }
 			}
+
+            if (ChaosTerraria.sessionHotkey.JustPressed)
+            {
+                UIHandler.isSessionUIVisible = !UIHandler.isSessionUIVisible;
+
+                if (UIHandler.isSessionUIVisible)
+                {
+                    UIHandler.ShowSessionScreen();
+                }
+            }
 		}
     }
 }

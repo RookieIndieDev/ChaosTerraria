@@ -2,6 +2,9 @@
 {
     public partial struct SessionStartInfo
     {
-        public TrainingRoomRequest TrainingRoomStartRequest;
+        public struct TrainingRoomRequest
+        {
+            public bool reset;
+        }
     }
 }

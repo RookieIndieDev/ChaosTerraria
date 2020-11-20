@@ -1,6 +1,5 @@
 ﻿using ChaosTerraria.ChaosUtils;
 using ChaosTerraria.Network;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -14,9 +13,11 @@ namespace ChaosTerraria.UI
         UIText usernameText;
         UIText passwordText;
         UIText trainingRoomText;
+        UIText trainingRoomOwnerText;
         UIText heading;
         ModTextBox username;
         ModTextBox password;
+        ModTextBox trainingroomOwnerUserName;
         ModTextBox trainingroom;
         UIImageButton loginButton;
 
@@ -27,10 +28,12 @@ namespace ChaosTerraria.UI
             passwordText = new UIText("Password: ");
             trainingRoomText = new UIText("Training Room Name: ");
             heading = new UIText("ChaosNet Login");
+            trainingRoomOwnerText = new UIText("Training Room Owner Name: ");
             loginButton = new UIImageButton(ModContent.GetTexture("ChaosTerraria/UI/LoginButton"));
             loginButton.OnClick += new MouseEvent(DoAuth);
             username = new ModTextBox("");
             password = new ModTextBox("");
+            trainingroomOwnerUserName = new ModTextBox("");
             trainingroom = new ModTextBox("");
 
             mainPanel.Width.Set(Main.screenWidth * 0.50f, 0f);
@@ -45,15 +48,20 @@ namespace ChaosTerraria.UI
             password.Left.Set(mainPanel.Width.Pixels / 2, 0f);
             trainingroom.Top.Set(mainPanel.Height.Pixels * 0.45f, 0f);
             trainingroom.Left.Set(mainPanel.Width.Pixels / 2, 0f);
+            trainingroomOwnerUserName.Top.Set(mainPanel.Height.Pixels * 0.55f, 0f);
+            trainingroomOwnerUserName.Left.Set(mainPanel.Width.Pixels / 2, 0f);
             usernameText.Top.Set(username.Top.Pixels + 5f, 0f);
             passwordText.Top.Set(password.Top.Pixels + 5f, 0f);
             trainingRoomText.Top.Set(trainingroom.Top.Pixels + 5f, 0f);
+            trainingRoomOwnerText.Top.Set(trainingroomOwnerUserName.Top.Pixels + 5f, 0f);
             mainPanel.Append(username);
             mainPanel.Append(password);
             mainPanel.Append(trainingroom);
+            mainPanel.Append(trainingroomOwnerUserName);
             mainPanel.Append(usernameText);
             mainPanel.Append(passwordText);
             mainPanel.Append(trainingRoomText);
+            mainPanel.Append(trainingRoomOwnerText);
             mainPanel.Append(heading);
             mainPanel.Append(loginButton);
             Append(mainPanel);
@@ -63,8 +71,9 @@ namespace ChaosTerraria.UI
         {
             ChaosNetworkHelper networkHelper = new ChaosNetworkHelper();
             ChaosNetConfig.data.trainingRoomNamespace = trainingroom.Text;
-            ChaosNetConfig.data.trainingRoomUsernameNamespace = username.Text.ToLower();
-            networkHelper.Auth(username.Text, password.Text);
+            ChaosNetConfig.data.username = username.Text.ToLower();
+            ChaosNetConfig.data.trainingRoomUsernameNamespace = trainingroomOwnerUserName.Text.ToLower();
+            networkHelper.Auth(username.Text, password.Text, trainingroomOwnerUserName.Text.ToLower());
         }
     }
 }

@@ -1,16 +1,14 @@
-﻿using System;
-using Terraria.ModLoader;
-using Terraria.ID;
-using static Terraria.ModLoader.ModContent;
-using Terraria.ModLoader.IO;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using ChaosTerraria.World;
-using System.Runtime.InteropServices;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using static Terraria.ModLoader.ModContent;
 
 namespace ChaosTerraria.Items
 {
     class SpawnBlock : ModItem
-    { 
+    {
         public override void SetDefaults()
         {
             item.width = 1;
@@ -34,6 +32,11 @@ namespace ChaosTerraria.Items
         {
             Tooltip.SetDefault("Place block to have orgs spawn from");
             DisplayName.SetDefault("Spawn Block");
+        }
+
+        public override ModItem NewInstance(Item itemClone)
+        {
+            return base.NewInstance(itemClone);
         }
     }
 }

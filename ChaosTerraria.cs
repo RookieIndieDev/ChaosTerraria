@@ -1,8 +1,8 @@
 using ChaosTerraria.ChaosUtils;
-using ChaosTerraria.Structs;
+using ChaosTerraria.Managers;
+using ChaosTerraria.Tiles;
 using ChaosTerraria.UI;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -14,7 +14,10 @@ namespace ChaosTerraria
 	{
 		internal static UserInterface loginInterface;
 		internal static LoginScreen loginScreen;
+		internal static SessionScreen sessionScreen;
+		//TODO: Add Current Stats Hotkey
 		public static ModHotKey loginHotkey;
+		public static ModHotKey sessionHotkey;
 
 		private GameTime _lastUpdateUiGameTime;
 
@@ -22,11 +25,16 @@ namespace ChaosTerraria
 		{
 			loginInterface = new UserInterface();
 			loginScreen = new LoginScreen();
+			sessionScreen = new SessionScreen();
 			loginHotkey = RegisterHotKey("Login", "P");
+			sessionHotkey = RegisterHotKey("Session", "O");
+			loginScreen.Activate();
+			sessionScreen.Activate();
+
+			SessionManager.InitializeSession();
 
 			if (!ChaosNetConfig.CheckForConfig())
 			{
-				loginScreen.Activate();
 				loginInterface.SetState(loginScreen);
 				UIHandler.isLoginUiVisible = true;
 			}
@@ -34,18 +42,27 @@ namespace ChaosTerraria
 			{
 				try
 				{
-					ChaosNetConfigData configData = ChaosNetConfig.ReadConfig();
+					ChaosNetConfig.ReadConfig();
+					SessionManager.SetCurrentSessionNamespace();
 				}
-				catch (Exception ex)
+				catch
 				{
-					Logger.Error(ex.Message + ex.StackTrace);
+
 				}
 			}
 		}
 
+
+
 		public override void Unload()
 		{
 			loginHotkey = null;
+			sessionHotkey = null;
+		}
+
+		public override void PreSaveAndQuit()
+		{
+
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -57,7 +74,7 @@ namespace ChaosTerraria
 					"ChaosNet Login Interface",
 					delegate
 					{
-						if(_lastUpdateUiGameTime != null && loginInterface.CurrentState != null)
+						if (_lastUpdateUiGameTime != null && loginInterface.CurrentState != null)
 						{
 							loginInterface.Draw(Main.spriteBatch, new GameTime());
 						}
@@ -72,12 +89,12 @@ namespace ChaosTerraria
 		{
 			_lastUpdateUiGameTime = gameTime;
 
-			if (!UIHandler.isLoginUiVisible)
+			if (!UIHandler.isLoginUiVisible && !UIHandler.isSessionUIVisible)
 			{
-				loginInterface.SetState(null);
+				UIHandler.HideUI();
 			}
 
-			if(loginInterface.CurrentState != null)
+			if (loginInterface.CurrentState != null)
 			{
 				loginInterface.Update(gameTime);
 			}

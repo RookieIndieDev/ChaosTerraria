@@ -1,21 +1,33 @@
-﻿using ChaosTerraria.Managers;
+﻿using ChaosTerraria.Classes;
+using ChaosTerraria.Fitness;
+using ChaosTerraria.Managers;
+using ChaosTerraria.Structs;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ChaosTerraria.NPCs
 {
+	//TODO: Display Score in NPC chat window
+	//TODO: Change Sprite
+	//TODO: Implement seconds to live and lifeEffect
+	//TODO: Implement fitness event in NPC Chat window?
 	public class ChaosTerrarian : ModNPC
 	{
 		public override string Texture => "ChaosTerraria/NPCs/Terrarian";
+
 		private static int timer = 0;
 		private int timeLeft = 0;
 		private int[] tiles = new int[25];
+		internal Organism organism;
+		private bool orgAssigned = false;
+		private Report report;
+		private int lifeTicks = 600;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("ChaosTerrarian");
 			Main.npcFrameCount[npc.type] = 25;
 			NPCID.Sets.ExtraFramesCount[npc.type] = 9;
 			NPCID.Sets.AttackFrameCount[npc.type] = 4;
@@ -27,6 +39,7 @@ namespace ChaosTerraria.NPCs
 		{
 			return false;
 		}
+
 
 		public override void SetDefaults()
 		{
@@ -47,24 +60,47 @@ namespace ChaosTerraria.NPCs
 
 		public override void AI()
 		{
+			if (SessionManager.Organisms != null && !orgAssigned && SessionManager.Organisms.Count > 0)
+			{
+				organism = SessionManager.GetOrganism();
+				if (organism != null)
+				{
+					npc.GivenName = organism.nameSpace;
+					report.nameSpace = organism.nameSpace;
+				}
+				orgAssigned = true;
+			}
+
 			timer++;
 			timeLeft++;
 
 			if (timer > 15 && npc.active == true)
 			{
-				DoScan(npc.position);
-				DoActions();
+				DoScan();
+				if (organism != null && tiles != null)
+				{
+					DoActions(organism.nNet.GetOutput(tiles));
+				}
+
+				if (FitnessManager.fitnessRules != null)
+					report.score += FitnessManager.TestFitness(this);
 				timer = 0;
 			}
 
-			if (timeLeft > 600 && npc.active == true)
+			if (timeLeft > lifeTicks && npc.active == true)
 			{
+				if (organism != null && !SessionManager.Reports.Contains(report))
+				{
+					SessionManager.Reports.Add(report);
+				}
+
 				SpawnManager.spawned--;
 				timeLeft = 0;
-				Dust.NewDust(npc.position, 2, 2, 1);
 				npc.life = 0;
 			}
 		}
+
+
 
 		private void MoveRight()
 		{
@@ -82,39 +118,56 @@ namespace ChaosTerraria.NPCs
 		{
 			if (npc.collideY)
 			{
-				npc.velocity.Y = -7f;
+				npc.velocity.Y = -8f;
 			}
 		}
 
-		public void DoActions()
+		public void DoActions(int action)
 		{
-			int action = Main.rand.Next(1, 4);
 			switch (action)
 			{
+				case 0:
+					Jump();
+					break;
 				case 1:
 					MoveRight();
 					break;
 				case 2:
 					MoveLeft();
 					break;
-				case 3:
-					Jump();
-					break;
 			}
 		}
 
-		private void DoScan(Vector2 position)
+		private void DoScan()
 		{
 			int range = 2;
 			int blockCount = 0;
-			Point startPoint = position.ToTileCoordinates();
+			int tileType;
+			Point startPoint = npc.Center.ToTileCoordinates();
+
 			for (int i = startPoint.X - range; i < startPoint.X + range; i++)
 			{
 				for (int j = startPoint.Y - range; j < startPoint.Y + range; j++)
 				{
-					tiles[blockCount++] = Main.tile[i, j].type;
+					if(i >= 0 && i < Main.maxTilesX && j >= 0 && j < Main.maxTilesY)
+					{
+						tileType = Framing.GetTileSafely(i, j).type == 0 ? 1 : Framing.GetTileSafely(i, j).type;
+						tiles[blockCount++] = tileType;
+					}
 				}
 			}
+		}
+
+		public override bool CanChat()
+		{
+			return true;
+		}
+
+		public override string GetChat()
+		{
+			if (organism != null)
+				return organism.nameSpace;
+			return "Org Not Assigned";
 		}
 	}
 }

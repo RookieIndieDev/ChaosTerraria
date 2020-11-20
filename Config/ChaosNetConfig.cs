@@ -7,7 +7,7 @@ namespace ChaosTerraria.ChaosUtils
 {
     public static class ChaosNetConfig
     {
-        internal static ChaosNetConfigData data;
+        public static ChaosNetConfigData data;
         private readonly static string configPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\Terraria\ModLoader\Mod Configs\chaosnet.json";
 
         public static bool CheckForConfig()
@@ -15,13 +15,15 @@ namespace ChaosTerraria.ChaosUtils
             return File.Exists(configPath);
         }
 
-        public static ChaosNetConfigData ReadConfig()
+        public static void ReadConfig()
         {
-            return JsonConvert.DeserializeObject<ChaosNetConfigData>(File.ReadAllText(configPath));
+            data = JsonConvert.DeserializeObject<ChaosNetConfigData>(File.ReadAllText(configPath));
         }
 
         public static void Save()
         {
+            if(!CheckForConfig())
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\Terraria\ModLoader\Mod Configs\");
             File.WriteAllText(configPath, JsonConvert.SerializeObject(data));
         }
     }
