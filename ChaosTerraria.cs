@@ -1,6 +1,5 @@
 using ChaosTerraria.ChaosUtils;
 using ChaosTerraria.Managers;
-using ChaosTerraria.Tiles;
 using ChaosTerraria.UI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -12,9 +11,10 @@ namespace ChaosTerraria
 {
 	public class ChaosTerraria : Mod
 	{
-		internal static UserInterface loginInterface;
+		internal static UserInterface mainInterface;
 		internal static LoginScreen loginScreen;
 		internal static SessionScreen sessionScreen;
+		internal static SpawnBlockScreen spawnBlockScreen;
 		//TODO: Add Current Stats Hotkey
 		public static ModHotKey loginHotkey;
 		public static ModHotKey sessionHotkey;
@@ -23,19 +23,21 @@ namespace ChaosTerraria
 
 		public override void Load()
 		{
-			loginInterface = new UserInterface();
+			mainInterface = new UserInterface();
 			loginScreen = new LoginScreen();
 			sessionScreen = new SessionScreen();
+			spawnBlockScreen = new SpawnBlockScreen();
 			loginHotkey = RegisterHotKey("Login", "P");
 			sessionHotkey = RegisterHotKey("Session", "O");
 			loginScreen.Activate();
 			sessionScreen.Activate();
+			spawnBlockScreen.Activate();
 
 			SessionManager.InitializeSession();
 
 			if (!ChaosNetConfig.CheckForConfig())
 			{
-				loginInterface.SetState(loginScreen);
+				mainInterface.SetState(loginScreen);
 				UIHandler.isLoginUiVisible = true;
 			}
 			else
@@ -60,11 +62,6 @@ namespace ChaosTerraria
 			sessionHotkey = null;
 		}
 
-		public override void PreSaveAndQuit()
-		{
-
-		}
-
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
@@ -74,9 +71,9 @@ namespace ChaosTerraria
 					"ChaosNet Login Interface",
 					delegate
 					{
-						if (_lastUpdateUiGameTime != null && loginInterface.CurrentState != null)
+						if (_lastUpdateUiGameTime != null && mainInterface.CurrentState != null)
 						{
-							loginInterface.Draw(Main.spriteBatch, new GameTime());
+							mainInterface.Draw(Main.spriteBatch, new GameTime());
 						}
 						return true;
 					},
@@ -89,14 +86,14 @@ namespace ChaosTerraria
 		{
 			_lastUpdateUiGameTime = gameTime;
 
-			if (!UIHandler.isLoginUiVisible && !UIHandler.isSessionUIVisible)
+			if (!UIHandler.isLoginUiVisible && !UIHandler.isSessionUIVisible && !UIHandler.isSpawnBlockScreenVisible)
 			{
 				UIHandler.HideUI();
 			}
 
-			if (loginInterface.CurrentState != null)
+			if (mainInterface.CurrentState != null)
 			{
-				loginInterface.Update(gameTime);
+				mainInterface.Update(gameTime);
 			}
 		}
 	}

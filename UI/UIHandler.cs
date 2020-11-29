@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChaosTerraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ChaosTerraria.UI
@@ -13,20 +14,28 @@ namespace ChaosTerraria.UI
     {
         public static bool isLoginUiVisible = false;
         public static bool isSessionUIVisible = false;
+        public static bool isSpawnBlockScreenVisible = false;
 
         public static void ShowLoginScreen()
         {
-            ChaosTerraria.loginInterface.SetState(ChaosTerraria.loginScreen);
+            ChaosTerraria.mainInterface.SetState(ChaosTerraria.loginScreen);
         }
 
         public static void ShowSessionScreen()
         {
-            ChaosTerraria.loginInterface.SetState(ChaosTerraria.sessionScreen);
+            ChaosTerraria.mainInterface.SetState(ChaosTerraria.sessionScreen);
+        }
+
+        public static void ShowSpawnBlockScreen(int i, int j)
+        {
+            isSpawnBlockScreenVisible = true;
+            ChaosTerraria.mainInterface.SetState(ChaosTerraria.spawnBlockScreen);
+            ChaosTerraria.spawnBlockScreen.GetValues(i, j);
         }
 
         public static void HideUI()
         {
-            ChaosTerraria.loginInterface.SetState(null);
+            ChaosTerraria.mainInterface.SetState(null);
         }
     }
 }

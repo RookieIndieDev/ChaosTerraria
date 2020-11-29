@@ -25,6 +25,7 @@ namespace ChaosTerraria.NPCs
 		private bool orgAssigned = false;
 		private Report report;
 		private int lifeTicks = 600;
+		internal string roleNamespace;
 
 		public override void SetStaticDefaults()
 		{
@@ -99,8 +100,6 @@ namespace ChaosTerraria.NPCs
 				npc.life = 0;
 			}
 		}
-
-
 
 		private void MoveRight()
 		{

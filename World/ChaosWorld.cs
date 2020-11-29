@@ -3,9 +3,11 @@ using ChaosTerraria.Network;
 using ChaosTerraria.Tiles;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ChaosTerraria.World
 {
@@ -32,71 +34,40 @@ namespace ChaosTerraria.World
                     SessionManager.SessionStarted = true;
                 }
             }
-            ScanForSpawnBlocks();
             SpawnManager.SpawnTerrarians();
         }
 
-/*        public static void AddToSpawnPoints(SpawnBlock spawnBlock)
-        {
-            *//*            foreach (SpawnBlock block in spawnBlocks)
-                        {
-                            if (Main.tile[spawnBlock.BlockPos.X, spawnBlock.BlockPos.Y].isTheSameAs(Main.tile[block.BlockPos.X, block.BlockPos.Y]))
-                            {
-                                return;
-                            }
-                        }*//*
-            spawnBlocks.Add(spawnBlock);
-        }*/
 
-/*        public static SpawnBlock GetRandomSpawnBlock()
-        {
-            if (spawnBlocks.Count > 0)
-            {
-                return spawnBlocks.ElementAt(WorldGen.genRand.Next(0, spawnBlocks.Count));
-            }
-            else
-            {
-                return null;
-            }
-        }*/
-
-/*         public static Point GetRandomSpawnBlock()
-        {
-            if(spawnBlocks.Count > 0)
-            {
-                return spawnBlocks.ElementAt(WorldGen.genRand.Next(0, spawnBlocks.Count));
-            }
-            else
-            {
-                return null;
-            }
-        }
-*/
         public static int GetSpawnBlockCount()
         {
             return spawnBlocks.Count();
         }
 
-        private void ScanForSpawnBlocks()
+        public override TagCompound Save()
         {
-            int startX = Main.spawnTileX;
-            int startY = Main.spawnTileY;
-            const int range = 100;
-
-            for (int i = startX - range; i < startX + range; i++)
+            Point[] pointArray = new Point[spawnBlocks.Count];
+            spawnBlocks.CopyTo(pointArray);
+            List<Vector2> vectorList = new List<Vector2>();
+            for(int i =0; i < spawnBlocks.Count; i++)
             {
-                for (int j = startY - range; j < startY + range; j++)
-                {
-                    if (Framing.GetTileSafely(i, j).type == ModContent.TileType<SpawnBlock>())
-                    {
-                        SpawnBlock spawnBlock = new SpawnBlock();
-                        spawnBlock.BlockPos.X = i;
-                        spawnBlock.BlockPos.Y = j;
-                        //AddToSpawnPoints(new Point(i, j));
-                        spawnBlocks.Add(new Point(i, j));
-                    }
-                }
+                vectorList.Add(new Vector2(pointArray[i].X, pointArray[i].Y));
             }
+
+            return new TagCompound
+            {
+                { "spawnBlocks", vectorList }
+            };
+        }
+
+        public override void Load(TagCompound tag)
+        {
+            var list = tag.GetList<Vector2>("spawnBlocks");
+            Point[] pointArray = new Point[list.Count];
+            for (int i = 0; i < list.Count; i++)
+            {
+                pointArray[i] = new Point((int)list[i].X, (int)list[i].Y);
+            }
+            spawnBlocks = new HashSet<Point>(pointArray);
         }
     }
 }
