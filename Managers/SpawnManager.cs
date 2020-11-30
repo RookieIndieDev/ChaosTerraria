@@ -1,39 +1,70 @@
-﻿using ChaosTerraria.Network;
+﻿using ChaosTerraria.Classes;
+using ChaosTerraria.Network;
 using ChaosTerraria.NPCs;
+using ChaosTerraria.Tile_Entities;
 using ChaosTerraria.World;
 using Microsoft.Xna.Framework;
-using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace ChaosTerraria.Managers
 {
-	//TODO: Modify to work with roles
 	public static class SpawnManager
 	{
-		public static int spawned = 0;
-		public static int totalSpawned = 0;
+		public static int spawned;
+		public static int totalSpawned;
+		public static int spawnCount;
 		private static ChaosNetworkHelper networkHelper = new ChaosNetworkHelper();
+		static int timer;
 
 		public static void SpawnTerrarians()
 		{
-			int spawnCount = 5;
+			timer++;
 			Point blockPos;
-			if (spawned == 0 && /*SessionManager.CurrentSession.nameSpace != null*/ SessionManager.SessionStarted)
+			if (spawned == 0 && SessionManager.SessionStarted)
 			{
 				if (ChaosWorld.spawnBlocks.Count > 0)
 				{
-					networkHelper.DoSessionNext();
-					for (int i = 0; i < spawnCount; i++)
+					if (timer > 300)
 					{
-						blockPos = ChaosWorld.spawnBlocks.ElementAt<Point>(WorldGen.genRand.Next(0, ChaosWorld.spawnBlocks.Count));
-						if (blockPos != null)
-						{
-							NPC.NewNPC(blockPos.X * 16, blockPos.Y * 16, NPCType<ChaosTerrarian>(), 1); ;
-							spawned++;
-							totalSpawned++;
-						}
+						networkHelper.DoSessionNext();
+						timer = 0;
+					}
 
+					/*					for (int i = 0; i < spawnCount; i++)
+										{
+											blockPos = ChaosWorld.spawnBlocks.ElementAt<Point>(WorldGen.genRand.Next(0, ChaosWorld.spawnBlocks.Count));
+											if (blockPos != null)
+											{
+												var index = NPC.NewNPC(blockPos.X * 16, blockPos.Y * 16, NPCType<ChaosTerrarian>(), 1);
+												ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].modNPC;
+												spawned++;
+												totalSpawned++;
+											}
+										}*/
+					if (SessionManager.Organisms != null)
+					{
+						foreach (Organism organism in SessionManager.Organisms)
+						{
+							foreach (Point spawnPoint in ChaosWorld.spawnBlocks)
+							{
+								int tileEntityIndex = ModContent.GetInstance<SpawnBlockTileEntity>().Find(spawnPoint.X, spawnPoint.Y);
+								if (tileEntityIndex != -1)
+								{
+									SpawnBlockTileEntity tileEntity = (SpawnBlockTileEntity)TileEntity.ByID[tileEntityIndex];
+									if (tileEntity.roleNamespace == organism.trainingRoomRoleNamespace)
+									{
+										var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
+										ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].modNPC;
+										terrarian.organism = organism;
+										spawned++;
+										break;
+									}
+								}
+							}
+						}
 					}
 				}
 				else

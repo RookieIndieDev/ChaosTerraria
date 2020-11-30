@@ -1,7 +1,9 @@
 ﻿using ChaosTerraria.Enums;
+using ChaosTerraria.Managers;
 using ChaosTerraria.NPCs;
 using ChaosTerraria.Structs;
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -9,7 +11,6 @@ using Terraria;
 namespace ChaosTerraria.Fitness
 {
     //TODO: Create EventHandler for Fitness Event
-    //TODO: Change to work with different rules for different roles
     //TODO: Implement lifeEffect
     //TODO: Change Postitions in TestMoveAlongAxis() to tileCoords?
     public static class FitnessManager
@@ -20,21 +21,33 @@ namespace ChaosTerraria.Fitness
         public static int TestFitness(ChaosTerrarian org)
         {
             int score = 0;
-            foreach (FitnessRule rule in fitnessRules)
+            if (org.organism != null)
             {
-                Enum.TryParse(rule.eventType, out type);
-                switch (type)
+                foreach (Role role in SessionManager.Package.roles)
                 {
-                    case FitnessRuleType.MOVE_ALONG_AXIS:
-                        score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
+                    if (role.nameSpace == org.organism.trainingRoomRoleNamespace)
+                    {
+                        fitnessRules = JsonConvert.DeserializeObject<List<FitnessRule>>(role.fitnessRulesRaw);
                         break;
-                    default:
-                        break;
+                    }
+                }
+
+                foreach (FitnessRule rule in fitnessRules)
+                {
+                    Enum.TryParse(rule.eventType, out type);
+                    switch (type)
+                    {
+                        case FitnessRuleType.MOVE_ALONG_AXIS:
+                            score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             return score;
         }
-        
+
         private static int TestMoveAlongAxis(String axis, ChaosTerrarian org, int scoreEffect)
         {
             int score = 0;

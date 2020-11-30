@@ -6,12 +6,10 @@ using ChaosTerraria.UI;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ChaosTerraria.Network
 {
@@ -126,7 +124,7 @@ namespace ChaosTerraria.Network
 
         private async void GetFitnessRules()
         {
-        //TODO: REMOVE LATER
+            //TODO: REMOVE LATER
             TrainingRoomFitnessRulesRequest trainingRoomFitnessRulesRequest;
             {
                 trainingRoomFitnessRulesRequest.trainingroom = ChaosNetConfig.data.trainingRoomNamespace;
@@ -273,6 +271,17 @@ namespace ChaosTerraria.Network
             HttpResponseMessage response = await DoGet(endpoint);
             Package pack = JsonConvert.DeserializeObject<Package>(await response.Content.ReadAsStringAsync());
             SessionManager.Package = pack;
+            foreach (Role role in SessionManager.Package.roles)
+            {
+                foreach (Setting setting in role.settings)
+                {
+                    if (setting.nameSpace == "ORG_BATCH_SIZE")
+                    {
+                        SpawnManager.spawnCount += int.Parse(setting.value);
+                        break;
+                    }
+                }
+            }
         }
 
         private async Task<HttpResponseMessage> SendPostRequest(string json, string endpoint, string headers = "", string headerName = "", bool headersRequired = false)

@@ -4,7 +4,6 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,14 +17,13 @@ namespace ChaosTerraria.NPCs
 	{
 		public override string Texture => "ChaosTerraria/NPCs/Terrarian";
 
-		private static int timer = 0;
+		private static int timer;
 		private int timeLeft = 0;
 		private int[] tiles = new int[25];
 		internal Organism organism;
 		private bool orgAssigned = false;
 		private Report report;
 		private int lifeTicks = 600;
-		internal string roleNamespace;
 
 		public override void SetStaticDefaults()
 		{
@@ -40,7 +38,6 @@ namespace ChaosTerraria.NPCs
 		{
 			return false;
 		}
-
 
 		public override void SetDefaults()
 		{
@@ -83,7 +80,7 @@ namespace ChaosTerraria.NPCs
 					DoActions(organism.nNet.GetOutput(tiles));
 				}
 
-				if (FitnessManager.fitnessRules != null)
+				if (SessionManager.Package.roles != null)
 					report.score += FitnessManager.TestFitness(this);
 				timer = 0;
 			}
@@ -137,6 +134,12 @@ namespace ChaosTerraria.NPCs
 			}
 		}
 
+		public override void DrawEffects(ref Color drawColor)
+		{
+			if(organism != null)
+				drawColor = organism.trainingRoomRoleNamespace == "left" ? drawColor.MultiplyRGB(Color.Blue):drawColor.MultiplyRGB(Color.Red);
+		}
+
 		private void DoScan()
 		{
 			int range = 2;
@@ -148,7 +151,7 @@ namespace ChaosTerraria.NPCs
 			{
 				for (int j = startPoint.Y - range; j < startPoint.Y + range; j++)
 				{
-					if(i >= 0 && i < Main.maxTilesX && j >= 0 && j < Main.maxTilesY)
+					if (i >= 0 && i < Main.maxTilesX && j >= 0 && j < Main.maxTilesY)
 					{
 						tileType = Framing.GetTileSafely(i, j).type == 0 ? 1 : Framing.GetTileSafely(i, j).type;
 						tiles[blockCount++] = tileType;
@@ -165,7 +168,7 @@ namespace ChaosTerraria.NPCs
 		public override string GetChat()
 		{
 			if (organism != null)
-				return organism.nameSpace;
+				return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace;
 			return "Org Not Assigned";
 		}
 	}

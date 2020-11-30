@@ -1,11 +1,8 @@
 ﻿using ChaosTerraria.Managers;
 using ChaosTerraria.Network;
-using ChaosTerraria.Tiles;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -48,7 +45,7 @@ namespace ChaosTerraria.World
             Point[] pointArray = new Point[spawnBlocks.Count];
             spawnBlocks.CopyTo(pointArray);
             List<Vector2> vectorList = new List<Vector2>();
-            for(int i =0; i < spawnBlocks.Count; i++)
+            for (int i = 0; i < spawnBlocks.Count; i++)
             {
                 vectorList.Add(new Vector2(pointArray[i].X, pointArray[i].Y));
             }
