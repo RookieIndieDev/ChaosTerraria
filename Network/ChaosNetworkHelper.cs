@@ -13,7 +13,7 @@ using Terraria;
 
 namespace ChaosTerraria.Network
 {
-    //TODO: Add in Package endpoint, Remove GetFitnessRules() replace with Package Endpoint? GetPackage() Called separately instead of being called by StartSession()?
+    //TODO: GetPackage() Called separately instead of being called by StartSession()?
     public class ChaosNetworkHelper
     {
         private static HttpClient httpClient;
@@ -93,7 +93,6 @@ namespace ChaosTerraria.Network
                         SessionManager.CurrentSession = sessionStartResponse.session;
                         ChaosNetConfig.data.sessionNamespace = SessionManager.CurrentSession.nameSpace;
                         ChaosNetConfig.Save();
-                        //GetFitnessRules();
                         GetPackage();
                         /*                        DoSessionNext();*/
                         break;
@@ -114,42 +113,6 @@ namespace ChaosTerraria.Network
                             throw new Exception("Please Sleep the previous session and try starting the session again!");
 
                         throw new Exception("Session: Something went wrong! " + response.Content.ReadAsStringAsync() + " " + response.StatusCode);
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        private async void GetFitnessRules()
-        {
-            //TODO: REMOVE LATER
-            TrainingRoomFitnessRulesRequest trainingRoomFitnessRulesRequest;
-            {
-                trainingRoomFitnessRulesRequest.trainingroom = ChaosNetConfig.data.trainingRoomNamespace;
-                trainingRoomFitnessRulesRequest.username = ChaosNetConfig.data.trainingRoomUsernameNamespace;
-                trainingRoomFitnessRulesRequest.trainingroomrole = "default";
-            }
-            string endpoint = $"{ChaosNetConfig.data.trainingRoomUsernameNamespace}/trainingrooms/{ChaosNetConfig.data.trainingRoomNamespace}/roles/{trainingRoomFitnessRulesRequest.trainingroomrole}/fitnessrules";
-            //HttpResponseMessage response = await SendGetRequest(json, endpoint);
-            HttpResponseMessage response = await DoGet(endpoint);
-            try
-            {
-                switch (response.StatusCode)
-                {
-                    case System.Net.HttpStatusCode.OK:
-                        string responseString = await response.Content.ReadAsStringAsync();
-                        FitnessManager.fitnessRules = JsonConvert.DeserializeObject<FitnessRuleResponse>(responseString).fitnessRules;
-                        break;
-                    case System.Net.HttpStatusCode.BadRequest:
-                        throw new Exception("Uh-oh, wrong data being sent.");
-                    case System.Net.HttpStatusCode.Forbidden:
-                        throw new Exception("Forbidden");
-                    case System.Net.HttpStatusCode.Unauthorized:
-                        throw new Exception("Unauthorized");
-                    default:
-                        throw new Exception("Fitness Rules: Something went wrong! " + response.Content.ReadAsStringAsync() + " " + response.StatusCode);
                 }
             }
             catch
