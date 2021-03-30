@@ -72,10 +72,12 @@ namespace ChaosTerraria.AI
                 if(neuron.type == "BlockInput")
                 {
                     neuron.value = input[inputIndex++];
+                    neuron.evaluated = true;
                 }
                 else if(neuron.type == "BiasInput")
                 {
                     neuron.value = neuron.weight;
+                    neuron.evaluated = true;
                 }
             }
 
@@ -133,14 +135,19 @@ namespace ChaosTerraria.AI
             float value = 0;
             foreach (Dependency dependency in neuron.dependencies)
             {
-                Neuron dependencyNeuron = GetDependencyNeuron(dependency);
-                if (dependencyNeuron != null)
+                Neuron dependencyNeuron;
+                GetDependencyNeuron(dependency, out dependencyNeuron);
+                if(dependencyNeuron != null)
                 {
-                    value += dependencyNeuron.value * dependency.weight;
-                }
-                else
-                {
-                    value += dependency.weight;
+                    if (dependencyNeuron.evaluated == true)
+                    {
+                        value += dependencyNeuron.value * dependency.weight;
+                    }
+                    else
+                    {
+                        value += SetValue(dependencyNeuron) * dependency.weight;
+                        dependencyNeuron.evaluated = true;
+                    }
                 }
             }
             return value;
@@ -221,16 +228,17 @@ namespace ChaosTerraria.AI
             return weight;
         }
 
-        private Neuron GetDependencyNeuron(Dependency dependency)
+        private void GetDependencyNeuron(Dependency dependency, out Neuron outputNeuron)
         {
             foreach(Neuron neuron in neurons)
             {
                 if(neuron.id == dependency.neuronId)
                 {
-                    return neuron;
+                    outputNeuron = neuron;
+                    return;
                 }
             }
-            return null;
+            outputNeuron = null;
         }
     }
 }

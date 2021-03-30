@@ -16,5 +16,7 @@ namespace ChaosTerraria.AI
         public string id;
         [JsonIgnore]
         public float value;
+        [JsonIgnore]
+        public bool evaluated;
     }
 }
