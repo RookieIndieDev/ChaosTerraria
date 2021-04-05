@@ -9,6 +9,6 @@ namespace ChaosTerraria.AI
     public class Dependency
     {
         public string neuronId;
-        public float weight;
+        public double weight;
     }
 }

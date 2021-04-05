@@ -1,5 +1,4 @@
 ﻿using ChaosTerraria.ChaosUtils;
-using ChaosTerraria.Fitness;
 using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using ChaosTerraria.UI;
@@ -10,6 +9,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Terraria;
+using System.IO;
+using ChaosTerraria.AI;
 
 namespace ChaosTerraria.Network
 {

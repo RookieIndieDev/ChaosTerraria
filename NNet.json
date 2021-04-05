@@ -1,0 +1,67 @@
+{
+  "neurons": [
+    {
+      "_base_type": "input",
+      "id": "neuron-1",
+      "$TYPE": "BiasInput",
+      "dependencies": [],
+      "weight": 0.25
+    },
+    {
+      "_base_type": "middle",
+      "id": "neuron-2",
+      "$TYPE": "MiddleNeuron",
+      "dependencies": [
+        {
+          "neuronId": "neuron-1",
+          "weight": -4.4615657517527785,
+          "_originNaturalGen": 0,
+          "_originGen": 0
+        }
+      ],
+      "activator": "Gaussian"
+    },
+    {
+      "_base_type": "middle",
+      "id": "neuron-3",
+      "$TYPE": "MiddleNeuron",
+      "dependencies": [
+        {
+          "neuronId": "neuron-2",
+          "weight": -0.21044650667931997,
+          "_originNaturalGen": 0,
+          "_originGen": 0
+        }
+      ],
+      "activator": "Sigmoid"
+    },
+    {
+      "_base_type": "middle",
+      "id": "neuron-4",
+      "$TYPE": "MiddleNeuron",
+      "dependencies": [
+        {
+          "neuronId": "neuron-3",
+          "weight": -0.04568102954902464,
+          "_originNaturalGen": 0,
+          "_originGen": 0
+        }
+      ],
+      "activator": "BinaryStep"
+    },
+    {
+      "_base_type": "output",
+      "id": "neuron-5",
+      "$TYPE": "Jump",
+      "dependencies": [
+        {
+          "neuronId": "neuron-4",
+          "weight": -2.354519066936028,
+          "_originNaturalGen": 0,
+          "_originGen": 0
+        }
+      ],
+      "$OUTPUT_GROUP": "BASIC"
+    }
+  ]
+}

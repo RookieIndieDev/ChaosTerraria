@@ -10,12 +10,12 @@ namespace ChaosTerraria.AI
         public string baseType;
         [JsonProperty("$DEFAULT")]
         public bool Default;
-        public float weight;
+        public double weight;
         public string activator;
         public Dependency[] dependencies;
         public string id;
         [JsonIgnore]
-        public float value;
+        public double value;
         [JsonIgnore]
         public bool evaluated;
     }

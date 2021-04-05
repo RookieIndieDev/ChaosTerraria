@@ -14,6 +14,7 @@ namespace ChaosTerraria.Managers
 	public static class SpawnManager
 	{
 		public static int spawned;
+        public static int adamZeroCount;
 		public static int totalSpawned;
 		public static int spawnCount;
 		private static ChaosNetworkHelper networkHelper = new ChaosNetworkHelper();
@@ -23,6 +24,22 @@ namespace ChaosTerraria.Managers
 		{
 			timer++;
 			Point blockPos;
+            if (adamZeroCount == 0)
+            {
+                foreach (Point spawnPoint in ChaosWorld.spawnBlocks)
+                {
+                    int tileEntityIndex = ModContent.GetInstance<SpawnBlockTileEntity>().Find(spawnPoint.X, spawnPoint.Y);
+                    if (tileEntityIndex != -1)
+                    {
+                        SpawnBlockTileEntity tileEntity = (SpawnBlockTileEntity)TileEntity.ByID[tileEntityIndex];
+                        if (tileEntity.roleNamespace == "AdamZero")
+                        {
+                            NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<AdamZero>(), 1);
+                            adamZeroCount++;
+                        }
+                    }
+                }
+            }
 			if (spawned == 0 && SessionManager.SessionStarted)
 			{
 				if (ChaosWorld.spawnBlocks.Count > 0)
