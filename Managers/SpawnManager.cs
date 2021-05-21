@@ -24,7 +24,7 @@ namespace ChaosTerraria.Managers
 		{
 			timer++;
 			Point blockPos;
-            if (adamZeroCount == 0)
+            if (adamZeroCount == 0 && SessionManager.AdamZeroEnabled)
             {
                 foreach (Point spawnPoint in ChaosWorld.spawnBlocks)
                 {

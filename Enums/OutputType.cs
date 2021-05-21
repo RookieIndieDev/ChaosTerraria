@@ -4,6 +4,14 @@
     {
         Jump,
         MoveRight,
-        MoveLeft
+        MoveLeft,
+        PlaceBlockTop,
+        PlaceBlockTopLeft,
+        PlaceBlockTopRight,
+        PlaceBlockBottom,
+        PlaceBlockBottomLeft,
+        PlaceBlockBottomRight,
+        PlaceBlockRight,
+        PlaceBlockLeft
     }
 }

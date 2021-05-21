@@ -10,7 +10,8 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Terraria;
 using System.IO;
-using ChaosTerraria.AI;
+using Terraria.ModLoader;
+using log4net;
 
 namespace ChaosTerraria.Network
 {
@@ -22,10 +23,12 @@ namespace ChaosTerraria.Network
         private AuthResponse authResponse;
         private readonly String baseURI = "https://chaosnet.schematical.com/v0/";
         private string refreshMessage;
+        private ILog logger = ModContent.GetInstance<ChaosTerraria>().Logger;
 
         public ChaosNetworkHelper()
         {
             httpClient = new HttpClient();
+            
         }
 
         public async void Auth(string username, string password, string trainingRoomOwnerUsername)
@@ -106,6 +109,7 @@ namespace ChaosTerraria.Network
                     //throw new Exception("Forbidden, retrying token refresh");
                     case System.Net.HttpStatusCode.Unauthorized:
                         //throw new Exception("Unauthorized, retrying token refresh");
+
                         refreshMessage = "Session: Unauthorized, attempting token refresh! Try starting the session now!";
                         DoTokenRefresh(refreshMessage);
                         break;

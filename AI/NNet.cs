@@ -1,8 +1,6 @@
 ﻿using ChaosTerraria.Enums;
-using Steamworks;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 
 namespace ChaosTerraria.AI
 {
@@ -31,28 +29,6 @@ namespace ChaosTerraria.AI
 
             foreach(Neuron neuron in neurons)
             {
-                if(neuron.baseType == "middle")
-                {
-                    switch (neuron.activator)
-                    {
-                        case "Gaussian":
-                            neuron.value = GetGaussianActivation(neuron);
-                            break;
-                        case "Sigmoid":
-                            neuron.value = GetSigmoidActivation(neuron);
-                            break;
-                        case "BinaryStep":
-                            neuron.value = GetBinaryStepActivation(neuron);
-                            break;
-                        case "Relu":
-                            neuron.value = GetReluActivation(neuron);
-                            break;
-                    }
-                }
-            }
-
-            foreach(Neuron neuron in neurons)
-            {
                 if(neuron.baseType == "output")
                 {
                     neuron.value = SetValue(neuron);
@@ -70,12 +46,36 @@ namespace ChaosTerraria.AI
                             case "Jump":
                                 output = (int)OutputType.Jump;
                                 break;
+                            case "PlaceBlockTop":
+                                output = (int)OutputType.PlaceBlockTop;
+                                break;
+                            case "PlaceBlockTopLeft":
+                                output = (int)OutputType.PlaceBlockTopLeft;
+                                break;
+                            case "PlaceBlockTopRight":
+                                output = (int)OutputType.PlaceBlockTopRight;
+                                break;
+                            case "PlaceBlockBottom":
+                                output = (int)OutputType.PlaceBlockBottom;
+                                break;
+                            case "PlaceBlockBottomLeft":
+                                output = (int)OutputType.PlaceBlockBottomLeft;
+                                break;
+                            case "PlaceBlockBottomRight":
+                                output = (int)OutputType.PlaceBlockBottomRight;
+                                break;
+                            case "PlaceBlockRight":
+                                output = (int)OutputType.PlaceBlockRight;
+                                break;
+                            case "PlaceBlockLeft":
+                                output = (int)OutputType.PlaceBlockLeft;
+                                break;
                         }
                     }
                 }
             }
 
-            return output;
+                return output;
         }
 
         private double SetValue(Neuron neuron)
@@ -83,9 +83,8 @@ namespace ChaosTerraria.AI
             double value = 0;
             foreach (Dependency dependency in neuron.dependencies)
             {
-                Neuron dependencyNeuron;
-                GetDependencyNeuron(dependency, out dependencyNeuron);
-                if(dependencyNeuron != null)
+                GetDependencyNeuron(dependency, out Neuron dependencyNeuron);
+                if (dependencyNeuron != null)
                 {
                     if (dependencyNeuron.evaluated == true)
                     {
@@ -98,24 +97,39 @@ namespace ChaosTerraria.AI
                     }
                 }
             }
+            if (neuron.baseType == "middle")
+            {
+                switch (neuron.activator)
+                {
+                    case "Gaussian":
+                        value = GetGaussianActivation(value);
+                        break;
+                    case "Sigmoid":
+                        value = GetSigmoidActivation(value);
+                        break;
+                    case "BinaryStep":
+                        value = GetBinaryStepActivation(value);
+                        break;
+                    case "Relu":
+                        value = GetReluActivation(value);
+                        break;
+                }
+            }
             return value;
         }
 
-        private double GetGaussianActivation(Neuron neuron)
+        private double GetGaussianActivation(double value)
         {
-            double value = SetValue(neuron);
             return Math.Exp(-(value * value));
         }
 
-        private double GetSigmoidActivation(Neuron neuron)
+        private double GetSigmoidActivation(double value)
         {
-            double value = SetValue(neuron);
             return (1 / (1 + Math.Exp(-value)));
         }
 
-        private double GetBinaryStepActivation(Neuron neuron)
-        {
-            double value = SetValue(neuron);
+        private double GetBinaryStepActivation(double value)
+        {   
             if (value < 0)
             {
                 return 0;
@@ -123,9 +137,8 @@ namespace ChaosTerraria.AI
             return 1;
         }
 
-        private double GetReluActivation(Neuron neuron)
+        private double GetReluActivation(double value)
         {
-            double value = SetValue(neuron);
             if (value <= 0)
             {
                 return 0;
