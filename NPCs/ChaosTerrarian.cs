@@ -118,23 +118,98 @@ namespace ChaosTerraria.NPCs
 			}
 		}
 
-		public void DoActions(int action)
-		{
-			switch (action)
-			{
-				case 0:
-					Jump();
-					break;
-				case 1:
-					MoveRight();
-					break;
-				case 2:
-					MoveLeft();
-					break;
-			}
-		}
+        public void DoActions(int action)
+        {
+            switch (action)
+            {
+                case 0:
+                    Jump();
+                    break;
+                case 1:
+                    MoveRight();
+                    break;
+                case 2:
+                    MoveLeft();
+                    break;
+                case 3:
+                    PlaceBlockTop();
+                    break;
+                case 4:
+                    PlaceBlockTopLeft();
+                    break;
+                case 5:
+                    PlaceBlockTopRight();
+                    break;
+                case 6:
+                    PlaceBlockBottom();
+                    break;
+                case 7:
+                    PlaceBlockBottomLeft();
+                    break;
+                case 8:
+                    PlaceBlockBottomRight();
+                    break;
+                case 9:
+                    PlaceBlockRight();
+                    break;
+                case 10:
+                    PlaceBlockLeft();
+                    break;
+                default:
+                    Main.NewText("Invalid Action");
+                    break;
+            }
+        }
 
-		public override void DrawEffects(ref Color drawColor)
+        private void PlaceBlockLeft()
+        {
+            var pos = npc.Left.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+        }
+
+        private void PlaceBlockRight()
+        {
+            var pos = npc.Right.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+        }
+
+        private void PlaceBlockBottomRight()
+        {
+            var pos = npc.BottomRight.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+        }
+
+        private void PlaceBlockBottomLeft()
+        {
+            var pos = npc.BottomLeft.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+        }
+
+        private void PlaceBlockBottom()
+        {
+            var pos = npc.Bottom.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+        }
+
+        private void PlaceBlockTopRight()
+        {
+            var pos = npc.TopRight.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+        }
+
+        private void PlaceBlockTopLeft()
+        {
+            var pos = npc.TopLeft.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+        }
+
+        private void PlaceBlockTop()
+        {
+            var pos = npc.Top.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+        }
+
+        public override void DrawEffects(ref Color drawColor)
 		{
 			if(organism != null)
 				drawColor = organism.trainingRoomRoleNamespace == "left" ? drawColor.MultiplyRGB(Color.Blue):drawColor.MultiplyRGB(Color.Red);
