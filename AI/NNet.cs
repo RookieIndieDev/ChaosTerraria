@@ -1,6 +1,9 @@
 ﻿using ChaosTerraria.Enums;
+using ChaosTerraria.Managers;
+using ChaosTerraria.Structs;
 using System;
 using System.Collections.Generic;
+using Terraria.ID;
 
 namespace ChaosTerraria.AI
 {
@@ -8,10 +11,10 @@ namespace ChaosTerraria.AI
     {
         public List<Neuron> neurons;
 
-        public int GetOutput(int[] input)
+        public int GetOutput(int[] input, string speciesNamespace)
         {
             int inputIndex = 0;
-            int output = 0;
+            int output = -100;
             double outputValue = 0;
             foreach (Neuron neuron in neurons)
             {
@@ -19,6 +22,12 @@ namespace ChaosTerraria.AI
                 {
                     neuron.value = input[inputIndex++];
                     neuron.evaluated = true;
+                    ObservedAttributes observedAttr;
+                    observedAttr.attributeId = "BLOCK_ID";
+                    observedAttr.attributeValue = Enum.GetName(typeof(TerrariaTileTypes), (int)neuron.value);
+                    observedAttr.species = speciesNamespace;
+                    if(!SessionManager.ObservedAttributes.Contains(observedAttr))
+                        SessionManager.ObservedAttributes.Add(observedAttr);
                 }
                 else if(neuron.type == "BiasInput")
                 {

@@ -77,7 +77,7 @@ namespace ChaosTerraria.NPCs
 				DoScan();
 				if (organism != null && tiles != null)
 				{
-					DoActions(organism.nNet.GetOutput(tiles));
+					DoActions(organism.nNet.GetOutput(tiles, organism.speciesNamespace));
 				}
 
 				if (SessionManager.Package.roles != null)
@@ -156,7 +156,6 @@ namespace ChaosTerraria.NPCs
                     PlaceBlockLeft();
                     break;
                 default:
-                    Main.NewText("Invalid Action");
                     break;
             }
         }
