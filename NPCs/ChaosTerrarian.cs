@@ -5,6 +5,7 @@ using ChaosTerraria.Structs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ChaosTerraria.NPCs
@@ -245,7 +246,25 @@ namespace ChaosTerraria.NPCs
 				return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace;
 			return "Org Not Assigned";
 		}
-	}
+
+        public override void SetupShop(Chest shop, ref int nextSlot)
+        {
+            shop.item[nextSlot].SetDefaults(ItemID.Wood);
+        }
+
+        public override void SetChatButtons(ref string button, ref string button2)
+        {
+            button = "Bot Inventory";
+        }
+
+        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+        {
+            if (firstButton)
+            {
+                shop = true;
+            }
+        }
+    }
 }
 
 
