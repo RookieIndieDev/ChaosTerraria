@@ -79,6 +79,30 @@ namespace ChaosTerraria.AI
                             case "PlaceBlockLeft":
                                 output = (int)OutputType.PlaceBlockLeft;
                                 break;
+                            case "MineBlockTop":
+                                output = (int)OutputType.MineBlockTop;
+                                break;
+                            case "MineBlockTopLeft":
+                                output = (int)OutputType.MineBlockTopLeft;
+                                break;
+                            case "MineBlockTopRight":
+                                output = (int)OutputType.MineBlockTopRight;
+                                break;
+                            case "MineBlockBottom":
+                                output = (int)OutputType.MineBlockBottom;
+                                break;
+                            case "MineBlockBottomLeft":
+                                output = (int)OutputType.MineBlockBottomLeft;
+                                break;
+                            case "MineBlockBottomRight":
+                                output = (int)OutputType.MineBlockBottomRight;
+                                break;
+                            case "MineBlockRight":
+                                output = (int)OutputType.MineBlockRight;
+                                break;
+                            case "MineBlockLeft":
+                                output = (int)OutputType.MineBlockLeft;
+                                break;
                         }
                     }
                 }

@@ -18,7 +18,7 @@ namespace ChaosTerraria.Fitness
         public static List<FitnessRule> fitnessRules;
         private static FitnessRuleType type;
 
-        public static int TestFitness(ChaosTerrarian org)
+        public static int TestFitness(ChaosTerrarian org, Tile minedTile, Tile placedTile)
         {
             int score = 0;
             if (org.organism != null)
@@ -40,11 +40,46 @@ namespace ChaosTerraria.Fitness
                         case FitnessRuleType.MOVE_ALONG_AXIS:
                             score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
                             break;
+                        case FitnessRuleType.BLOCK_MINED:
+                            score += TestBlockMined(rule.attributeValue.ToLower(), minedTile, rule.scoreEffect);
+                            break;
+                        case FitnessRuleType.BLOCK_PLACED:
+                            score += TestBlockPlaced(rule.attributeValue.ToLower(), placedTile, rule.scoreEffect);
+                            break;
                         default:
                             break;
                     }
                 }
             }
+            return score;
+        }
+
+        private static int TestBlockPlaced(string blockId, Tile placedTile, int scoreEffect)
+        {
+            int score = 0;
+
+            if(placedTile != null){
+                if (Enum.GetName(typeof(TerrariaTileTypes), (int)placedTile.type) == blockId)
+                {
+                    score += scoreEffect;
+                }
+            }
+
+            return score;
+        }
+
+        private static int TestBlockMined(String blockId, Tile minedTile, int scoreEffect)
+        {
+            int score = 0;
+
+            if(minedTile != null)
+            {
+                if (Enum.GetName(typeof(TerrariaTileTypes), (int)minedTile.type) == blockId)
+                {
+                    score += scoreEffect;
+                }
+            }
+
             return score;
         }
 

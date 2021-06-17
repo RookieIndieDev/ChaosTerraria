@@ -1,4 +1,5 @@
-﻿using ChaosTerraria.Classes;
+﻿using System;
+using ChaosTerraria.Classes;
 using ChaosTerraria.Fitness;
 using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
@@ -25,6 +26,9 @@ namespace ChaosTerraria.NPCs
 		private bool orgAssigned = false;
 		private Report report;
 		private int lifeTicks = 600;
+        private Item[] items = new Item[40];
+        Tile lastPlacedTile;
+        Tile lastMinedTile;
 
 		public override void SetStaticDefaults()
 		{
@@ -82,7 +86,7 @@ namespace ChaosTerraria.NPCs
 				}
 
 				if (SessionManager.Package.roles != null)
-					report.score += FitnessManager.TestFitness(this);
+					report.score += FitnessManager.TestFitness(this, lastMinedTile, lastPlacedTile);
 				timer = 0;
 			}
 
@@ -118,6 +122,118 @@ namespace ChaosTerraria.NPCs
 				npc.velocity.Y = -8f;
 			}
 		}
+
+        private void PlaceBlockLeft()
+        {
+            var pos = npc.Left.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+        }
+
+        private void PlaceBlockRight()
+        {
+            var pos = npc.Right.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+        }
+
+        private void PlaceBlockBottomRight()
+        {
+            var pos = npc.BottomRight.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+        }
+
+        private void PlaceBlockBottomLeft()
+        {
+            var pos = npc.BottomLeft.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+        }
+
+        private void PlaceBlockBottom()
+        {
+            var pos = npc.Bottom.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+        }
+
+        private void PlaceBlockTopRight()
+        {
+            var pos = npc.TopRight.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+        }
+
+        private void PlaceBlockTopLeft()
+        {
+            var pos = npc.TopLeft.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+        }
+
+        private void PlaceBlockTop()
+        {
+            var pos = npc.Top.ToTileCoordinates();
+            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+        }
+
+        private void MineBlockLeft()
+        {
+            var pos = npc.Left.ToTileCoordinates();
+            lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockRight()
+        {
+            var pos = npc.Right.ToTileCoordinates();
+            lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockBottomRight()
+        {
+            var pos = npc.BottomRight.ToTileCoordinates();
+            lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockBottomLeft()
+        {
+            var pos = npc.BottomLeft.ToTileCoordinates();
+            lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockBottom()
+        {
+            var pos = npc.Bottom.ToTileCoordinates();
+            lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockTopRight()
+        {
+            var pos = npc.TopRight.ToTileCoordinates();
+            lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockTopLeft()
+        {
+            var pos = npc.TopLeft.ToTileCoordinates();
+            lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockTop()
+        {
+            var pos = npc.Top.ToTileCoordinates();
+            lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
 
         public void DoActions(int action)
         {
@@ -156,57 +272,33 @@ namespace ChaosTerraria.NPCs
                 case 10:
                     PlaceBlockLeft();
                     break;
+                case 11:
+                    MineBlockTop();
+                    break;
+                case 12:
+                    MineBlockTopLeft();
+                    break;
+                case 13:
+                    MineBlockTopRight();
+                    break;
+                case 14:
+                    MineBlockBottom();
+                    break;
+                case 15:
+                    MineBlockBottomLeft();
+                    break;
+                case 16:
+                    MineBlockBottomRight();
+                    break;
+                case 17:
+                    MineBlockRight();
+                    break;
+                case 18:
+                    MineBlockLeft();
+                    break;
                 default:
                     break;
             }
-        }
-
-        private void PlaceBlockLeft()
-        {
-            var pos = npc.Left.ToTileCoordinates();
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
-        }
-
-        private void PlaceBlockRight()
-        {
-            var pos = npc.Right.ToTileCoordinates();
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
-        }
-
-        private void PlaceBlockBottomRight()
-        {
-            var pos = npc.BottomRight.ToTileCoordinates();
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
-        }
-
-        private void PlaceBlockBottomLeft()
-        {
-            var pos = npc.BottomLeft.ToTileCoordinates();
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
-        }
-
-        private void PlaceBlockBottom()
-        {
-            var pos = npc.Bottom.ToTileCoordinates();
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
-        }
-
-        private void PlaceBlockTopRight()
-        {
-            var pos = npc.TopRight.ToTileCoordinates();
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
-        }
-
-        private void PlaceBlockTopLeft()
-        {
-            var pos = npc.TopLeft.ToTileCoordinates();
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
-        }
-
-        private void PlaceBlockTop()
-        {
-            var pos = npc.Top.ToTileCoordinates();
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
         }
 
         public override void DrawEffects(ref Color drawColor)

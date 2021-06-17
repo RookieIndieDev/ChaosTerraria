@@ -12,6 +12,14 @@
         PlaceBlockBottomLeft,
         PlaceBlockBottomRight,
         PlaceBlockRight,
-        PlaceBlockLeft
+        PlaceBlockLeft,
+        MineBlockTop,
+        MineBlockTopLeft,
+        MineBlockTopRight,
+        MineBlockBottom,
+        MineBlockBottomLeft,
+        MineBlockBottomRight,
+        MineBlockRight,
+        MineBlockLeft
     }
 }

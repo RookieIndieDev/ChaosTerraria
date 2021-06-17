@@ -2,6 +2,8 @@
 {
         enum FitnessRuleType
         {
-            MOVE_ALONG_AXIS
+            MOVE_ALONG_AXIS,
+            BLOCK_MINED,
+            BLOCK_PLACED
         }
 }

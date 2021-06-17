@@ -1,104 +1,184 @@
 {
-  "config": {},
-  "settings": {
-    "TrainingRoomRole": [
-      {
-        "namespace": "SPAWN_POINT_ID",
-        "value": "default"
-      }
+    "config":
+    {},
+    "settings":
+    {
+        "TrainingRoomRole":
+        [
+            {
+                "namespace": "SPAWN_POINT_ID",
+                "value": "default"
+            }
+        ]
+    },
+    "fitness":
+    [
+        {
+            "eventType": "HEALTH_CHANGE"
+        },
+        {
+            "eventType": "MOVE_ALONG_AXIS",
+            "attributeId": "AXIS",
+            "attributeValue":
+            {
+                "$SOURCE": "enum",
+                "$ATTRIBUTE_ID": "AXIS"
+            }
+        },
+        {
+            "eventType": "BLOCK_MINED",
+            "attributeId": "BLOCK_ID",
+            "attributeValue":
+            {
+                "$SOURCE": "enum",
+                "$ATTRIBUTE_ID": "BLOCK_ID"
+            }
+        },
+        {
+            "eventType": "BLOCK_PLACED",
+            "attributeId": "BLOCK_ID",
+            "attributeValue":
+            {
+                "$SOURCE": "enum",
+                "$ATTRIBUTE_ID": "BLOCK_ID"
+            }
+        }
+    ],
+    "inputNeurons":
+    [
+        {
+            "$TYPE": "BiasInput",
+            "$DEFAULT": "false",
+            "weight": "{{rndFloat '-5:5' }}"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "$DEFAULT": "true"
+        }
+    ],
+    "outputNeurons":
+    [
+        {
+            "$TYPE": "MoveLeft",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MoveRight",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "Jump",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "PlaceBlockTop",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "PlaceBlockTopLeft",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "PlaceBlockTopRight",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "PlaceBlockBottom",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "PlaceBlockBottomRight",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "PlaceBlockBottomLeft",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "PlaceBlockLeft",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "PlaceBlockRight",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MineBlockLeft",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MineBlockRight",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MineBlockBottom",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MineBlockBottomLeft",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MineBlockBottomRight",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MineBlockTop",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MineBlockTopLeft",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        },
+        {
+            "$TYPE": "MineBlockTopRight",
+            "$DEFAULT": "true",
+            "$OUTPUT_GROUP": "BASIC"
+        }
+    ],
+    "enum":
+    {
+        "AXIS":
+        [
+            "X",
+            "Y"
+        ]
+    },
+    "templates":
+    {
+        "POSITION_RANGE":
+        {
+            "minX": "{{rndInt '-5:5' }}",
+            "maxX": "{{rndInt '-5:5' }}",
+            "minY": "{{rndInt '-5:5' }}",
+            "maxY": "{{rndInt '-5:5' }}",
+            "minZ": "{{rndInt '-5:5' }}",
+            "maxZ": "{{rndInt '-5:5' }}"
+        }
+    },
+    "activators":
+    [
+        "Gaussian",
+        "Sigmoid",
+        "BinaryStep",
+        "Relu"
     ]
-  },
-  "fitness": [
-    {
-      "eventType": "HEALTH_CHANGE"
-    },
-    {
-      "eventType": "MOVE_ALONG_AXIS",
-      "attributeId": "AXIS",
-      "attributeValue": {
-        "$SOURCE": "enum",
-        "$ATTRIBUTE_ID": "AXIS"
-      }
-    }
-  ],
-  "inputNeurons": [
-    {
-      "$TYPE": "BiasInput",
-      "$DEFAULT": "false",
-      "weight": "{{rndFloat '-5:5' }}"
-    },
-    {
-      "$TYPE": "BlockInput",
-      "$DEFAULT": "true"
-    }
-  ],
-  "outputNeurons": [
-    {
-      "$TYPE": "MoveLeft",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    },
-    {
-      "$TYPE": "MoveRight",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    },
-    {
-      "$TYPE": "Jump",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    },
-    {
-      "$TYPE": "PlaceBlockTop",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    },
-    {
-      "$TYPE": "PlaceBlockTopLeft",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    },
-    {
-      "$TYPE": "PlaceBlockTopRight",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    },
-    {
-      "$TYPE": "PlaceBlockBottom",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    },
-    {
-      "$TYPE": "PlaceBlockBottomRight",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    },
-    {
-      "$TYPE": "PlaceBlockBottomLeft",
-      "$DEFAULT": "true",
-      "$OUTPUT_GROUP": "BASIC"
-    }
-  ],
-  "enum": {
-    "AXIS": [
-      "X",
-      "Y"
-    ]
-  },
-  "templates": {
-    "POSITION_RANGE": {
-      "minX": "{{rndInt '-5:5' }}",
-      "maxX": "{{rndInt '-5:5' }}",
-      "minY": "{{rndInt '-5:5' }}",
-      "maxY": "{{rndInt '-5:5' }}",
-      "minZ": "{{rndInt '-5:5' }}",
-      "maxZ": "{{rndInt '-5:5' }}"
-    }
-  },
-  "activators": [
-    "Gaussian",
-    "Sigmoid",
-    "BinaryStep",
-    "Relu"
-  ]
 }
