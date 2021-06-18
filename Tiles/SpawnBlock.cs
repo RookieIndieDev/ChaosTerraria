@@ -6,7 +6,6 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 using ChaosTerraria.UI;
-using System;
 
 namespace ChaosTerraria.Tiles
 {

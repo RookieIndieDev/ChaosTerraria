@@ -1,5 +1,4 @@
-﻿using ChaosTerraria.ChaosUtils;
-using ChaosTerraria.Network;
+﻿using ChaosTerraria.Network;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;

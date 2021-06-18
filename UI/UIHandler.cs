@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ChaosTerraria;
-using Terraria.DataStructures;
-using Terraria.ModLoader;
-
-namespace ChaosTerraria.UI
+﻿namespace ChaosTerraria.UI
 {
     //TODO: Add Current Stats Screen
     public static class UIHandler

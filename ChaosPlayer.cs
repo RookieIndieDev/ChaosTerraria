@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.GameInput;
+﻿using Terraria.GameInput;
 using Terraria.ModLoader;
-using ChaosTerraria;
 using ChaosTerraria.UI;
-using Terraria;
 
 namespace ChaosTerraria
 {

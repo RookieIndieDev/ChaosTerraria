@@ -9,7 +9,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Terraria;
-using System.IO;
 using Terraria.ModLoader;
 using log4net;
 

@@ -1,6 +1,4 @@
 ﻿using ChaosTerraria.Tile_Entities;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.UI.Elements;

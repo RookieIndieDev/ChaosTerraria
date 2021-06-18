@@ -3,7 +3,6 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using System;
 using System.Collections.Generic;
-using Terraria.ID;
 
 namespace ChaosTerraria.AI
 {

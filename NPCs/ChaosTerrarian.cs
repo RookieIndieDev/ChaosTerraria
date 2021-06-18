@@ -1,5 +1,4 @@
-﻿using System;
-using ChaosTerraria.Classes;
+﻿using ChaosTerraria.Classes;
 using ChaosTerraria.Enums;
 using ChaosTerraria.Fitness;
 using ChaosTerraria.Managers;
@@ -7,16 +6,15 @@ using ChaosTerraria.Structs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ChaosTerraria.NPCs
 {
-	//TODO: Display Score in NPC chat window
-	//TODO: Change Sprite
-	//TODO: Implement seconds to live and lifeEffect
-	//TODO: Implement fitness event in NPC Chat window?
-	public class ChaosTerrarian : ModNPC
+    //TODO: Display Score in NPC chat window
+    //TODO: Change Sprite
+    //TODO: Implement seconds to live and lifeEffect
+    //TODO: Implement fitness event in NPC Chat window?
+    public class ChaosTerrarian : ModNPC
 	{
 		public override string Texture => "ChaosTerraria/NPCs/Terrarian";
 
