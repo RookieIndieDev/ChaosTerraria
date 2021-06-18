@@ -8,6 +8,7 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.AI;
 using System.IO;
 using Newtonsoft.Json;
+using ChaosTerraria.Enums;
 
 namespace ChaosTerraria.NPCs
 {
@@ -19,7 +20,8 @@ namespace ChaosTerraria.NPCs
         private int[] tiles = new int[25];
         internal Organism organism;
         private int lifeTicks = 600;
-     
+        private Item[] items = new Item[40];
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 25;
@@ -101,49 +103,6 @@ namespace ChaosTerraria.NPCs
             }
         }
 
-        public void DoActions(int action)
-        {
-            switch (action)
-            {
-                case 0:
-                    Jump();
-                    break;
-                case 1:
-                    MoveRight();
-                    break;
-                case 2:
-                    MoveLeft();
-                    break;
-                case 3:
-                    PlaceBlockTop();
-                    break;
-                case 4:
-                    PlaceBlockTopLeft();
-                    break;
-                case 5:
-                    PlaceBlockTopRight();
-                    break;
-                case 6:
-                    PlaceBlockBottom();
-                    break;
-                case 7:
-                    PlaceBlockBottomLeft();
-                    break;
-                case 8:
-                    PlaceBlockBottomRight();
-                    break;
-                case 9:
-                    PlaceBlockRight();
-                    break;
-                case 10:
-                    PlaceBlockLeft();
-                    break;
-                default:
-                    Main.NewText("Invalid Action");
-                    break;
-            }
-        }
-
         private void PlaceBlockLeft()
         {
             var pos = npc.Left.ToTileCoordinates();
@@ -192,6 +151,123 @@ namespace ChaosTerraria.NPCs
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
         }
 
+        private void MineBlockLeft()
+        {
+            var pos = npc.Left.ToTileCoordinates();
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockRight()
+        {
+            var pos = npc.Right.ToTileCoordinates();
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockBottomRight()
+        {
+            var pos = npc.BottomRight.ToTileCoordinates();
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockBottomLeft()
+        {
+            var pos = npc.BottomLeft.ToTileCoordinates();
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockBottom()
+        {
+            var pos = npc.Bottom.ToTileCoordinates();
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockTopRight()
+        {
+            var pos = npc.TopRight.ToTileCoordinates();
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockTopLeft()
+        {
+            var pos = npc.TopLeft.ToTileCoordinates();
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        private void MineBlockTop()
+        {
+            var pos = npc.Top.ToTileCoordinates();
+            WorldGen.KillTile(pos.X, pos.Y);
+        }
+
+        public void DoActions(int action)
+        {
+            switch (action)
+            {
+                case (int)OutputType.Jump:
+                    Jump();
+                    break;
+                case (int)OutputType.MoveRight:
+                    MoveRight();
+                    break;
+                case (int)OutputType.MoveLeft:
+                    MoveLeft();
+                    break;
+                case (int)OutputType.PlaceBlockTop:
+                    PlaceBlockTop();
+                    break;
+                case (int)OutputType.PlaceBlockTopLeft:
+                    PlaceBlockTopLeft();
+                    break;
+                case (int)OutputType.PlaceBlockTopRight:
+                    PlaceBlockTopRight();
+                    break;
+                case (int)OutputType.PlaceBlockBottom:
+                    PlaceBlockBottom();
+                    break;
+                case (int)OutputType.PlaceBlockBottomLeft:
+                    PlaceBlockBottomLeft();
+                    break;
+                case (int)OutputType.PlaceBlockBottomRight:
+                    PlaceBlockBottomRight();
+                    break;
+                case (int)OutputType.PlaceBlockRight:
+                    PlaceBlockRight();
+                    break;
+                case (int)OutputType.PlaceBlockLeft:
+                    PlaceBlockLeft();
+                    break;
+                case (int)OutputType.MineBlockTop:
+                    MineBlockTop();
+                    break;
+                case (int)OutputType.MineBlockTopLeft:
+                    MineBlockTopLeft();
+                    break;
+                case (int)OutputType.MineBlockTopRight:
+                    MineBlockTopRight();
+                    break;
+                case (int)OutputType.MineBlockBottom:
+                    MineBlockBottom();
+                    break;
+                case (int)OutputType.MineBlockBottomLeft:
+                    MineBlockBottomLeft();
+                    break;
+                case (int)OutputType.MineBlockBottomRight:
+                    MineBlockBottomRight();
+                    break;
+                case (int)OutputType.MineBlockLeft:
+                    MineBlockLeft();
+                    break;
+                case (int)OutputType.MineBlockRight:
+                    MineBlockRight();
+                    break;
+                default:
+                    Main.NewText("Invalid Action");
+                    break;
+            }
+        }
+
+
+
         public override void DrawEffects(ref Color drawColor)
         {
             if (organism != null)
@@ -228,6 +304,24 @@ namespace ChaosTerraria.NPCs
             if (organism != null)
                 return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace;
             return "Org Not Assigned";
+        }
+
+        public override void SetupShop(Chest shop, ref int nextSlot)
+        {
+            shop.item[nextSlot].SetDefaults(ItemID.Wood);
+        }
+
+        public override void SetChatButtons(ref string button, ref string button2)
+        {
+            button = "Bot Inventory";
+        }
+
+        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+        {
+            if (firstButton)
+            {
+                shop = true;
+            }
         }
     }
 }

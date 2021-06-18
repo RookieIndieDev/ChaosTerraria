@@ -98,7 +98,6 @@ namespace ChaosTerraria.Network
                         ChaosNetConfig.data.sessionNamespace = SessionManager.CurrentSession.nameSpace;
                         ChaosNetConfig.Save();
                         GetPackage();
-                        /*                        DoSessionNext();*/
                         break;
                     case System.Net.HttpStatusCode.BadRequest:
                         throw new Exception("Session: Uh-oh, wrong data being sent.");
@@ -184,7 +183,6 @@ namespace ChaosTerraria.Network
 
         private void AddAuthorizationHeader()
         {
-            /*            httpClient.DefaultRequestHeaders.Add("Authorization", ChaosNetConfig.data.accessToken);*/
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ChaosNetConfig.data.accessToken);
         }
 

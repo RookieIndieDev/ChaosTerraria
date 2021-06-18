@@ -1,5 +1,6 @@
 ﻿using System;
 using ChaosTerraria.Classes;
+using ChaosTerraria.Enums;
 using ChaosTerraria.Fitness;
 using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
@@ -239,61 +240,61 @@ namespace ChaosTerraria.NPCs
         {
             switch (action)
             {
-                case 0:
+                case (int)OutputType.Jump:
                     Jump();
                     break;
-                case 1:
+                case (int)OutputType.MoveRight:
                     MoveRight();
                     break;
-                case 2:
+                case (int)OutputType.MoveLeft:
                     MoveLeft();
                     break;
-                case 3:
+                case (int)OutputType.PlaceBlockTop:
                     PlaceBlockTop();
                     break;
-                case 4:
+                case (int)OutputType.PlaceBlockTopLeft:
                     PlaceBlockTopLeft();
                     break;
-                case 5:
+                case (int)OutputType.PlaceBlockTopRight:
                     PlaceBlockTopRight();
                     break;
-                case 6:
+                case (int)OutputType.PlaceBlockBottom:
                     PlaceBlockBottom();
                     break;
-                case 7:
+                case (int)OutputType.PlaceBlockBottomLeft:
                     PlaceBlockBottomLeft();
                     break;
-                case 8:
+                case (int)OutputType.PlaceBlockBottomRight:
                     PlaceBlockBottomRight();
                     break;
-                case 9:
+                case (int)OutputType.PlaceBlockRight:
                     PlaceBlockRight();
                     break;
-                case 10:
+                case (int)OutputType.PlaceBlockLeft:
                     PlaceBlockLeft();
                     break;
-                case 11:
+                case (int)OutputType.MineBlockTop:
                     MineBlockTop();
                     break;
-                case 12:
+                case (int)OutputType.MineBlockTopLeft:
                     MineBlockTopLeft();
                     break;
-                case 13:
+                case (int)OutputType.MineBlockTopRight:
                     MineBlockTopRight();
                     break;
-                case 14:
+                case (int)OutputType.MineBlockBottom:
                     MineBlockBottom();
                     break;
-                case 15:
+                case (int)OutputType.MineBlockBottomLeft:
                     MineBlockBottomLeft();
                     break;
-                case 16:
+                case (int)OutputType.MineBlockBottomRight:
                     MineBlockBottomRight();
                     break;
-                case 17:
+                case (int)OutputType.MineBlockRight:
                     MineBlockRight();
                     break;
-                case 18:
+                case (int)OutputType.MineBlockLeft:
                     MineBlockLeft();
                     break;
                 default:
