@@ -7,7 +7,7 @@ namespace ChaosTerraria.Tile_Entities
 {
     class SpawnBlockTileEntity : ModTileEntity
     {
-        internal string roleNamespace = "Default";
+        internal string roleNamespace = "default";
         internal int spawnCount = 1;
         internal int spawnedSoFar;
 

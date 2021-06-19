@@ -3,6 +3,7 @@ using ChaosTerraria.Enums;
 using ChaosTerraria.Fitness;
 using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
+using ChaosTerraria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -182,56 +183,114 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Left.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
+            {
+                WorldGen.KillTile(pos.X, pos.Y);
+            }
+            else
+            {
+                lastMinedTile = null;
+            }
         }
 
         private void MineBlockRight()
         {
             var pos = npc.Right.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
+            {
+                WorldGen.KillTile(pos.X, pos.Y);
+            }
+            else
+            {
+                lastMinedTile = null;
+            }
         }
 
         private void MineBlockBottomRight()
         {
             var pos = npc.BottomRight.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
+            {
+                WorldGen.KillTile(pos.X, pos.Y);
+            }
+            else
+            {
+                lastMinedTile = null;
+            }
         }
 
         private void MineBlockBottomLeft()
         {
             var pos = npc.BottomLeft.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
+            {
+                WorldGen.KillTile(pos.X, pos.Y);
+            }
+            else
+            {
+                lastMinedTile = null;
+            }
         }
 
         private void MineBlockBottom()
         {
             var pos = npc.Bottom.ToTileCoordinates();
+
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
+            {
+                WorldGen.KillTile(pos.X, pos.Y);
+            }
+            else
+            {
+                lastMinedTile = null;
+            }
         }
 
         private void MineBlockTopRight()
         {
             var pos = npc.TopRight.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            WorldGen.KillTile(pos.X, pos.Y);
+            
+            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
+            {
+                WorldGen.KillTile(pos.X, pos.Y);
+            }
+            else
+            {
+                lastMinedTile = null;
+            }
         }
 
         private void MineBlockTopLeft()
         {
             var pos = npc.TopLeft.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
+            {
+                WorldGen.KillTile(pos.X, pos.Y);
+            }
+            else
+            {
+                lastMinedTile = null;
+            }
         }
 
         private void MineBlockTop()
         {
             var pos = npc.Top.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
+            {
+                WorldGen.KillTile(pos.X, pos.Y);
+            }
+            else
+            {
+                lastMinedTile = null;
+            }
         }
 
         public void DoActions(int action)

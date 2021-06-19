@@ -9,6 +9,7 @@ using ChaosTerraria.AI;
 using System.IO;
 using Newtonsoft.Json;
 using ChaosTerraria.Enums;
+using ChaosTerraria.Tiles;
 
 namespace ChaosTerraria.NPCs
 {
@@ -154,49 +155,57 @@ namespace ChaosTerraria.NPCs
         private void MineBlockLeft()
         {
             var pos = npc.Left.ToTileCoordinates();
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+                WorldGen.KillTile(pos.X, pos.Y);
         }
 
         private void MineBlockRight()
         {
             var pos = npc.Right.ToTileCoordinates();
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+                WorldGen.KillTile(pos.X, pos.Y);
         }
 
         private void MineBlockBottomRight()
         {
             var pos = npc.BottomRight.ToTileCoordinates();
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+                WorldGen.KillTile(pos.X, pos.Y);
         }
 
         private void MineBlockBottomLeft()
         {
             var pos = npc.BottomLeft.ToTileCoordinates();
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+                WorldGen.KillTile(pos.X, pos.Y);
         }
 
         private void MineBlockBottom()
         {
             var pos = npc.Bottom.ToTileCoordinates();
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+                WorldGen.KillTile(pos.X, pos.Y);
         }
 
         private void MineBlockTopRight()
         {
             var pos = npc.TopRight.ToTileCoordinates();
-            WorldGen.KillTile(pos.X, pos.Y);
+            if(Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+                WorldGen.KillTile(pos.X, pos.Y);
         }
 
         private void MineBlockTopLeft()
         {
             var pos = npc.TopLeft.ToTileCoordinates();
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+                WorldGen.KillTile(pos.X, pos.Y);
         }
 
         private void MineBlockTop()
         {
             var pos = npc.Top.ToTileCoordinates();
-            WorldGen.KillTile(pos.X, pos.Y);
+            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+                WorldGen.KillTile(pos.X, pos.Y);
         }
 
         public void DoActions(int action)

@@ -41,10 +41,10 @@ namespace ChaosTerraria.Fitness
                             score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
                             break;
                         case FitnessRuleType.BLOCK_MINED:
-                            score += TestBlockMined(rule.attributeValue.ToLower(), minedTile, rule.scoreEffect);
+                            score += TestBlockMined(rule.attributeValue, minedTile, rule.scoreEffect);
                             break;
                         case FitnessRuleType.BLOCK_PLACED:
-                            score += TestBlockPlaced(rule.attributeValue.ToLower(), placedTile, rule.scoreEffect);
+                            score += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
                             break;
                         default:
                             break;
@@ -92,14 +92,12 @@ namespace ChaosTerraria.Fitness
                     if (org.npc.position.X > org.npc.oldPosition.X)
                     {
                         score += scoreEffect;
-                        Dust.NewDust(org.npc.position, 10, 10, 5, newColor: Color.HotPink);
                     }
 
                     break;
                 case "-x":
                     if (org.npc.position.X < org.npc.oldPosition.X)
                     {
-                        Dust.NewDust(org.npc.position, 10, 10, 5, newColor: Color.HotPink);
                         score += scoreEffect;
                     }
                     break;

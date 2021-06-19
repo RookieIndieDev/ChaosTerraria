@@ -27,7 +27,6 @@ namespace ChaosTerraria.Network
         public ChaosNetworkHelper()
         {
             httpClient = new HttpClient();
-            
         }
 
         public async void Auth(string username, string password, string trainingRoomOwnerUsername)
@@ -39,35 +38,36 @@ namespace ChaosTerraria.Network
             }
 
             string content = JsonConvert.SerializeObject(authInfo);
-            try
+            HttpResponseMessage response = await SendPostRequest(content, "auth/login");
+            switch (response.StatusCode)
             {
-                HttpResponseMessage response = await SendPostRequest(content, "auth/login");
-                switch (response.StatusCode)
-                {
-                    case System.Net.HttpStatusCode.OK:
-                        Main.NewText("Auth Success", Color.Green);
-                        authResponse = JsonConvert.DeserializeObject<AuthResponse>(await response.Content.ReadAsStringAsync());
-                        ChaosNetConfig.data.accessToken = authResponse.accessToken;
-                        ChaosNetConfig.data.refreshToken = authResponse.refreshToken;
-                        ChaosNetConfig.data.expiration = authResponse.expiration;
-                        ChaosNetConfig.data.username = username.ToLower();
-                        ChaosNetConfig.Save();
-                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ChaosNetConfig.data.accessToken);
-                        UIHandler.ShowSessionScreen();
-                        break;
-                    case System.Net.HttpStatusCode.BadRequest:
-                        throw new Exception("Uh-oh, wrong data being sent.");
-                    case System.Net.HttpStatusCode.Forbidden:
-                        throw new Exception("Forbidden, Check your Username and password!");
-                    case System.Net.HttpStatusCode.Unauthorized:
-                        throw new Exception("Unauthorized!");
-                    default:
-                        throw new Exception("Auth: Something went wrong " + response.StatusCode);
-                }
-            }
-            catch
-            {
-
+                case System.Net.HttpStatusCode.OK:
+                    Main.NewText("Auth Success", Color.Green);
+                    authResponse = JsonConvert.DeserializeObject<AuthResponse>(await response.Content.ReadAsStringAsync());
+                    ChaosNetConfig.data.accessToken = authResponse.accessToken;
+                    ChaosNetConfig.data.refreshToken = authResponse.refreshToken;
+                    ChaosNetConfig.data.expiration = authResponse.expiration;
+                    ChaosNetConfig.data.username = username.ToLower();
+                    ChaosNetConfig.Save();
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ChaosNetConfig.data.accessToken);
+                    UIHandler.ShowSessionScreen();
+                    break;
+                case System.Net.HttpStatusCode.BadRequest:
+                    logger.Error("/auth: Uh-oh, wrong data being sent.");
+                    Main.NewText("/auth: Uh-oh, wrong data being sent", Color.Red);
+                    break;
+                case System.Net.HttpStatusCode.Forbidden:
+                    logger.Error("/auth: Forbidden, Check your Username and password!");
+                    Main.NewText("/auth: Forbidden, Check your Username and password!", Color.Red);
+                    break;
+                case System.Net.HttpStatusCode.Unauthorized:
+                    logger.Error("/auth: Unauthorized!");
+                    Main.NewText("/auth: Unauthorized", Color.Red);
+                    break;
+                default:
+                    logger.Error("/auth: Something went wrong " + response.StatusCode);
+                    Main.NewText("/auth: Something went wrong " + response.StatusCode + " Check client.log", Color.Red);
+                    break;
             }
         }
 
@@ -84,43 +84,39 @@ namespace ChaosTerraria.Network
 
             string content = JsonConvert.SerializeObject(sessionStartInfo);
 
-            try
+            HttpResponseMessage response = await SendPostRequest(content, endpoint);
+            switch (response.StatusCode)
             {
-                HttpResponseMessage response = await SendPostRequest(content, endpoint);
-                switch (response.StatusCode)
-                {
-                    case System.Net.HttpStatusCode.OK:
-                        Main.NewText("All Good! Session Started!", Color.Green);
-                        string responseString = await response.Content.ReadAsStringAsync();
-                        SessionStartResponse sessionStartResponse = JsonConvert.DeserializeObject<SessionStartResponse>(responseString);
-                        SessionManager.CurrentSession = sessionStartResponse.session;
-                        ChaosNetConfig.data.sessionNamespace = SessionManager.CurrentSession.nameSpace;
-                        ChaosNetConfig.Save();
-                        GetPackage();
-                        break;
-                    case System.Net.HttpStatusCode.BadRequest:
-                        throw new Exception("Session: Uh-oh, wrong data being sent.");
-                    case System.Net.HttpStatusCode.Forbidden:
-                        refreshMessage = "Session: Forbidden! Try logging in again!";
-                        DoTokenRefresh(refreshMessage);
-                        break;
-                    //throw new Exception("Forbidden, retrying token refresh");
-                    case System.Net.HttpStatusCode.Unauthorized:
-                        //throw new Exception("Unauthorized, retrying token refresh");
-
-                        refreshMessage = "Session: Unauthorized, attempting token refresh! Try starting the session now!";
-                        DoTokenRefresh(refreshMessage);
-                        break;
-                    default:
-                        if (response.StatusCode.ToString() == "418")
-                            throw new Exception("Please Sleep the previous session and try starting the session again!");
-
-                        throw new Exception("Session: Something went wrong! " + response.Content.ReadAsStringAsync() + " " + response.StatusCode);
-                }
-            }
-            catch
-            {
-
+                case System.Net.HttpStatusCode.OK:
+                    Main.NewText("All Good! Session Started!", Color.Green);
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    SessionStartResponse sessionStartResponse = JsonConvert.DeserializeObject<SessionStartResponse>(responseString);
+                    SessionManager.CurrentSession = sessionStartResponse.session;
+                    ChaosNetConfig.data.sessionNamespace = SessionManager.CurrentSession.nameSpace;
+                    ChaosNetConfig.Save();
+                    GetPackage();
+                    break;
+                case System.Net.HttpStatusCode.BadRequest:
+                    logger.Error("Session: Uh-oh, wrong data being sent.");
+                    Main.NewText("Session: Uh-oh, wrong data being sent.", Color.Red);
+                    break;
+                case System.Net.HttpStatusCode.Forbidden:
+                    refreshMessage = "Session: Forbidden! Try logging in again!";
+                    DoTokenRefresh(refreshMessage);
+                    break;
+                case System.Net.HttpStatusCode.Unauthorized:
+                    refreshMessage = "Session: Unauthorized, attempting token refresh! Try starting the session now!";
+                    DoTokenRefresh(refreshMessage);
+                    break;
+                default:
+                    if (response.StatusCode.ToString() == "418")
+                    {
+                        Main.NewText("Please Sleep the previous session and try starting the session again!", Color.Red);
+                        logger.Error("Please Sleep the previous session and try starting the session again!");
+                    }
+                    logger.Error("Session: Something went wrong! " + response.Content.ReadAsStringAsync() + " " + response.StatusCode);
+                    Main.NewText("Session: Something went wrong! " + response.StatusCode + " Check client.log", Color.Red);
+                    break;
             }
         }
 
@@ -142,41 +138,40 @@ namespace ChaosTerraria.Network
             AddAuthorizationHeader();
 
             string content = JsonConvert.SerializeObject(trainingRoomSessionNextRequest);
-            try
+            HttpResponseMessage responseMessage = await SendPostRequest(content, endpoint);
+            string response = await responseMessage.Content.ReadAsStringAsync();
+            switch (responseMessage.StatusCode)
             {
-                HttpResponseMessage responseMessage = await SendPostRequest(content, endpoint);
-                string response = await responseMessage.Content.ReadAsStringAsync();
-                switch (responseMessage.StatusCode)
-                {
-                    case System.Net.HttpStatusCode.OK:
-                        SessionNextResponse sessionNextResponse = JsonConvert.DeserializeObject<SessionNextResponse>(response);
-                        SessionManager.Organisms = sessionNextResponse.organisms;
-                        SessionManager.CurrentStats = sessionNextResponse.stats;
-                        SessionManager.Species = sessionNextResponse.species;
-                        if (SessionManager.Reports != null)
-                            SessionManager.Reports.Clear();
+                case System.Net.HttpStatusCode.OK:
+                    SessionNextResponse sessionNextResponse = JsonConvert.DeserializeObject<SessionNextResponse>(response);
+                    SessionManager.Organisms = sessionNextResponse.organisms;
+                    SessionManager.CurrentStats = sessionNextResponse.stats;
+                    SessionManager.Species = sessionNextResponse.species;
+                    if (SessionManager.Reports != null)
+                        SessionManager.Reports.Clear();
+                    break;
+                case System.Net.HttpStatusCode.BadRequest:
+                    logger.Error("/next: " + response);
+                    Main.NewText("/next:" + responseMessage.StatusCode + "Check client.log", Color.Red);
+                    break;
+                case System.Net.HttpStatusCode.Forbidden:
+                    refreshMessage = "/next: Forbidden! Refreshing tokens!";
+                    DoTokenRefresh(refreshMessage);
+                    break;
+                case System.Net.HttpStatusCode.Unauthorized:
+                    refreshMessage = "/next: Unauthorized! Refreshing tokens!";
+                    DoTokenRefresh(refreshMessage);
+                    break;
+                default:
+                    if (responseMessage.StatusCode.ToString() == "418")
+                    {
+                        logger.Error("Please Sleep the previous session and try starting the session again!");
+                        Main.NewText("Please Sleep the previous session and try starting the session again!", Color.Red);
                         break;
-                    case System.Net.HttpStatusCode.BadRequest:
-                        throw new Exception("/next: " + response);
-                    case System.Net.HttpStatusCode.Forbidden:
-                        refreshMessage = "/next: Forbidden! Refreshing tokens!";
-                        DoTokenRefresh(refreshMessage);
-                        break;
-                    case System.Net.HttpStatusCode.Unauthorized:
-                        refreshMessage = "/next: Unauthorized! Refreshing tokens!";
-                        DoTokenRefresh(refreshMessage);
-                        break;
-                    default:
-                        if (responseMessage.StatusCode.ToString() == "418")
-                            throw new Exception("Please Sleep the previous session and try starting the session again!");
-
-                        throw new Exception("/next: Something went wrong! " + response + " " + responseMessage.StatusCode);
-                }
-            }
-
-            catch
-            {
-
+                    }
+                    logger.Error("/next: Something went wrong! " + response + " " + responseMessage.StatusCode);
+                    Main.NewText("/next: Something went wrong! " + responseMessage.StatusCode + " Check client.log", Color.Red);
+                    break;
             }
         }
 
@@ -191,42 +186,46 @@ namespace ChaosTerraria.Network
             tokenRequest.username = ChaosNetConfig.data.username;
             tokenRequest.refreshToken = ChaosNetConfig.data.refreshToken;
             string json = JsonConvert.SerializeObject(tokenRequest);
-            try
+            HttpResponseMessage responseMessage = await SendPostRequest(json, "auth/token");
+            string response = await responseMessage.Content.ReadAsStringAsync();
+            switch (responseMessage.StatusCode)
             {
-                HttpResponseMessage responseMessage = await SendPostRequest(json, "auth/token");
-                string response = await responseMessage.Content.ReadAsStringAsync();
-                switch (responseMessage.StatusCode)
-                {
-                    case System.Net.HttpStatusCode.OK:
-                        if (response.Contains("error"))
-                        {
-                            throw new Exception(response);
-                        }
-                        Main.NewText(message, Color.Green);
-                        AuthResponse refreshResponse = JsonConvert.DeserializeObject<AuthResponse>(await responseMessage.Content.ReadAsStringAsync());
-                        ChaosNetConfig.data.accessToken = refreshResponse.accessToken;
-                        ChaosNetConfig.data.refreshToken = refreshResponse.refreshToken;
-                        ChaosNetConfig.data.expiration = refreshResponse.expiration;
-                        ChaosNetConfig.data.idToken = refreshResponse.idToken;
-                        ChaosNetConfig.Save();
+                case System.Net.HttpStatusCode.OK:
+                    if (response.Contains("error"))
+                    {
+                        logger.Error(response);
+                        Main.NewText(response, Color.Red);
+                    }
+                    Main.NewText(message, Color.Green);
+                    AuthResponse refreshResponse = JsonConvert.DeserializeObject<AuthResponse>(await responseMessage.Content.ReadAsStringAsync());
+                    ChaosNetConfig.data.accessToken = refreshResponse.accessToken;
+                    ChaosNetConfig.data.refreshToken = refreshResponse.refreshToken;
+                    ChaosNetConfig.data.expiration = refreshResponse.expiration;
+                    ChaosNetConfig.data.idToken = refreshResponse.idToken;
+                    ChaosNetConfig.Save();
+                    break;
+                case System.Net.HttpStatusCode.BadRequest:
+                    logger.Error ("Token Refresh: " + response);
+                    Main.NewText("Token Refresh" + response, Color.Red);
+                    break;
+                case System.Net.HttpStatusCode.Forbidden:
+                    logger.Error("Token Refresh: Forbidden, refresh token Expired, Try logging in again");
+                    Main.NewText("Token Refresh: Forbidden, refresh token Expired, Try logging in again", Color.Red);
+                    break;
+                case System.Net.HttpStatusCode.Unauthorized:
+                    logger.Error("Token Refresh: Unauthorized, refresh token Expired, Try logging in again");
+                    Main.NewText("Token Refresh: Unauthorized, refresh token Expired, Try logging in again", Color.Red);
+                    break;
+                default:
+                    if (responseMessage.StatusCode.ToString() == "418")
+                    {
+                        logger.Error("Please Sleep the previous session and try starting the session again!");
+                        Main.NewText("Please Sleep the previous session and try starting the session again!", Color.Red);
                         break;
-                    case System.Net.HttpStatusCode.BadRequest:
-                        throw new Exception("Token Refresh: " + response);
-                    case System.Net.HttpStatusCode.Forbidden:
-                        throw new Exception("Token Refresh: Forbidden, refresh token Expired, Try logging in again");
-                    case System.Net.HttpStatusCode.Unauthorized:
-                        throw new Exception("Token Refresh: Unauthorized, refresh token Expired, Try logging in again");
-                    default:
-                        if (responseMessage.StatusCode.ToString() == "418")
-                            throw new Exception("Please Sleep the previous session and try starting the session again!");
-
-                        throw new Exception("Token Refresh: Something went wrong! " + responseMessage.Content.ReadAsStringAsync() + " " + responseMessage.StatusCode);
-                }
-            }
-
-            catch (Exception e) when (e.Message.Contains("Unauthorized") || e.Message.Contains("Forbidden"))
-            {
-                UIHandler.ShowLoginScreen();
+                    }
+                    logger.Error("Token Refresh: Something went wrong! " + responseMessage.Content.ReadAsStringAsync() + " " + responseMessage.StatusCode);
+                    Main.NewText("Token Refresh: Something went wrong! " + responseMessage.StatusCode, Color.Red);
+                    break;
             }
         }
 
