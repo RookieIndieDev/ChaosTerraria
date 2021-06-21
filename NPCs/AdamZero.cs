@@ -10,6 +10,7 @@ using System.IO;
 using Newtonsoft.Json;
 using ChaosTerraria.Enums;
 using ChaosTerraria.Tiles;
+using ChaosTerraria.TileEntities;
 
 namespace ChaosTerraria.NPCs
 {
@@ -22,6 +23,7 @@ namespace ChaosTerraria.NPCs
         internal Organism organism;
         private int lifeTicks = 600;
         private Item[] items = new Item[40];
+        internal SpawnBlockTileEntity spawnBlockTileEntity;
 
         public override void SetStaticDefaults()
         {
@@ -52,18 +54,21 @@ namespace ChaosTerraria.NPCs
             npc.homeless = true;
             npc.noGravity = false;
             npc.dontTakeDamage = true;
-            organism = new Organism
+            if (SessionManager.AdamZeroEnabled)
             {
-                nNet = JsonConvert.DeserializeObject<NNet>(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) 
-                + @"\My Games\Terraria\ModLoader\Mod Sources\ChaosTerraria\NNet.json")),
-                nameSpace = "AdamZero",
-                trainingRoomRoleNamespace="AdamZero"
-            };
+                organism = new Organism
+                {
+                    nNet = JsonConvert.DeserializeObject<NNet>(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                    + @"\My Games\Terraria\ModLoader\Mod Sources\ChaosTerraria\NNet.json")),
+                    nameSpace = "AdamZero",
+                    trainingRoomRoleNamespace = "AdamZero"
+                };
+            }
+            npc.GivenName = "AdamZero";
         }
 
         public override void AI()
         {
-            npc.GivenName = organism.nameSpace;
             timer++;
             timeLeft++;
 
@@ -81,6 +86,7 @@ namespace ChaosTerraria.NPCs
                 SpawnManager.adamZeroCount--;
                 timeLeft = 0;
                 npc.life = 0;
+                spawnBlockTileEntity.spawnedSoFar--;
             }
         }
 
@@ -190,7 +196,7 @@ namespace ChaosTerraria.NPCs
         private void MineBlockTopRight()
         {
             var pos = npc.TopRight.ToTileCoordinates();
-            if(Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
         }
 
@@ -270,7 +276,7 @@ namespace ChaosTerraria.NPCs
                     MineBlockRight();
                     break;
                 default:
-                    Main.NewText("Invalid Action");
+                    //Main.NewText("Invalid Action");
                     break;
             }
         }

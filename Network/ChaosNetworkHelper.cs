@@ -95,6 +95,7 @@ namespace ChaosTerraria.Network
                     ChaosNetConfig.data.sessionNamespace = SessionManager.CurrentSession.nameSpace;
                     ChaosNetConfig.Save();
                     GetPackage();
+                    DoSessionNext();
                     break;
                 case System.Net.HttpStatusCode.BadRequest:
                     logger.Error("Session: Uh-oh, wrong data being sent.");
@@ -149,10 +150,12 @@ namespace ChaosTerraria.Network
                     SessionManager.Species = sessionNextResponse.species;
                     if (SessionManager.Reports != null)
                         SessionManager.Reports.Clear();
+                    if (SessionManager.ObservedAttributes != null)
+                        SessionManager.ObservedAttributes.Clear();
                     break;
                 case System.Net.HttpStatusCode.BadRequest:
                     logger.Error("/next: " + response);
-                    Main.NewText("/next:" + responseMessage.StatusCode + "Check client.log", Color.Red);
+                    Main.NewText("/next: " + responseMessage.StatusCode + " Check client.log", Color.Red);
                     break;
                 case System.Net.HttpStatusCode.Forbidden:
                     refreshMessage = "/next: Forbidden! Refreshing tokens!";

@@ -30,7 +30,6 @@ namespace ChaosTerraria.Managers
 
         public static void InitializeSession()
         {
-
             if (!sessionStarted)
             {
                 reports = new List<Report>();

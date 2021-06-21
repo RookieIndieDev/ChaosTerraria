@@ -1,4 +1,4 @@
-﻿using ChaosTerraria.Tile_Entities;
+﻿using ChaosTerraria.TileEntities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.UI.Elements;

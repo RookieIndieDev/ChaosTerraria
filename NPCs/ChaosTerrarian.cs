@@ -3,6 +3,7 @@ using ChaosTerraria.Enums;
 using ChaosTerraria.Fitness;
 using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
+using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -29,6 +30,7 @@ namespace ChaosTerraria.NPCs
         private Item[] items = new Item[40];
         Tile lastPlacedTile;
         Tile lastMinedTile;
+        internal SpawnBlockTileEntity spawnBlockTileEntity;
 
 		public override void SetStaticDefaults()
 		{
@@ -97,9 +99,12 @@ namespace ChaosTerraria.NPCs
 					SessionManager.Reports.Add(report);
 				}
 
-				SpawnManager.spawned--;
+				SpawnManager.activeBotCount--;
+                SpawnManager.totalSpawned++;
 				timeLeft = 0;
 				npc.life = 0;
+                if(spawnBlockTileEntity != null)
+                    spawnBlockTileEntity.spawnedSoFar--;
 			}
 		}
 

@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ChaosTerraria.Tile_Entities
+namespace ChaosTerraria.TileEntities
 {
     class SpawnBlockTileEntity : ModTileEntity
     {
@@ -30,11 +30,6 @@ namespace ChaosTerraria.Tile_Entities
                 {"spawnCount", spawnCount}
 
             };
-        }
-
-        public override void Update()
-        {
-
         }
 
         public override bool ValidTile(int i, int j)

@@ -1,4 +1,4 @@
-﻿using ChaosTerraria.Tile_Entities;
+﻿using ChaosTerraria.TileEntities;
 using ChaosTerraria.World;
 using Microsoft.Xna.Framework;
 using Terraria;

@@ -24,7 +24,6 @@ namespace ChaosTerraria.World
         {
             if (!SessionManager.SessionStarted)
             {
-
                 if (SessionManager.CurrentSession.nameSpace != null)
                 {
                     networkHelper.StartSession();
