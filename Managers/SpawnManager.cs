@@ -27,7 +27,8 @@ namespace ChaosTerraria.Managers
         {
 
             timer++;
-            if (adamZeroCount == 0 && SessionManager.AdamZeroEnabled)
+#if DEBUG
+            if (adamZeroCount == 0)
             {
                 for (int i = 0; i < numOfAdamZero; i++)
                 {
@@ -39,7 +40,7 @@ namespace ChaosTerraria.Managers
                             SpawnBlockTileEntity tileEntity = (SpawnBlockTileEntity)TileEntity.ByID[tileEntityIndex];
                             if (tileEntity.roleNamespace == "AdamZero" && tileEntity.spawnedSoFar < tileEntity.spawnCount)
                             {
-                                var index = NPC.NewNPC((spawnPoint.X + rand.Next(3, 6)) * 16, spawnPoint.Y * 16, NPCType<AdamZero>(), 1);
+                                var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<AdamZero>(), 1);
                                 AdamZero adamZero = (AdamZero)Main.npc[index].modNPC;
                                 adamZero.npc.GivenName += " " + i;
                                 adamZero.spawnBlockTileEntity = tileEntity;
@@ -51,7 +52,7 @@ namespace ChaosTerraria.Managers
                     }
                 }
             }
-
+#endif
             if (activeBotCount == 0 && SessionManager.SessionStarted)
             {
                 if (ChaosWorld.spawnBlocks.Count > 0)

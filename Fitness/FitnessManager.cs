@@ -59,7 +59,7 @@ namespace ChaosTerraria.Fitness
             int score = 0;
 
             if(placedTile != null){
-                if (Enum.GetName(typeof(TerrariaTileTypes), (int)placedTile.type) == blockId)
+                if (Enum.GetName(typeof(TerrariaTileType), (int)placedTile.type) == blockId)
                 {
                     score += scoreEffect;
                 }
@@ -74,7 +74,7 @@ namespace ChaosTerraria.Fitness
 
             if(minedTile != null)
             {
-                if (Enum.GetName(typeof(TerrariaTileTypes), (int)minedTile.type) == blockId)
+                if (Enum.GetName(typeof(TerrariaTileType), (int)minedTile.type) == blockId)
                 {
                     score += scoreEffect;
                 }

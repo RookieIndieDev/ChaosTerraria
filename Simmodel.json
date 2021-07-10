@@ -59,99 +59,34 @@
     "outputNeurons":
     [
         {
-            "$TYPE": "MoveLeft",
+            "$TYPE": "Move",
             "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
+            "$OUTPUT_GROUP": "BASIC",
+            "direction":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "MOVE_DIRECTIONS"
+            }
         },
         {
-            "$TYPE": "MoveRight",
+            "$TYPE": "MineBlock",
             "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
+            "$OUTPUT_GROUP": "BASIC",
+            "direction":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "DIRECTIONS"
+            }
         },
         {
-            "$TYPE": "Jump",
+            "$TYPE": "PlaceBlock",
             "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "PlaceBlockTop",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "PlaceBlockTopLeft",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "PlaceBlockTopRight",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "PlaceBlockBottom",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "PlaceBlockBottomRight",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "PlaceBlockBottomLeft",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "PlaceBlockLeft",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "PlaceBlockRight",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "MineBlockLeft",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "MineBlockRight",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "MineBlockBottom",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "MineBlockBottomLeft",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "MineBlockBottomRight",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "MineBlockTop",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "MineBlockTopLeft",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
-        },
-        {
-            "$TYPE": "MineBlockTopRight",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC"
+            "$OUTPUT_GROUP": "BASIC",
+            "direction":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "DIRECTIONS"
+            }
         }
     ],
     "enum":
@@ -160,6 +95,22 @@
         [
             "X",
             "Y"
+        ],
+        "DIRECTIONS":
+        [
+            "Top",
+            "TopLeft",
+            "TopRight",
+            "Bottom",
+            "BottomLeft",
+            "BottomRight",
+            "Left",
+            "Right"
+        ],
+        "MOVE_DIRECTIONS":
+        [
+            "Left",
+            "Right"
         ]
     },
     "templates":

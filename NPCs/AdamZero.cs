@@ -54,16 +54,15 @@ namespace ChaosTerraria.NPCs
             npc.homeless = true;
             npc.noGravity = false;
             npc.dontTakeDamage = true;
-            if (SessionManager.AdamZeroEnabled)
+#if DEBUG
+            organism = new Organism
             {
-                organism = new Organism
-                {
-                    nNet = JsonConvert.DeserializeObject<NNet>(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                    + @"\My Games\Terraria\ModLoader\Mod Sources\ChaosTerraria\NNet.json")),
-                    nameSpace = "AdamZero",
-                    trainingRoomRoleNamespace = "AdamZero"
-                };
-            }
+                nNet = JsonConvert.DeserializeObject<NNet>(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                + @"\My Games\Terraria\ModLoader\Mod Sources\ChaosTerraria\NNet.json")),
+                nameSpace = "AdamZero",
+                trainingRoomRoleNamespace = "AdamZero"
+            };
+#endif
             npc.GivenName = "AdamZero";
         }
 
@@ -72,12 +71,13 @@ namespace ChaosTerraria.NPCs
             timer++;
             timeLeft++;
 
-            if (timer > 15 && npc.active == true)
+            if (timer > 18 && npc.active == true)
             {
                 DoScan();
                 if (organism != null && tiles != null)
                 {
-                    DoActions(organism.nNet.GetOutput(tiles, "AdamZero"));
+                    int action = organism.nNet.GetOutput(tiles, "AdamZero", out int direction);
+                    DoActions(action, direction);
                 }
             }
 
@@ -214,74 +214,101 @@ namespace ChaosTerraria.NPCs
                 WorldGen.KillTile(pos.X, pos.Y);
         }
 
-        public void DoActions(int action)
+        public void DoActions(int action, int direction)
         {
             switch (action)
             {
                 case (int)OutputType.Jump:
                     Jump();
                     break;
-                case (int)OutputType.MoveRight:
-                    MoveRight();
+                case (int)OutputType.MineBlock:
+                    MineBlock(direction);
                     break;
-                case (int)OutputType.MoveLeft:
-                    MoveLeft();
+                case (int)OutputType.Move:
+                    Move(direction);
                     break;
-                case (int)OutputType.PlaceBlockTop:
-                    PlaceBlockTop();
-                    break;
-                case (int)OutputType.PlaceBlockTopLeft:
-                    PlaceBlockTopLeft();
-                    break;
-                case (int)OutputType.PlaceBlockTopRight:
-                    PlaceBlockTopRight();
-                    break;
-                case (int)OutputType.PlaceBlockBottom:
-                    PlaceBlockBottom();
-                    break;
-                case (int)OutputType.PlaceBlockBottomLeft:
-                    PlaceBlockBottomLeft();
-                    break;
-                case (int)OutputType.PlaceBlockBottomRight:
-                    PlaceBlockBottomRight();
-                    break;
-                case (int)OutputType.PlaceBlockRight:
-                    PlaceBlockRight();
-                    break;
-                case (int)OutputType.PlaceBlockLeft:
-                    PlaceBlockLeft();
-                    break;
-                case (int)OutputType.MineBlockTop:
-                    MineBlockTop();
-                    break;
-                case (int)OutputType.MineBlockTopLeft:
-                    MineBlockTopLeft();
-                    break;
-                case (int)OutputType.MineBlockTopRight:
-                    MineBlockTopRight();
-                    break;
-                case (int)OutputType.MineBlockBottom:
-                    MineBlockBottom();
-                    break;
-                case (int)OutputType.MineBlockBottomLeft:
-                    MineBlockBottomLeft();
-                    break;
-                case (int)OutputType.MineBlockBottomRight:
-                    MineBlockBottomRight();
-                    break;
-                case (int)OutputType.MineBlockLeft:
-                    MineBlockLeft();
-                    break;
-                case (int)OutputType.MineBlockRight:
-                    MineBlockRight();
+                case (int)OutputType.PlaceBlock:
+                    PlaceBlock(direction);
                     break;
                 default:
-                    //Main.NewText("Invalid Action");
                     break;
             }
         }
 
+        private void PlaceBlock(int direction)
+        {
+            switch (direction)
+            {
+                case (int)Direction.Bottom:
+                    PlaceBlockBottom();
+                    break;
+                case (int)Direction.BottomLeft:
+                    PlaceBlockBottomLeft();
+                    break;
+                case (int)Direction.BottomRight:
+                    PlaceBlockBottomRight();
+                    break;
+                case (int)Direction.Top:
+                    PlaceBlockTop();
+                    break;
+                case (int)Direction.TopLeft:
+                    PlaceBlockTopLeft();
+                    break;
+                case (int)Direction.TopRight:
+                    PlaceBlockTopRight();
+                    break;
+                case (int)Direction.Left:
+                    PlaceBlockLeft();
+                    break;
+                case (int)Direction.Right:
+                    PlaceBlockRight();
+                    break;
+            }
+        }
 
+        private void Move(int direction)
+        {
+            switch (direction)
+            {
+                case (int)MoveDirection.Left:
+                    MoveLeft();
+                    break;
+                case (int)MoveDirection.Right:
+                    MoveRight();
+                    break;
+            }
+        }
+
+        private void MineBlock(int direction)
+        {
+            switch (direction)
+            {
+                case (int)Direction.Bottom:
+                    MineBlockBottom();
+                    break;
+                case (int)Direction.BottomLeft:
+                    MineBlockBottomLeft();
+                    break;
+                case (int)Direction.BottomRight:
+                    MineBlockBottomRight();
+                    break;
+                case (int)Direction.Top:
+                    MineBlockTop();
+                    break;
+                case (int)Direction.TopLeft:
+                    MineBlockTopLeft();
+                    break;
+                case (int)Direction.TopRight:
+                    MineBlockTopRight();
+                    break;
+                case (int)Direction.Left:
+                    MineBlockLeft();
+                    break;
+                case (int)Direction.Right:
+                    MineBlockRight();
+                    break;
+            }
+        }
 
         public override void DrawEffects(ref Color drawColor)
         {

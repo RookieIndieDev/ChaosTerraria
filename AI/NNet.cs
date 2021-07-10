@@ -9,35 +9,35 @@ namespace ChaosTerraria.AI
     public class NNet
     {
         public List<Neuron> neurons;
-
-        public int GetOutput(int[] input, string speciesNamespace)
+        public int GetOutput(int[] input, string speciesNamespace, out int direction)
         {
             int inputIndex = 0;
             int output = -100;
             double outputValue = 0;
+            int tempDirection = -1;
             foreach (Neuron neuron in neurons)
             {
-                if(neuron.type == "BlockInput")
+                if (neuron.type == "BlockInput")
                 {
                     neuron.value = input[inputIndex++];
                     neuron.evaluated = true;
                     ObservedAttributes observedAttr;
                     observedAttr.attributeId = "BLOCK_ID";
-                    observedAttr.attributeValue = Enum.GetName(typeof(TerrariaTileTypes), (int)neuron.value);
+                    observedAttr.attributeValue = Enum.GetName(typeof(TerrariaTileType), (int)neuron.value);
                     observedAttr.species = speciesNamespace;
-                    if(!SessionManager.ObservedAttributes.Contains(observedAttr))
+                    if (!SessionManager.ObservedAttributes.Contains(observedAttr))
                         SessionManager.ObservedAttributes.Add(observedAttr);
                 }
-                else if(neuron.type == "BiasInput")
+                else if (neuron.type == "BiasInput")
                 {
                     neuron.value = neuron.weight;
                     neuron.evaluated = true;
                 }
             }
 
-            foreach(Neuron neuron in neurons)
+            foreach (Neuron neuron in neurons)
             {
-                if(neuron.baseType == "output")
+                if (neuron.baseType == "output")
                 {
                     neuron.value = SetValue(neuron);
                     if (neuron.value > outputValue)
@@ -45,69 +45,27 @@ namespace ChaosTerraria.AI
                         outputValue = neuron.value;
                         switch (neuron.type)
                         {
-                            case "MoveLeft":
-                                output = (int)OutputType.MoveLeft;
-                                break;
-                            case "MoveRight":
-                                output = (int)OutputType.MoveRight;
-                                break;
                             case "Jump":
                                 output = (int)OutputType.Jump;
                                 break;
-                            case "PlaceBlockTop":
-                                output = (int)OutputType.PlaceBlockTop;
+                            case "MineBlock":
+                                output = (int)OutputType.MineBlock;
+                                tempDirection = (int)Enum.Parse(typeof(Direction), neuron.direction);
                                 break;
-                            case "PlaceBlockTopLeft":
-                                output = (int)OutputType.PlaceBlockTopLeft;
+                            case "PlaceBlock":
+                                output = (int)OutputType.PlaceBlock;
+                                tempDirection = (int)Enum.Parse(typeof(Direction), neuron.direction);
                                 break;
-                            case "PlaceBlockTopRight":
-                                output = (int)OutputType.PlaceBlockTopRight;
-                                break;
-                            case "PlaceBlockBottom":
-                                output = (int)OutputType.PlaceBlockBottom;
-                                break;
-                            case "PlaceBlockBottomLeft":
-                                output = (int)OutputType.PlaceBlockBottomLeft;
-                                break;
-                            case "PlaceBlockBottomRight":
-                                output = (int)OutputType.PlaceBlockBottomRight;
-                                break;
-                            case "PlaceBlockRight":
-                                output = (int)OutputType.PlaceBlockRight;
-                                break;
-                            case "PlaceBlockLeft":
-                                output = (int)OutputType.PlaceBlockLeft;
-                                break;
-                            case "MineBlockTop":
-                                output = (int)OutputType.MineBlockTop;
-                                break;
-                            case "MineBlockTopLeft":
-                                output = (int)OutputType.MineBlockTopLeft;
-                                break;
-                            case "MineBlockTopRight":
-                                output = (int)OutputType.MineBlockTopRight;
-                                break;
-                            case "MineBlockBottom":
-                                output = (int)OutputType.MineBlockBottom;
-                                break;
-                            case "MineBlockBottomLeft":
-                                output = (int)OutputType.MineBlockBottomLeft;
-                                break;
-                            case "MineBlockBottomRight":
-                                output = (int)OutputType.MineBlockBottomRight;
-                                break;
-                            case "MineBlockRight":
-                                output = (int)OutputType.MineBlockRight;
-                                break;
-                            case "MineBlockLeft":
-                                output = (int)OutputType.MineBlockLeft;
+                            case "Move":
+                                output = (int)OutputType.Move;
+                                tempDirection = (int)Enum.Parse(typeof(MoveDirection), neuron.direction);
                                 break;
                         }
                     }
                 }
             }
-
-                return output;
+            direction = tempDirection;
+            return output;
         }
 
         private double SetValue(Neuron neuron)
@@ -161,7 +119,7 @@ namespace ChaosTerraria.AI
         }
 
         private double GetBinaryStepActivation(double value)
-        {   
+        {
             if (value < 0)
             {
                 return 0;
@@ -191,9 +149,9 @@ namespace ChaosTerraria.AI
 
         private void GetDependencyNeuron(Dependency dependency, out Neuron outputNeuron)
         {
-            foreach(Neuron neuron in neurons)
+            foreach (Neuron neuron in neurons)
             {
-                if(neuron.id == dependency.neuronId)
+                if (neuron.id == dependency.neuronId)
                 {
                     outputNeuron = neuron;
                     return;
