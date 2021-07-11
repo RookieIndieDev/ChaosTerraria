@@ -3,6 +3,7 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using System;
 using System.Collections.Generic;
+using Terraria.ID;
 
 namespace ChaosTerraria.AI
 {
@@ -23,8 +24,12 @@ namespace ChaosTerraria.AI
                     neuron.evaluated = true;
                     ObservedAttributes observedAttr;
                     observedAttr.attributeId = "BLOCK_ID";
-                    observedAttr.attributeValue = Enum.GetName(typeof(TerrariaTileType), (int)neuron.value);
+                    string uniqueKey = TileID.GetUniqueKey((int)(neuron.value));
+                    observedAttr.attributeValue = uniqueKey.Split(' ')[1];
                     observedAttr.species = speciesNamespace;
+                    if (!SessionManager.ObservedAttributes.Contains(observedAttr))
+                        SessionManager.ObservedAttributes.Add(observedAttr);
+                    observedAttr.attributeValue = "Dirt";
                     if (!SessionManager.ObservedAttributes.Contains(observedAttr))
                         SessionManager.ObservedAttributes.Add(observedAttr);
                 }

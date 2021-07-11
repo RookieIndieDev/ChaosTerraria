@@ -408,7 +408,7 @@ namespace ChaosTerraria.NPCs
                 {
                     if (i >= 0 && i < Main.maxTilesX && j >= 0 && j < Main.maxTilesY)
                     {
-                        tileType = Framing.GetTileSafely(i, j).blockType() == 0 ? 1 : Framing.GetTileSafely(i, j).blockType();
+                        tileType = Framing.GetTileSafely(i, j).type == 0 ? 1 : Framing.GetTileSafely(i, j).type;
                         tiles[blockCount++] = tileType;                       
                     }
                 }

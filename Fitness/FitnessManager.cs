@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 
 namespace ChaosTerraria.Fitness
 {
@@ -59,7 +60,8 @@ namespace ChaosTerraria.Fitness
             int score = 0;
 
             if(placedTile != null){
-                if (Enum.GetName(typeof(TerrariaTileType), (int)placedTile.type) == blockId)
+                ;
+                if (TileID.GetUniqueKey(placedTile.type).Split(' ')[1] == blockId)
                 {
                     score += scoreEffect;
                 }
@@ -74,7 +76,8 @@ namespace ChaosTerraria.Fitness
 
             if(minedTile != null)
             {
-                if (Enum.GetName(typeof(TerrariaTileType), (int)minedTile.type) == blockId)
+                
+                if (TileID.GetUniqueKey(minedTile.type).Split(' ')[1] == blockId)
                 {
                     score += scoreEffect;
                 }

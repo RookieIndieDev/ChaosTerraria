@@ -14,7 +14,6 @@ namespace ChaosTerraria.Managers
         private static List<Report> reports;
         private static List<ObservedAttributes> observedAttributes;
         private static bool sessionStarted = false;
-        private static bool adamZeroEnabled = false;
         private static Package package;
 
         public static bool SessionStarted { get => sessionStarted; set => sessionStarted = value; }
@@ -26,7 +25,6 @@ namespace ChaosTerraria.Managers
         public static Session CurrentSession { get => currentSession; set => currentSession = value; }
 
         public static Package Package { get => package; set => package = value; }
-        public static bool AdamZeroEnabled { get => adamZeroEnabled; set => adamZeroEnabled = value; }
 
         public static void InitializeSession()
         {
