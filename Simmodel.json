@@ -48,12 +48,22 @@
     [
         {
             "$TYPE": "BiasInput",
-            "$DEFAULT": "false",
+            "$DEFAULT": "true",
             "weight": "{{rndFloat '-5:5' }}"
         },
         {
             "$TYPE": "BlockInput",
-            "$DEFAULT": "true"
+            "$DEFAULT": "true",
+            "direction":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "DIRECTIONS"
+            },
+            "range":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "RANGE"
+            }
         }
     ],
     "outputNeurons":
@@ -111,19 +121,25 @@
         [
             "Left",
             "Right"
+        ],
+        "RANGE":
+        [
+            "One",
+            "Two",
+            "Three",
+            "Four"
         ]
     },
     "templates":
     {
-        "POSITION_RANGE":
-        {
-            "minX": "{{rndInt '-5:5' }}",
-            "maxX": "{{rndInt '-5:5' }}",
-            "minY": "{{rndInt '-5:5' }}",
-            "maxY": "{{rndInt '-5:5' }}",
-            "minZ": "{{rndInt '-5:5' }}",
-            "maxZ": "{{rndInt '-5:5' }}"
-        }
+      "POSITION_RANGE": {
+        "minX": "{{rndInt '-5:5' }}",
+        "maxX": "{{rndInt '-5:5' }}",
+        "minY": "{{rndInt '-5:5' }}",
+        "maxY": "{{rndInt '-5:5' }}",
+        "minZ": "{{rndInt '-5:5' }}",
+        "maxZ": "{{rndInt '-5:5' }}"
+      }
     },
     "activators":
     [

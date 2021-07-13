@@ -15,6 +15,7 @@ namespace ChaosTerraria.AI
         public Dependency[] dependencies;
         public string id;
         public string direction;
+        public string range;
         [JsonIgnore]
         public double value;
         [JsonIgnore]

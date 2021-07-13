@@ -73,10 +73,10 @@ namespace ChaosTerraria.NPCs
 
             if (timer > 18 && npc.active == true)
             {
-                DoScan();
+                //DoScan();
                 if (organism != null && tiles != null)
                 {
-                    int action = organism.nNet.GetOutput(tiles, "AdamZero", out int direction);
+                    int action = organism.nNet.GetOutput(npc.Center, "AdamZero", out int direction);
                     DoActions(action, direction);
                 }
             }
@@ -314,26 +314,6 @@ namespace ChaosTerraria.NPCs
         {
             if (organism != null)
                 drawColor = drawColor.MultiplyRGB(Color.Green);
-        }
-
-        private void DoScan()
-        {
-            int range = 2;
-            int blockCount = 0;
-            int tileType;
-            Point startPoint = npc.Center.ToTileCoordinates();
-
-            for (int i = startPoint.X - range; i < startPoint.X + range; i++)
-            {
-                for (int j = startPoint.Y - range; j < startPoint.Y + range; j++)
-                {
-                    if (i >= 0 && i < Main.maxTilesX && j >= 0 && j < Main.maxTilesY)
-                    {
-                        tileType = Framing.GetTileSafely(i, j).type == 0 ? 1 : Framing.GetTileSafely(i, j).type;
-                        tiles[blockCount++] = tileType;
-                    }
-                }
-            }
         }
 
         public override bool CanChat()

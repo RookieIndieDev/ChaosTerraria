@@ -1,8 +1,10 @@
 ﻿using ChaosTerraria.Enums;
 using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 
 namespace ChaosTerraria.AI
@@ -10,17 +12,67 @@ namespace ChaosTerraria.AI
     public class NNet
     {
         public List<Neuron> neurons;
-        public int GetOutput(int[] input, string speciesNamespace, out int direction)
+
+        public int GetOutput(Vector2 center, string speciesNamespace, out int direction)
         {
-            int inputIndex = 0;
             int output = -100;
             double outputValue = 0;
             int tempDirection = -1;
+            Vector2 tilePos = new Vector2();
+            int tileType = 0;
+            Type rangeType = typeof(Range);
             foreach (Neuron neuron in neurons)
             {
                 if (neuron.type == "BlockInput")
                 {
-                    neuron.value = input[inputIndex++];
+                    switch((int)Enum.Parse(typeof(Direction), neuron.direction))
+                    {
+
+                        case (int)Direction.Top:
+                            tilePos.X = center.X;
+                            tilePos.Y = center.Y - (int)Enum.Parse(rangeType, neuron.range);
+                            break;
+                        case (int)Direction.TopLeft:
+                            tilePos.X = center.X - (int)Enum.Parse(rangeType, neuron.range);
+                            tilePos.Y = center.Y - (int)Enum.Parse(rangeType, neuron.range);
+                            break;
+                        case (int)Direction.TopRight:
+                            tilePos.X = center.X + (int)Enum.Parse(rangeType, neuron.range);
+                            tilePos.Y = center.Y - (int)Enum.Parse(rangeType, neuron.range);
+                            break;
+                        case (int)Direction.Bottom:
+                            tilePos.X = center.X;
+                            tilePos.Y = center.Y + (int)Enum.Parse(rangeType, neuron.range);
+                            break;
+                        case (int)Direction.BottomLeft:
+                            tilePos.X = center.X - (int)Enum.Parse(rangeType, neuron.range);
+                            tilePos.Y = center.Y + (int)Enum.Parse(rangeType, neuron.range);
+                            break;
+                        case (int)Direction.BottomRight:
+                            tilePos.X = center.X + (int)Enum.Parse(rangeType, neuron.range);
+                            tilePos.Y = center.Y + (int)Enum.Parse(rangeType, neuron.range);
+                            break;
+                        case (int)Direction.Left:
+                            tilePos.X = center.X - (int)Enum.Parse(rangeType, neuron.range);
+                            tilePos.Y = center.Y;
+                            break;
+                        case (int)Direction.Right:
+                            tilePos.X = center.X + (int)Enum.Parse(rangeType, neuron.range);
+                            tilePos.Y = center.Y;
+                            break;
+                    }
+                    Point pos = tilePos.ToTileCoordinates();
+                    if(pos.X >= 0 && pos.Y >=0 && pos.X < Main.maxTilesX && pos.Y < Main.maxTilesY)
+                    {
+                        Tile tile = Framing.GetTileSafely(pos);
+                        if (tile.active())
+                        {
+                            tileType = tile.type == 0 ? 1 : tile.type;
+                        }
+                            
+                    }
+
+                    neuron.value = tileType;
                     neuron.evaluated = true;
                     ObservedAttributes observedAttr;
                     observedAttr.attributeId = "BLOCK_ID";
