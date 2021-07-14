@@ -1,93 +1,29 @@
 {
-  "neurons": [
-    {
-      "_base_type": "input",
-      "id": "neuron-1",
-      "$TYPE": "BlockInput",
-      "dependencies": []
-    },
-    {
-      "_base_type": "input",
-      "id": "neuron-2",
-      "$TYPE": "BlockInput",
-      "dependencies": []
-    },
-    {
-      "_base_type": "input",
-      "id": "neuron-3",
-      "$TYPE": "BlockInput",
-      "dependencies": []
-    },
-    {
-      "_base_type": "middle",
-      "id": "neuron-4",
-      "$TYPE": "MiddleNeuron",
-      "dependencies": [
+    "neurons":
+    [
         {
-          "neuronId": "neuron-1",
-          "weight": 0.09944940389028911,
-          "_originNaturalGen": 0,
-          "_originGen": 0
+            "_base_type": "input",
+            "id": "neuron-1",
+            "$TYPE": "BiasInput",
+            "dependencies":
+            [],
+            "weight": 5
         },
         {
-          "neuronId": "neuron-2",
-          "weight": -2.3288030149709416,
-          "_originNaturalGen": 0,
-          "_originGen": 0
-        },
-        {
-          "neuronId": "neuron-3",
-          "weight": 4.232836259498146,
-          "_originNaturalGen": 0,
-          "_originGen": 0
+            "_base_type": "output",
+            "id": "neuron-2",
+            "$TYPE": "MineBlock",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": -4.874602003346537,
+                    "_originNaturalGen": 0,
+                    "_originGen": 0
+                }
+            ],
+            "$OUTPUT_GROUP": "basic",
+            "direction": "TopLeft"
         }
-      ],
-      "activator": "Sigmoid"
-    },
-    {
-      "_base_type": "middle",
-      "id": "neuron-5",
-      "$TYPE": "MiddleNeuron",
-      "dependencies": [
-        {
-          "neuronId": "neuron-2",
-          "weight": -2.3647666794349966,
-          "_originNaturalGen": 0,
-          "_originGen": 0
-        },
-        {
-          "neuronId": "neuron-3",
-          "weight": -4.0053542094096874,
-          "_originNaturalGen": 0,
-          "_originGen": 0
-        },
-        {
-          "neuronId": "neuron-1",
-          "weight": 1.4541882226962883,
-          "_originNaturalGen": 0,
-          "_originGen": 0
-        }
-      ],
-      "activator": "Sigmoid"
-    },
-    {
-      "_base_type": "output",
-      "id": "neuron-6",
-      "$TYPE": "PlaceBlockBottomRight",
-      "dependencies": [
-        {
-          "neuronId": "neuron-4",
-          "weight": 4.200784243435569,
-          "_originNaturalGen": 0,
-          "_originGen": 0
-        },
-        {
-          "neuronId": "neuron-5",
-          "weight": 2.5080011116417653,
-          "_originNaturalGen": 0,
-          "_originGen": 0
-        }
-      ]
-    }
-  ]
+    ]
 }

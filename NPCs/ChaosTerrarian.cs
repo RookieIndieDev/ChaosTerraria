@@ -89,6 +89,8 @@ namespace ChaosTerraria.NPCs
 
                 if (SessionManager.Package.roles != null)
                     report.score += FitnessManager.TestFitness(this, lastMinedTile, lastPlacedTile);
+                lastMinedTile = null;
+                lastPlacedTile = null;
                 timer = 0;
             }
 

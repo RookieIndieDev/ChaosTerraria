@@ -16,7 +16,7 @@ namespace ChaosTerraria.AI
         public int GetOutput(Vector2 center, string speciesNamespace, out int direction)
         {
             int output = -100;
-            double outputValue = 0;
+            double outputValue = -100;
             int tempDirection = -1;
             Vector2 tilePos = new Vector2();
             int tileType = 0;
