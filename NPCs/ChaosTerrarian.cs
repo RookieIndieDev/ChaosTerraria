@@ -5,6 +5,7 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,6 +22,7 @@ namespace ChaosTerraria.NPCs
 
         private static int timer;
         private int timeLeft = 0;
+        private int currentAction = -1;
         private int[] tiles = new int[25];
         internal Organism organism;
         private bool orgAssigned = false;
@@ -80,10 +82,10 @@ namespace ChaosTerraria.NPCs
 
             if (timer > 18 && npc.active == true)
             {
-                //DoScan();
                 if (organism != null && tiles != null)
                 {
                     int action = organism.nNet.GetOutput(npc.Center, organism.speciesNamespace, out int direction);
+                    currentAction = action;
                     DoActions(action, direction);
                 }
 
@@ -404,7 +406,7 @@ namespace ChaosTerraria.NPCs
         public override string GetChat()
         {
             if (organism != null)
-                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace;
+                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace + "\n" + "Current Action: " + (OutputType) currentAction;
             return "Org Not Assigned";
         }
 

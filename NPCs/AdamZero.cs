@@ -73,7 +73,6 @@ namespace ChaosTerraria.NPCs
 
             if (timer > 18 && npc.active == true)
             {
-                //DoScan();
                 if (organism != null && tiles != null)
                 {
                     int action = organism.nNet.GetOutput(npc.Center, "AdamZero", out int direction);
