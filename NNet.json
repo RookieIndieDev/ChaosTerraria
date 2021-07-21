@@ -23,7 +23,7 @@
                 }
             ],
             "$OUTPUT_GROUP": "basic",
-            "direction": "TopLeft"
+            "direction": "Left"
         }
     ]
 }

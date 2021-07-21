@@ -22,11 +22,12 @@ namespace ChaosTerraria.Managers
         private static Random rand = new Random();
         private static ChaosNetworkHelper networkHelper = new ChaosNetworkHelper();
         private static int timer;
+        private static bool timerEnabled;
 
         public static void SpawnTerrarians()
         {
-
-            timer++;
+            if(timerEnabled)
+                timer++;
 #if DEBUG
             if (adamZeroCount == 0)
             {
@@ -57,11 +58,6 @@ namespace ChaosTerraria.Managers
             {
                 if (ChaosWorld.spawnBlocks.Count > 0)
                 {
-                    //if (timer > 300)
-                    //{
-                    //    networkHelper.DoSessionNext();
-                    //    timer = 0;
-                    //}
 
                     if (SessionManager.Organisms != null)
                     {
@@ -101,7 +97,7 @@ namespace ChaosTerraria.Managers
 
                         }
 
-                        if(timer > 3600 && totalSpawned == 0)
+                        if(timer == 3600 && totalSpawned == 0)
                         {
                             timer = 0;
                             totalSpawned = spawnCount;
@@ -111,6 +107,7 @@ namespace ChaosTerraria.Managers
                         {
                             networkHelper.DoSessionNext();
                             totalSpawned = 0;
+                            timerEnabled = !timerEnabled;
                         }
                     }
                 }
