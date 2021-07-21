@@ -31,6 +31,7 @@ namespace ChaosTerraria.NPCs
         private Item[] items = new Item[40];
         Tile lastPlacedTile;
         Tile lastMinedTile;
+        int lastMinedTileType = -1;
         internal SpawnBlockTileEntity spawnBlockTileEntity;
 
         public override void SetStaticDefaults()
@@ -90,9 +91,10 @@ namespace ChaosTerraria.NPCs
                 }
 
                 if (SessionManager.Package.roles != null)
-                    report.score += FitnessManager.TestFitness(this, lastMinedTile, lastPlacedTile);
+                    report.score += FitnessManager.TestFitness(this, lastMinedTileType, lastPlacedTile);
                 lastMinedTile = null;
                 lastPlacedTile = null;
+                lastMinedTileType = -1;
                 timer = 0;
             }
 
@@ -192,6 +194,7 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Left.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
@@ -206,6 +209,7 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Right.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
@@ -220,6 +224,7 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.BottomRight.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
@@ -234,6 +239,7 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.BottomLeft.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
@@ -249,6 +255,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Bottom.ToTileCoordinates();
 
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
@@ -263,7 +270,7 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.TopRight.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-
+            lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
@@ -278,6 +285,7 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.TopLeft.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
@@ -292,6 +300,7 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Top.ToTileCoordinates();
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);

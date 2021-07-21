@@ -18,7 +18,7 @@ namespace ChaosTerraria.Fitness
         public static List<FitnessRule> fitnessRules;
         private static FitnessRuleType type;
 
-        public static int TestFitness(ChaosTerrarian org, Tile minedTile, Tile placedTile)
+        public static int TestFitness(ChaosTerrarian org, int minedTileType, Tile placedTile)
         {
             int score = 0;
             if (org.organism != null)
@@ -41,7 +41,7 @@ namespace ChaosTerraria.Fitness
                             score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
                             break;
                         case FitnessRuleType.BLOCK_MINED:
-                            score += TestBlockMined(rule.attributeValue, minedTile, rule.scoreEffect);
+                            score += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
                             break;
                         case FitnessRuleType.BLOCK_PLACED:
                             score += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
@@ -69,14 +69,14 @@ namespace ChaosTerraria.Fitness
             return score;
         }
 
-        private static int TestBlockMined(String blockId, Tile minedTile, int scoreEffect)
+        private static int TestBlockMined(String blockId, int minedTileType, int scoreEffect)
         {
             int score = 0;
 
-            if(minedTile != null)
+            if(minedTileType != -1)
             {
                 
-                if (TileID.GetUniqueKey(minedTile.type).Split(' ')[1] == blockId)
+                if (TileID.GetUniqueKey(minedTileType).Split(' ')[1] == blockId)
                 {
                     score += scoreEffect;
                 }
