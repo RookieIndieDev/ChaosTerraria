@@ -20,14 +20,14 @@ namespace ChaosTerraria.NPCs
     {
         public override string Texture => "ChaosTerraria/NPCs/Terrarian";
 
-        private static int timer;
-        private int timeLeft = 0;
+        private static int actionTimer;
+        private int lifeTimer = 0;
         private int currentAction = -1;
         private int[] tiles = new int[25];
         internal Organism organism;
         private bool orgAssigned = false;
         private Report report;
-        private int lifeTicks = 600;
+        private int lifeTicks;
         private Item[] items = new Item[40];
         Tile lastPlacedTile;
         Tile lastMinedTile;
@@ -76,12 +76,27 @@ namespace ChaosTerraria.NPCs
                     report.nameSpace = organism.nameSpace;
                 }
                 orgAssigned = true;
+                foreach(Role role in SessionManager.Package.roles)
+                {
+                    if(role.nameSpace == organism.trainingRoomRoleNamespace)
+                    {
+                        foreach (Setting setting in role.settings)
+                        {
+                            if (setting.nameSpace == "BASE_LIFE_SECONDS")
+                            {
+                                lifeTicks = int.Parse(setting.value) * 60;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
             }
 
-            timer++;
-            timeLeft++;
+            actionTimer++;
+            lifeTimer++;
 
-            if (timer > 18 && npc.active == true)
+            if (actionTimer > 18 && npc.active == true)
             {
                 if (organism != null && tiles != null)
                 {
@@ -95,10 +110,10 @@ namespace ChaosTerraria.NPCs
                 lastMinedTile = null;
                 lastPlacedTile = null;
                 lastMinedTileType = -1;
-                timer = 0;
+                actionTimer = 0;
             }
 
-            if (timeLeft > lifeTicks && npc.active == true)
+            if (lifeTimer > lifeTicks && npc.active == true)
             {
                 if (organism != null && !SessionManager.Reports.Contains(report))
                 {
@@ -107,7 +122,7 @@ namespace ChaosTerraria.NPCs
 
                 SpawnManager.activeBotCount--;
                 SpawnManager.totalSpawned++;
-                timeLeft = 0;
+                lifeTimer = 0;
                 npc.life = 0;
                 if (spawnBlockTileEntity != null)
                     spawnBlockTileEntity.spawnedSoFar--;
@@ -415,7 +430,7 @@ namespace ChaosTerraria.NPCs
         public override string GetChat()
         {
             if (organism != null)
-                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace + "\n" + "Current Action: " + (OutputType) currentAction;
+                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace + "\n" + "Current Action: " + (OutputType) currentAction + "\n" + "Time Left: " + ((lifeTicks - lifeTimer)/60); 
             return "Org Not Assigned";
         }
 

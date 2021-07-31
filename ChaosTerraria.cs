@@ -59,8 +59,6 @@ namespace ChaosTerraria
             }
         }
 
-
-
         public override void Unload()
         {
             loginHotkey = null;
