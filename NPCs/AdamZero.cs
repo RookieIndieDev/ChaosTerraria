@@ -113,24 +113,28 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Left.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            npc.direction = -1;
         }
 
         private void PlaceBlockRight()
         {
             var pos = npc.Right.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            npc.direction = 1;
         }
 
         private void PlaceBlockBottomRight()
         {
             var pos = npc.BottomRight.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            npc.direction = 1;
         }
 
         private void PlaceBlockBottomLeft()
         {
             var pos = npc.BottomLeft.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            npc.direction = -1;
         }
 
         private void PlaceBlockBottom()
@@ -143,12 +147,14 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.TopRight.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            npc.direction = 1;
         }
 
         private void PlaceBlockTopLeft()
         {
             var pos = npc.TopLeft.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
+            npc.direction = -1;
         }
 
         private void PlaceBlockTop()
@@ -162,6 +168,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Left.ToTileCoordinates();
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
+            npc.direction = -1;
         }
 
         private void MineBlockRight()
@@ -169,6 +176,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Right.ToTileCoordinates();
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
+            npc.direction = 1;
         }
 
         private void MineBlockBottomRight()
@@ -176,6 +184,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.BottomRight.ToTileCoordinates();
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
+            npc.direction = 1;
         }
 
         private void MineBlockBottomLeft()
@@ -183,6 +192,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.BottomLeft.ToTileCoordinates();
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
+            npc.direction = -1;
         }
 
         private void MineBlockBottom()
@@ -197,6 +207,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.TopRight.ToTileCoordinates();
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
+            npc.direction = 1;
         }
 
         private void MineBlockTopLeft()
@@ -204,6 +215,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.TopLeft.ToTileCoordinates();
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
+            npc.direction = -1;
         }
 
         private void MineBlockTop()

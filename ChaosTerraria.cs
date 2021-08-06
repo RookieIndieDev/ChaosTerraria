@@ -45,16 +45,8 @@ namespace ChaosTerraria
                 }
                 else
                 {
-                    try
-                    {
-                        ChaosNetConfig.ReadConfig();
-                        SessionManager.SetCurrentSessionNamespace();
-                    }
-                    catch
-                    {
-
-
-                    }
+                    ChaosNetConfig.ReadConfig();
+                    SessionManager.SetCurrentSessionNamespace();
                 }
             }
         }

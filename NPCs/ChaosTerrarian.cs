@@ -5,7 +5,6 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +13,6 @@ namespace ChaosTerraria.NPCs
 {
     //TODO: Display Score in NPC chat window
     //TODO: Change Sprite
-    //TODO: Implement seconds to live and lifeEffect
     //TODO: Implement fitness event in NPC Chat window?
     public class ChaosTerrarian : ModNPC
     {
@@ -95,7 +93,6 @@ namespace ChaosTerraria.NPCs
 
             actionTimer++;
             lifeTimer++;
-
             if (actionTimer > 18 && npc.active == true)
             {
                 if (organism != null && tiles != null)
@@ -154,6 +151,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Left.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
             lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            npc.direction = -1;
         }
 
         private void PlaceBlockRight()
@@ -161,6 +159,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Right.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
             lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            npc.direction = 1;
         }
 
         private void PlaceBlockBottomRight()
@@ -168,6 +167,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.BottomRight.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
             lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            npc.direction = 1;
         }
 
         private void PlaceBlockBottomLeft()
@@ -175,6 +175,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.BottomLeft.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
             lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            npc.direction = -1;
         }
 
         private void PlaceBlockBottom()
@@ -189,6 +190,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.TopRight.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
             lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            npc.direction = 1;
         }
 
         private void PlaceBlockTopLeft()
@@ -196,6 +198,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.TopLeft.ToTileCoordinates();
             WorldGen.PlaceTile(pos.X, pos.Y, TileID.Dirt);
             lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+            npc.direction = -1;
         }
 
         private void PlaceBlockTop()
@@ -213,6 +216,7 @@ namespace ChaosTerraria.NPCs
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
+                npc.direction = -1;
             }
             else
             {
@@ -228,6 +232,7 @@ namespace ChaosTerraria.NPCs
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
+                npc.direction = 1;
             }
             else
             {
@@ -243,6 +248,7 @@ namespace ChaosTerraria.NPCs
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
+                npc.direction = 1;
             }
             else
             {
@@ -258,6 +264,7 @@ namespace ChaosTerraria.NPCs
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
+                npc.direction = -1;
             }
             else
             {
@@ -289,6 +296,7 @@ namespace ChaosTerraria.NPCs
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
+                npc.direction = 1;
             }
             else
             {
@@ -304,6 +312,7 @@ namespace ChaosTerraria.NPCs
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
                 WorldGen.KillTile(pos.X, pos.Y);
+                npc.direction = -1;
             }
             else
             {
