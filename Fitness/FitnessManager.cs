@@ -1,64 +1,104 @@
 ﻿using ChaosTerraria.Enums;
-using ChaosTerraria.Managers;
 using ChaosTerraria.NPCs;
-using ChaosTerraria.Structs;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using ChaosTerraria.Classes;
 
 namespace ChaosTerraria.Fitness
 {
     //TODO: Create EventHandler for Fitness Event
-    //TODO: Implement lifeEffect
     //TODO: Change Postitions in TestMoveAlongAxis() to tileCoords?
-    public static class FitnessManager
+    public class FitnessManager
     {
-        public static List<FitnessRule> fitnessRules;
-        private static FitnessRuleType type;
+        private List<FitnessRule> fitnessRules;
+        private FitnessRuleType type;
 
-        public static int TestFitness(ChaosTerrarian org, int minedTileType, Tile placedTile)
+        public FitnessManager(List<FitnessRule> rules)
+        {
+            fitnessRules = new List<FitnessRule>(rules);
+        }
+
+        public int TestFitness(ChaosTerrarian org, int minedTileType, Tile placedTile, out int lifeEffect)
         {
             int score = 0;
-            if (org.organism != null)
+            int tempLifeEffect = 0;
+            if (fitnessRules != null)
             {
-                foreach (Role role in SessionManager.Package.roles)
-                {
-                    if (role.nameSpace == org.organism.trainingRoomRoleNamespace)
-                    {
-                        fitnessRules = JsonConvert.DeserializeObject<List<FitnessRule>>(role.fitnessRulesRaw);
-                        break;
-                    }
-                }
-
                 foreach (FitnessRule rule in fitnessRules)
                 {
                     Enum.TryParse(rule.eventType, out type);
                     switch (type)
                     {
                         case FitnessRuleType.MOVE_ALONG_AXIS:
-                            score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
+                            if(rule.maxOccurrences == -1)
+                            {
+                                score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
+                                if (score != 0)
+                                    tempLifeEffect += rule.lifeEffect;
+                            }
+                            else if(rule.maxOccurrences > 0)
+                            {
+                                score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
+                                if (score != 0)
+                                {
+                                    rule.maxOccurrences--;
+                                    tempLifeEffect += rule.lifeEffect;
+                                }
+
+                            }
                             break;
                         case FitnessRuleType.BLOCK_MINED:
-                            score += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
+                            if (rule.maxOccurrences == -1)
+                            {
+                                score += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
+                                if (score != 0)
+                                    tempLifeEffect += rule.lifeEffect;
+                            }
+                            else if(rule.maxOccurrences > 0)
+                            {
+                                score += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
+                                if (score != 0)
+                                {
+                                    rule.maxOccurrences--;
+                                    tempLifeEffect += rule.lifeEffect;
+                                }
+                            }
                             break;
                         case FitnessRuleType.BLOCK_PLACED:
-                            score += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
+                            if(rule.maxOccurrences == -1)
+                            {
+                                score += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
+                                if (score != 0)
+                                    tempLifeEffect += rule.lifeEffect;
+                            }
+                            else if(rule.maxOccurrences > 0)
+                            {
+                                score += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
+                                if (score != 0)
+                                {
+                                    rule.maxOccurrences--;
+                                    tempLifeEffect += rule.lifeEffect;
+                                }
+                            }
                             break;
                         default:
                             break;
                     }
                 }
             }
+
+            lifeEffect = tempLifeEffect;
             return score;
         }
 
-        private static int TestBlockPlaced(string blockId, Tile placedTile, int scoreEffect)
+        private int TestBlockPlaced(string blockId, Tile placedTile, int scoreEffect)
         {
             int score = 0;
 
-            if(placedTile != null){
+            if (placedTile != null)
+            {
                 ;
                 if (TileID.GetUniqueKey(placedTile.type).Split(' ')[1] == blockId)
                 {
@@ -69,13 +109,13 @@ namespace ChaosTerraria.Fitness
             return score;
         }
 
-        private static int TestBlockMined(String blockId, int minedTileType, int scoreEffect)
+        private int TestBlockMined(String blockId, int minedTileType, int scoreEffect)
         {
             int score = 0;
 
-            if(minedTileType != -1)
+            if (minedTileType != -1)
             {
-                
+
                 if (TileID.GetUniqueKey(minedTileType).Split(' ')[1] == blockId)
                 {
                     score += scoreEffect;
@@ -85,7 +125,7 @@ namespace ChaosTerraria.Fitness
             return score;
         }
 
-        private static int TestMoveAlongAxis(String axis, ChaosTerrarian org, int scoreEffect)
+        private int TestMoveAlongAxis(String axis, ChaosTerrarian org, int scoreEffect)
         {
             int score = 0;
             switch (axis)

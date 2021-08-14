@@ -5,6 +5,8 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,6 +33,7 @@ namespace ChaosTerraria.NPCs
         Tile lastMinedTile;
         int lastMinedTileType = -1;
         internal SpawnBlockTileEntity spawnBlockTileEntity;
+        FitnessManager fitnessManager;
 
         public override void SetStaticDefaults()
         {
@@ -56,7 +59,7 @@ namespace ChaosTerraria.NPCs
             npc.damage = 10;
             npc.defense = 10;
             npc.lifeMax = 100;
-            npc.knockBackResist = 0.5f;
+            npc.knockBackResist = 0.8f;
             animationType = NPCID.Guide;
             npc.homeless = true;
             npc.noGravity = false;
@@ -65,6 +68,7 @@ namespace ChaosTerraria.NPCs
 
         public override void AI()
         {
+            int lifeEffect = 0;
             if (SessionManager.Organisms != null && !orgAssigned && SessionManager.Organisms.Count > 0)
             {
                 organism = SessionManager.GetOrganism();
@@ -86,6 +90,7 @@ namespace ChaosTerraria.NPCs
                                 break;
                             }
                         }
+                        fitnessManager = new FitnessManager(JsonConvert.DeserializeObject<List<FitnessRule>>(role.fitnessRulesRaw));
                         break;
                     }
                 }
@@ -102,12 +107,13 @@ namespace ChaosTerraria.NPCs
                     DoActions(action, direction);
                 }
 
-                if (SessionManager.Package.roles != null)
-                    report.score += FitnessManager.TestFitness(this, lastMinedTileType, lastPlacedTile);
+                if (SessionManager.Package.roles != null && fitnessManager != null)
+                    report.score += fitnessManager.TestFitness(this, lastMinedTileType, lastPlacedTile, out lifeEffect);
                 lastMinedTile = null;
                 lastPlacedTile = null;
                 lastMinedTileType = -1;
                 actionTimer = 0;
+                lifeTicks += (lifeEffect * 60);
             }
 
             if (lifeTimer > lifeTicks && npc.active == true)

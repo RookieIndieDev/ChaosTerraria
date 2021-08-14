@@ -49,7 +49,7 @@ namespace ChaosTerraria.NPCs
             npc.damage = 10;
             npc.defense = 10;
             npc.lifeMax = 100;
-            npc.knockBackResist = 0.5f;
+            npc.knockBackResist = 0.8f;
             animationType = NPCID.Guide;
             npc.homeless = true;
             npc.noGravity = false;
