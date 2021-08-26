@@ -54,6 +54,14 @@
                 "$SOURCE": "enum",
                 "$ATTRIBUTE_ID": "BLOCK_ID"
             }
+        },
+        {
+            "eventType": "ITEM_CRAFTED",
+            "attributeId": "ITEM_ID",
+            "attributeValue":{
+                "$SOURCE" :"enum",
+                "$ATTRIBUTE_ID": "ITEM_ID"
+            }
         }
     ],
     "inputNeurons":

@@ -125,7 +125,7 @@ namespace ChaosTerraria.NPCs
                 }
 
                 if (SessionManager.Package.roles != null && fitnessManager != null)
-                    report.score += fitnessManager.TestFitness(this, lastMinedTileType, lastPlacedTile, out lifeEffect);
+                    report.score += fitnessManager.TestFitness(this, lastMinedTileType, lastPlacedTile, craftedItem, out lifeEffect);
                 lastMinedTile = null;
                 lastPlacedTile = null;
                 lastMinedTileType = -1;
@@ -138,8 +138,9 @@ namespace ChaosTerraria.NPCs
             {
                 RecipeFinder recipeFinder = new RecipeFinder();
                 foreach (Item item in inventory)
-                { 
-                    int id = ItemID.Search.GetId(item.Name);
+                {
+                    var name = item.Name.Replace(" ", "");
+                    int id = ItemID.Search.GetId(name);
                     recipeFinder.AddIngredient(id);
                     List<Recipe> recipes = recipeFinder.SearchRecipes();
                     if(recipes != null)
@@ -459,7 +460,8 @@ namespace ChaosTerraria.NPCs
             bool canCraft = false;
             int availableIngredientCount = 0;
             RecipeFinder finder = new RecipeFinder();
-            ItemID.Search.TryGetId(itemToCraft.Replace(" ", ""), out int id);
+            itemToCraft = itemToCraft.Replace(" ", "");
+            ItemID.Search.TryGetId(itemToCraft, out int id);
             finder.SetResult(id);
             List<Recipe> recipes = finder.SearchRecipes();
             if (recipes != null && inventory != null)
@@ -496,7 +498,7 @@ namespace ChaosTerraria.NPCs
                     else
                     {
                         inventory.Add(new Item());
-                        int itemId = ItemID.Search.GetId(recipes[0].createItem.Name);
+                        int itemId = ItemID.Search.GetId(itemToCraft);
                         inventory[inventoryLastItemIndex].SetDefaults(itemId);
                         inventory[inventoryLastItemIndex].stack = recipes[0].createItem.stack;
                         inventoryLastItemIndex++;

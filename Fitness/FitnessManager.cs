@@ -20,31 +20,40 @@ namespace ChaosTerraria.Fitness
             fitnessRules = new List<FitnessRule>(rules);
         }
 
-        public int TestFitness(ChaosTerrarian org, int minedTileType, Tile placedTile, out int lifeEffect)
+        public int TestFitness(ChaosTerrarian org, int minedTileType, Tile placedTile, string craftedItem, out int lifeEffect)
         {
             int score = 0;
             int tempLifeEffect = 0;
+            int tempScore = 0;
             if (fitnessRules != null)
             {
                 foreach (FitnessRule rule in fitnessRules)
                 {
+                    tempScore = 0;
                     Enum.TryParse(rule.eventType, out type);
                     switch (type)
                     {
                         case FitnessRuleType.MOVE_ALONG_AXIS:
-                            if(rule.maxOccurrences == -1)
+
+                            if (rule.maxOccurrences == -1)
                             {
-                                score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
-                                if (score != 0)
+
+                                tempScore += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
+                                if (tempScore != 0)
+                                {
                                     tempLifeEffect += rule.lifeEffect;
+                                    score += tempScore;
+                                }
+
                             }
                             else if(rule.maxOccurrences > 0)
                             {
-                                score += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
-                                if (score != 0)
+                                tempScore += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
+                                if (tempScore != 0)
                                 {
                                     rule.maxOccurrences--;
                                     tempLifeEffect += rule.lifeEffect;
+                                    score += tempScore;
                                 }
 
                             }
@@ -52,34 +61,64 @@ namespace ChaosTerraria.Fitness
                         case FitnessRuleType.BLOCK_MINED:
                             if (rule.maxOccurrences == -1)
                             {
-                                score += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
-                                if (score != 0)
+                                tempScore += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
+                                if (tempScore != 0)
+                                {
                                     tempLifeEffect += rule.lifeEffect;
+                                    score += tempScore;
+                                }
+
                             }
                             else if(rule.maxOccurrences > 0)
                             {
-                                score += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
-                                if (score != 0)
+                                tempScore += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
+                                if (tempScore != 0)
                                 {
                                     rule.maxOccurrences--;
                                     tempLifeEffect += rule.lifeEffect;
+                                    score += tempScore;
                                 }
                             }
                             break;
                         case FitnessRuleType.BLOCK_PLACED:
                             if(rule.maxOccurrences == -1)
                             {
-                                score += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
-                                if (score != 0)
+                                tempScore += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
+                                if (tempScore != 0)
+                                {
                                     tempLifeEffect += rule.lifeEffect;
+                                    score += tempScore;
+                                }
                             }
                             else if(rule.maxOccurrences > 0)
                             {
-                                score += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
-                                if (score != 0)
+                                tempScore += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
+                                if (tempScore != 0)
                                 {
                                     rule.maxOccurrences--;
                                     tempLifeEffect += rule.lifeEffect;
+                                    score += tempScore;
+                                }
+                            }
+                            break;
+                        case FitnessRuleType.ITEM_CRAFTED:
+                            if (rule.maxOccurrences == -1)
+                            {
+                                tempScore += TestItemCrafted(rule.attributeValue, craftedItem, rule.scoreEffect);
+                                if (tempScore != 0)
+                                {
+                                    tempLifeEffect += rule.lifeEffect;
+                                    score += tempScore;
+                                }
+                            }
+                            else if (rule.maxOccurrences > 0)
+                            {
+                                tempScore += TestItemCrafted(rule.attributeValue, craftedItem, rule.scoreEffect);
+                                if (tempScore != 0)
+                                {
+                                    rule.maxOccurrences--;
+                                    tempLifeEffect += rule.lifeEffect;
+                                    score += tempScore;
                                 }
                             }
                             break;
@@ -146,6 +185,14 @@ namespace ChaosTerraria.Fitness
                 default:
                     throw new Exception("Invalid Axis Value for this rule!");
             }
+            return score;
+        }
+
+        private int TestItemCrafted(String expectedItem, string craftedItem, int scoreEffect)
+        {
+            int score = 0;
+            if (craftedItem == expectedItem)
+                score += scoreEffect;
             return score;
         }
     }

@@ -4,6 +4,7 @@
         {
             MOVE_ALONG_AXIS,
             BLOCK_MINED,
-            BLOCK_PLACED
+            BLOCK_PLACED,
+            ITEM_CRAFTED
         }
 }
