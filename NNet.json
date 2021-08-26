@@ -12,18 +12,19 @@
         {
             "_base_type": "output",
             "id": "neuron-2",
-            "$TYPE": "MineBlock",
+            "$TYPE": "CraftItem",
             "dependencies":
             [
                 {
                     "neuronId": "neuron-1",
-                    "weight": -4.874602003346537,
+                    "weight": -3.394470512122739,
                     "_originNaturalGen": 0,
                     "_originGen": 0
                 }
             ],
-            "$OUTPUT_GROUP": "basic",
-            "direction": "Left"
+            "$OUTPUT_GROUP": "BASIC",
+            "attributeId": "BLOCK_ID",
+            "attributeValue": "Platinum Hammer"
         }
     ]
 }

@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using ChaosTerraria.Enums;
 using ChaosTerraria.Tiles;
 using ChaosTerraria.TileEntities;
+using System.Collections.Generic;
 
 namespace ChaosTerraria.NPCs
 {
@@ -19,12 +20,11 @@ namespace ChaosTerraria.NPCs
         public override string Texture => "ChaosTerraria/NPCs/Terrarian";
         private static int timer;
         private int timeLeft = 0;
-        private int[] tiles = new int[25];
         internal Organism organism;
         private int lifeTicks = 600;
-        private Item[] items = new Item[40];
+        private List<Item> inventory = new List<Item>();
         internal SpawnBlockTileEntity spawnBlockTileEntity;
-
+        int lastItemIndex = 0;
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 25;
@@ -41,6 +41,7 @@ namespace ChaosTerraria.NPCs
 
         public override void SetDefaults()
         {
+            int id = 0;
             npc.aiStyle = -1;
             npc.townNPC = false;
             npc.friendly = true;
@@ -64,6 +65,21 @@ namespace ChaosTerraria.NPCs
             };
 #endif
             npc.GivenName = "AdamZero";
+            inventory.Add(new Item());
+            ItemID.Search.TryGetId("Wood", out id);
+            inventory[lastItemIndex].SetDefaults(id);
+            inventory[lastItemIndex].stack = 10;
+            lastItemIndex++;
+            inventory.Add(new Item());
+            ItemID.Search.TryGetId("WorkBench", out id);
+            inventory[lastItemIndex].SetDefaults(id);
+            inventory[lastItemIndex].stack = 10;
+            lastItemIndex++;
+            inventory.Add(new Item());
+            ItemID.Search.TryGetId("Glass", out id);
+            inventory[lastItemIndex].SetDefaults(id);
+            inventory[lastItemIndex].stack = 10;
+            lastItemIndex++;
         }
 
         public override void AI()
@@ -73,10 +89,11 @@ namespace ChaosTerraria.NPCs
 
             if (timer > 18 && npc.active == true)
             {
-                if (organism != null && tiles != null)
+                if (organism != null)
                 {
-                    int action = organism.nNet.GetOutput(npc.Center, "AdamZero", out int direction);
-                    DoActions(action, direction);
+                    int action = organism.nNet.GetOutput(npc.Center, "AdamZero", inventory, out int direction, out string itemToCraft);
+                    DoActions(action, direction, itemToCraft);
+                    UpdateInventory();
                 }
             }
 
@@ -86,6 +103,21 @@ namespace ChaosTerraria.NPCs
                 timeLeft = 0;
                 npc.life = 0;
                 spawnBlockTileEntity.spawnedSoFar--;
+            }
+        }
+
+        private void UpdateInventory()
+        {
+            if (inventory != null)
+            {
+                for(int i = 0; i < inventory.Count; i++)
+                {
+                    if (inventory[i].stack == 0)
+                    {
+                        inventory.Remove(inventory[i]);
+                        lastItemIndex--;
+                    }
+                }
             }
         }
 
@@ -225,7 +257,7 @@ namespace ChaosTerraria.NPCs
                 WorldGen.KillTile(pos.X, pos.Y);
         }
 
-        public void DoActions(int action, int direction)
+        public void DoActions(int action, int direction, string itemToCraft)
         {
             switch (action)
             {
@@ -241,8 +273,73 @@ namespace ChaosTerraria.NPCs
                 case (int)OutputType.PlaceBlock:
                     PlaceBlock(direction);
                     break;
+                case (int)OutputType.CraftItem:
+                    CraftItem(itemToCraft);
+                    break;
                 default:
                     break;
+            }
+        }
+
+        private void CraftItem(string itemToCraft)
+        {
+            bool canCraft = false;
+            int availableIngredientCount = 0;
+            RecipeFinder finder = new RecipeFinder();
+            ItemID.Search.TryGetId(itemToCraft.Replace(" ", ""), out int id);
+            finder.SetResult(id);
+            List<Recipe> recipes = finder.SearchRecipes();
+            if (recipes != null && inventory != null)
+            {
+                int requiredIngredientCount = 0;
+                
+                foreach (Item ingredient in recipes[0].requiredItem)
+                {
+                    if (ingredient.active)
+                    {
+                        requiredIngredientCount++;
+                        foreach (Item inventoryItem in inventory)
+                        {
+                            if (inventoryItem.Name == ingredient.Name && inventoryItem.stack >= ingredient.stack)
+                            {
+                                availableIngredientCount++;
+                            }
+                        }
+                    }
+                }
+
+                if (requiredIngredientCount == availableIngredientCount)
+                    canCraft = true;
+            }
+            if (canCraft)
+            {
+                if (inventory != null)
+                {
+                    var item = inventory.Find(x => x.Name == itemToCraft && x.active);
+                    if (item != null)
+                    {
+                        item.stack += recipes[0].createItem.stack;
+                    }
+                    else
+                    {
+                        inventory.Add(new Item());
+                        int itemId = ItemID.Search.GetId(recipes[0].createItem.Name);
+                        inventory[lastItemIndex].SetDefaults(itemId);
+                        inventory[lastItemIndex].stack = recipes[0].createItem.stack;
+                        lastItemIndex++;
+                    }
+
+                    foreach(Item invItem in inventory)
+                    {
+                        foreach(Item reqItem in recipes[0].requiredItem)
+                        {
+                            if(invItem.Name == reqItem.Name && invItem.stack > 0)
+                            {
+                                invItem.stack = invItem.stack - reqItem.stack;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -334,27 +431,15 @@ namespace ChaosTerraria.NPCs
 
         public override string GetChat()
         {
-            if (organism != null)
-                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace;
-            return "Org Not Assigned";
-        }
-
-        public override void SetupShop(Chest shop, ref int nextSlot)
-        {
-            shop.item[nextSlot].SetDefaults(ItemID.Wood);
-        }
-
-        public override void SetChatButtons(ref string button, ref string button2)
-        {
-            button = "Bot Inventory";
-        }
-
-        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
-        {
-            if (firstButton)
+            string inventoryItems = "";
+            if (inventory != null)
             {
-                shop = true;
+                foreach (Item item in inventory)
+                {
+                    inventoryItems += "\n" + item.Name + " x" + item.stack;
+                }
             }
+            return "Inventory: " + inventoryItems;
         }
     }
 }

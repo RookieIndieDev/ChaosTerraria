@@ -20,21 +20,22 @@ namespace ChaosTerraria.NPCs
     {
         public override string Texture => "ChaosTerraria/NPCs/Terrarian";
 
-        private static int actionTimer;
+        private int actionTimer;
         private int lifeTimer = 0;
         private int currentAction = -1;
-        private int[] tiles = new int[25];
         internal Organism organism;
         private bool orgAssigned = false;
         private Report report;
         private int lifeTicks;
-        private Item[] items = new Item[40];
+        public List<Item> inventory = new List<Item>();
         Tile lastPlacedTile;
         Tile lastMinedTile;
         int lastMinedTileType = -1;
+        string craftedItem;
         internal SpawnBlockTileEntity spawnBlockTileEntity;
         FitnessManager fitnessManager;
-
+        private int inventoryLastItemIndex = 0;
+        
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 25;
@@ -78,16 +79,31 @@ namespace ChaosTerraria.NPCs
                     report.nameSpace = organism.nameSpace;
                 }
                 orgAssigned = true;
-                foreach(Role role in SessionManager.Package.roles)
+                foreach (Role role in SessionManager.Package.roles)
                 {
-                    if(role.nameSpace == organism.trainingRoomRoleNamespace)
+                    if (role.nameSpace == organism.trainingRoomRoleNamespace)
                     {
                         foreach (Setting setting in role.settings)
                         {
-                            if (setting.nameSpace == "BASE_LIFE_SECONDS")
+                            switch (setting.nameSpace)
                             {
-                                lifeTicks = int.Parse(setting.value) * 60;
-                                break;
+                                case "BASE_LIFE_SECONDS":
+                                    lifeTicks = int.Parse(setting.value) * 60;
+                                    break;
+                                case "INV_1":
+                                    var settingValue = setting.value.Split('@');
+                                    inventory.Add(new Item());
+                                    inventory[inventoryLastItemIndex].SetDefaults(ItemID.TypeFromUniqueKey("Terraria " + settingValue[0]));
+                                    inventory[inventoryLastItemIndex].stack = int.Parse(settingValue[1]);
+                                    inventoryLastItemIndex++;
+                                    break;
+                                case "INV_2":
+                                    settingValue = setting.value.Split('@');
+                                    inventory.Add(new Item());
+                                    inventory[inventoryLastItemIndex].SetDefaults(ItemID.TypeFromUniqueKey("Terraria " + settingValue[0]));
+                                    inventory[inventoryLastItemIndex].stack = int.Parse(settingValue[1]);
+                                    inventoryLastItemIndex++;
+                                    break;
                             }
                         }
                         fitnessManager = new FitnessManager(JsonConvert.DeserializeObject<List<FitnessRule>>(role.fitnessRulesRaw));
@@ -100,11 +116,12 @@ namespace ChaosTerraria.NPCs
             lifeTimer++;
             if (actionTimer > 18 && npc.active == true)
             {
-                if (organism != null && tiles != null)
+                if (organism != null)
                 {
-                    int action = organism.nNet.GetOutput(npc.Center, organism.speciesNamespace, out int direction);
+                    int action = organism.nNet.GetOutput(npc.Center, organism.speciesNamespace, inventory, out int direction, out string itemToCraft);
                     currentAction = action;
-                    DoActions(action, direction);
+                    DoActions(action, direction, itemToCraft);
+                    UpdateInventory();
                 }
 
                 if (SessionManager.Package.roles != null && fitnessManager != null)
@@ -112,12 +129,33 @@ namespace ChaosTerraria.NPCs
                 lastMinedTile = null;
                 lastPlacedTile = null;
                 lastMinedTileType = -1;
+                craftedItem = "";
                 actionTimer = 0;
                 lifeTicks += (lifeEffect * 60);
             }
 
             if (lifeTimer > lifeTicks && npc.active == true)
             {
+                RecipeFinder recipeFinder = new RecipeFinder();
+                foreach (Item item in inventory)
+                { 
+                    int id = ItemID.Search.GetId(item.Name);
+                    recipeFinder.AddIngredient(id);
+                    List<Recipe> recipes = recipeFinder.SearchRecipes();
+                    if(recipes != null)
+                    {
+                        foreach (Recipe recipe in recipes)
+                        {
+                            ObservedAttributes observedAttr;
+                            observedAttr.attributeId = "RECIPE_ID";
+                            observedAttr.attributeValue = recipe.createItem.Name;
+                            observedAttr.species = organism.speciesNamespace;
+                            if (!SessionManager.ObservedAttributes.Contains(observedAttr))
+                                SessionManager.ObservedAttributes.Add(observedAttr);
+                        }
+                    }
+                }
+
                 if (organism != null && !SessionManager.Reports.Contains(report))
                 {
                     SessionManager.Reports.Add(report);
@@ -416,7 +454,69 @@ namespace ChaosTerraria.NPCs
             }
         }
 
-        public void DoActions(int action, int direction)
+        private void CraftItem(string itemToCraft)
+        {
+            bool canCraft = false;
+            int availableIngredientCount = 0;
+            RecipeFinder finder = new RecipeFinder();
+            ItemID.Search.TryGetId(itemToCraft.Replace(" ", ""), out int id);
+            finder.SetResult(id);
+            List<Recipe> recipes = finder.SearchRecipes();
+            if (recipes != null && inventory != null)
+            {
+                int requiredIngredientCount = 0;
+
+                foreach (Item ingredient in recipes[0].requiredItem)
+                {
+                    if (ingredient.active)
+                    {
+                        requiredIngredientCount++;
+                        foreach (Item inventoryItem in inventory)
+                        {
+                            if (inventoryItem.Name == ingredient.Name && inventoryItem.stack >= ingredient.stack)
+                            {
+                                availableIngredientCount++;
+                            }
+                        }
+                    }
+                }
+
+                if (requiredIngredientCount == availableIngredientCount)
+                    canCraft = true;
+            }
+            if (canCraft)
+            {
+                if (inventory != null)
+                {
+                    var item = inventory.Find(x => x.Name == itemToCraft && x.active);
+                    if (item != null)
+                    {
+                        item.stack += recipes[0].createItem.stack;
+                    }
+                    else
+                    {
+                        inventory.Add(new Item());
+                        int itemId = ItemID.Search.GetId(recipes[0].createItem.Name);
+                        inventory[inventoryLastItemIndex].SetDefaults(itemId);
+                        inventory[inventoryLastItemIndex].stack = recipes[0].createItem.stack;
+                        inventoryLastItemIndex++;
+                    }
+                    craftedItem = itemToCraft;
+                    foreach (Item invItem in inventory)
+                    {
+                        foreach (Item reqItem in recipes[0].requiredItem)
+                        {
+                            if (invItem.Name == reqItem.Name && invItem.stack > 0)
+                            {
+                                invItem.stack = invItem.stack - reqItem.stack;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void DoActions(int action, int direction, string craftItemID)
         {
             switch (action)
             {
@@ -432,8 +532,26 @@ namespace ChaosTerraria.NPCs
                 case (int)OutputType.PlaceBlock:
                     PlaceBlock(direction);
                     break;
+                case (int)OutputType.CraftItem:
+                    CraftItem(craftItemID);
+                    break;
                 default:
                     break;
+            }
+        }
+
+        private void UpdateInventory()
+        {
+            if (inventory != null)
+            {
+                for (int i = 0; i < inventory.Count; i++)
+                {
+                    if (inventory[i].stack == 0)
+                    {
+                        inventory.Remove(inventory[i]);
+                        inventoryLastItemIndex--;
+                    }
+                }
             }
         }
 
@@ -444,27 +562,19 @@ namespace ChaosTerraria.NPCs
 
         public override string GetChat()
         {
-            if (organism != null)
-                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace + "\n" + "Current Action: " + (OutputType) currentAction + "\n" + "Time Left: " + ((lifeTicks - lifeTimer)/60); 
-            return "Org Not Assigned";
-        }
-
-        public override void SetupShop(Chest shop, ref int nextSlot)
-        {
-            shop.item[nextSlot].SetDefaults(ItemID.Wood);
-        }
-
-        public override void SetChatButtons(ref string button, ref string button2)
-        {
-            button = "Bot Inventory";
-        }
-
-        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
-        {
-            if (firstButton)
+            string inventoryItems = "";
+            if (inventory != null)
             {
-                shop = true;
+                foreach (Item item in inventory)
+                {
+                    inventoryItems += "\n" + item.Name + " x" + item.stack;
+                }
             }
+
+            if (organism != null)
+                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace 
+                    + "\n" + "Current Action: " + (OutputType)currentAction + "\n" + "Time Left: " + ((lifeTicks - lifeTimer) / 60) + "\n inventory: " + inventoryItems;
+            return "Org Not Assigned";
         }
     }
 }

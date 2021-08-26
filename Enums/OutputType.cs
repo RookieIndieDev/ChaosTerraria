@@ -5,6 +5,7 @@
         Jump,
         Move,
         MineBlock,
-        PlaceBlock
+        PlaceBlock,
+        CraftItem
     }
 }
