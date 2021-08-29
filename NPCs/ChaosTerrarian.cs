@@ -205,16 +205,18 @@ namespace ChaosTerraria.NPCs
             var item = FindInventoryItemStack(blockToPlace);
             if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
             {
-                if (blockToPlace.Contains("Door"))
+                if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
+                    item.stack--;
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
-                else
+                else if (item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
+                    item.stack--;
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
-                item.stack--;
-                lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
             }
             npc.direction = -1;
         }
@@ -230,13 +232,15 @@ namespace ChaosTerraria.NPCs
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
+                    item.stack--;
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
                 else if(item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
+                    item.stack--;
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
-                item.stack--;
-                lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
             }
             npc.direction = 1;
         }
@@ -249,16 +253,18 @@ namespace ChaosTerraria.NPCs
             var item = FindInventoryItemStack(blockToPlace);
             if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
             {
-                if (blockToPlace.Contains("Door"))
+                if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    item.stack--;
                 }
-                else
+                else if(item.createTile !=-1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    item.stack--;
                 }
-                lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
-                item.stack--;
             } 
             npc.direction = 1;
         }
@@ -271,16 +277,18 @@ namespace ChaosTerraria.NPCs
             var item = FindInventoryItemStack(blockToPlace);
             if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
             {
-                if (blockToPlace.Contains("Door"))
+                if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    item.stack--;
                 }
-                else
+                else if (item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    item.stack--;
                 }
-                lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
-                item.stack--;
             }
             npc.direction = -1;
         }
@@ -292,16 +300,18 @@ namespace ChaosTerraria.NPCs
             var item = FindInventoryItemStack(blockToPlace);
             if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
             {
-                if (blockToPlace.Contains("Door"))
+                if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    item.stack--;
                 }
-                else
+                else if (item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    item.stack--;
                 }
-                lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
-                item.stack--;
             }
         }
 
@@ -313,16 +323,18 @@ namespace ChaosTerraria.NPCs
             var item = FindInventoryItemStack(blockToPlace);
             if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
             {
-                if (blockToPlace.Contains("Door"))
+                                if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
+                    item.stack--;
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
-                else
+                else if(item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
+                    item.stack--;
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
-                item.stack--;
-                lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
             }
             npc.direction = 1;
         }
@@ -335,16 +347,18 @@ namespace ChaosTerraria.NPCs
             var item = FindInventoryItemStack(blockToPlace);
             if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
             {
-                if (blockToPlace.Contains("Door"))
+                if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    item.stack--;
                 }
-                else
+                else if(item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
+                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    item.stack--;
                 }
-                lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
-                item.stack--;
             }
             npc.direction = -1;
         }
@@ -356,7 +370,7 @@ namespace ChaosTerraria.NPCs
             var item = FindInventoryItemStack(blockToPlace);
             if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
             {
-                if (blockToPlace.Contains("Door"))
+                if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
                     item.stack--;
@@ -364,9 +378,12 @@ namespace ChaosTerraria.NPCs
                 }
                 else if (Framing.GetTileSafely(pos.X - 1, pos.Y).active() || Framing.GetTileSafely(pos.X + 1, pos.Y).active() || Framing.GetTileSafely(pos.X, pos.Y + 1).active())
                 {
-                    WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
-                    item.stack--;
-                    lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    if(item.createTile != -1)
+                    {
+                        WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
+                        item.stack--;
+                        lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
+                    }
                 }
             }
         }
