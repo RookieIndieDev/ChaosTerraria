@@ -1,6 +1,6 @@
 ﻿namespace ChaosTerraria.Enums
 {
-    enum Range
+    enum Coord
     {
         Zero,
         One,

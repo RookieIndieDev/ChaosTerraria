@@ -1,193 +1,198 @@
 {
-    "config":
-    {},
-    "settings":
-    {
-        "TrainingRoomRole":
-        [
-            {
-                "namespace": "SPAWN_POINT_ID",
-                "value": "default"
-            },
-            {
-                "namespace": "BASE_LIFE_SECONDS",
-                "value": 10
-            },
-            {
-                "namespace": "INV_1",
-                "value": "Wood@1"
-            },
-            {
-                "namespace": "INV_2",
-                "value": "Gel@1"
-            }
-        ]
-    },
-    "fitness":
-    [
-        {
-            "eventType": "HEALTH_CHANGE"
-        },
-        {
-            "eventType": "MOVE_ALONG_AXIS",
-            "attributeId": "AXIS",
-            "attributeValue":
-            {
-                "$SOURCE": "enum",
-                "$ATTRIBUTE_ID": "AXIS"
-            }
-        },
-        {
-            "eventType": "BLOCK_MINED",
-            "attributeId": "BLOCK_ID",
-            "attributeValue":
-            {
-                "$SOURCE": "enum",
-                "$ATTRIBUTE_ID": "BLOCK_ID"
-            }
-        },
-        {
-            "eventType": "BLOCK_PLACED",
-            "attributeId": "BLOCK_ID",
-            "attributeValue":
-            {
-                "$SOURCE": "enum",
-                "$ATTRIBUTE_ID": "BLOCK_ID"
-            }
-        },
-        {
-            "eventType": "ITEM_CRAFTED",
-            "attributeId": "ITEM_ID",
-            "attributeValue":{
-                "$SOURCE" :"enum",
-                "$ATTRIBUTE_ID": "ITEM_ID"
-            }
-        }
-    ],
-    "inputNeurons":
-    [
-        {
-            "$TYPE": "BiasInput",
-            "$DEFAULT": "true",
-            "weight": "{{rndFloat '-5:5' }}"
-        },
-        {
-            "$TYPE": "BlockInput",
-            "$DEFAULT": "true",
-            "direction":
-            {
-                "$SOURCE": "enum",
-                "$ENUM": "DIRECTIONS"
-            },
-            "range":
-            {
-                "$SOURCE": "enum",
-                "$ENUM": "RANGE"
-            }
-        },
-        {
-            "$TYPE": "HasInInventory",
-            "$DEFAULT": "true",
-            "attributeId": "BLOCK_ID",
-            "attributeValue":
-            {
-                "$SOURCE": "oa",
-                "$ATTRIBUTE_ID": "BLOCK_ID"
-            }
-        }
-    ],
-    "outputNeurons":
-    [
-        {
-            "$TYPE": "Move",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC",
-            "direction":
-            {
-                "$SOURCE": "enum",
-                "$ENUM": "MOVE_DIRECTIONS"
-            }
-        },
-        {
-            "$TYPE": "MineBlock",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC",
-            "direction":
-            {
-                "$SOURCE": "enum",
-                "$ENUM": "DIRECTIONS"
-            }
-        },
-        {
-            "$TYPE": "PlaceBlock",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC",
-            "direction":
-            {
-                "$SOURCE": "enum",
-                "$ENUM": "DIRECTIONS"
-            }
-        },
-        {
-            "$TYPE": "CraftItem",
-            "$DEFAULT": "true",
-            "$OUTPUT_GROUP": "BASIC",
-            "attributeId": "RECIPE_ID",
-            "attributeValue":
-            {
-                "$SOURCE": "oa",
-                "$ATTRIBUTE_ID": "RECIPE_ID"
-            }
-        }
-    ],
-    "enum":
-    {
-        "AXIS":
-        [
-            "X",
-            "Y"
-        ],
-        "DIRECTIONS":
-        [
-            "Top",
-            "TopLeft",
-            "TopRight",
-            "Bottom",
-            "BottomLeft",
-            "BottomRight",
-            "Left",
-            "Right"
-        ],
-        "MOVE_DIRECTIONS":
-        [
-            "Left",
-            "Right"
-        ],
-        "RANGE":
-        [
-            "One",
-            "Two",
-            "Three",
-            "Four"
-        ]
-    },
-    "templates":
-    {
-        "POSITION_RANGE":
-        {
-            "minX": "{{rndInt '-5:5' }}",
-            "maxX": "{{rndInt '-5:5' }}",
-            "minY": "{{rndInt '-5:5' }}",
-            "maxY": "{{rndInt '-5:5' }}",
-            "minZ": "{{rndInt '-5:5' }}",
-            "maxZ": "{{rndInt '-5:5' }}"
-        }
-    },
-    "activators":
-    [
-        "Gaussian",
-        "Sigmoid",
-        "BinaryStep",
-        "Relu"
+  "config": {},
+  "settings": {
+    "TrainingRoomRole": [
+      {
+        "namespace": "SPAWN_POINT_ID",
+        "value": "default"
+      },
+      {
+        "namespace": "BASE_LIFE_SECONDS",
+        "value": 10
+      },
+      {
+        "namespace": "INV_1",
+        "value": "Wood@1"
+      },
+      {
+        "namespace": "INV_2",
+        "value": "Gel@1"
+      }
     ]
+  },
+  "fitness": [
+    {
+      "eventType": "HEALTH_CHANGE"
+    },
+    {
+      "eventType": "MOVE_ALONG_AXIS",
+      "attributeId": "AXIS",
+      "attributeValue": {
+        "$SOURCE": "enum",
+        "$ATTRIBUTE_ID": "AXIS"
+      }
+    },
+    {
+      "eventType": "BLOCK_MINED",
+      "attributeId": "BLOCK_ID",
+      "attributeValue": {
+        "$SOURCE": "enum",
+        "$ATTRIBUTE_ID": "BLOCK_ID"
+      }
+    },
+    {
+      "eventType": "BLOCK_PLACED",
+      "attributeId": "BLOCK_ID",
+      "attributeValue": {
+        "$SOURCE": "enum",
+        "$ATTRIBUTE_ID": "BLOCK_ID"
+      }
+    },
+    {
+      "eventType": "ITEM_CRAFTED",
+      "attributeId": "ITEM_ID",
+      "attributeValue": {
+        "$SOURCE": "enum",
+        "$ATTRIBUTE_ID": "ITEM_ID"
+      }
+    }
+  ],
+  "inputNeurons": [
+    {
+      "$TYPE": "BiasInput",
+      "$DEFAULT": "true",
+      "weight": "{{rndFloat '-5:5' }}"
+    },
+    {
+      "$TYPE": "BlockInput",
+      "$DEFAULT": "true",
+      "direction": {
+        "$SOURCE": "enum",
+        "$ENUM": "DIRECTIONS"
+      },
+      "range": {
+        "$SOURCE": "enum",
+        "$ENUM": "RANGE"
+      }
+    },
+    {
+      "$TYPE": "HasInInventory",
+      "$DEFAULT": "true",
+      "attributeId": "ITEM_ID",
+      "attributeValue": {
+        "$SOURCE": "oa",
+        "$ATTRIBUTE_ID": "ITEM_ID"
+      }
+    }
+  ],
+  "outputNeurons": [
+    {
+      "$TYPE": "Move",
+      "$DEFAULT": "true",
+      "$OUTPUT_GROUP": "BASIC",
+      "direction": {
+        "$SOURCE": "enum",
+        "$ENUM": "MOVE_DIRECTIONS"
+      }
+    },
+    {
+      "$TYPE": "MineBlock",
+      "$DEFAULT": "true",
+      "$OUTPUT_GROUP": "BASIC",
+      "direction": {
+        "$SOURCE": "enum",
+        "$ENUM": "DIRECTIONS"
+      },
+      "x": {
+        "$SOURCE": "enum",
+        "$ENUM": "COORD"
+      },
+      "y": {
+        "$SOURCE": "enum",
+        "$ENUM": "COORD"
+      }
+    },
+    {
+      "$TYPE": "PlaceBlock",
+      "$DEFAULT": "true",
+      "$OUTPUT_GROUP": "BASIC",
+      "attributeId": "ITEM_ID",
+      "attributeValue": {
+        "$SOURCE": "oa",
+        "$ATTRIBUTE_ID": "ITEM_ID"
+      },
+      "direction": {
+        "$SOURCE": "enum",
+        "$ENUM": "DIRECTIONS"
+      },
+      "x": {
+        "$SOURCE": "enum",
+        "$ENUM": "COORD"
+      },
+      "y": {
+        "$SOURCE": "enum",
+        "$ENUM": "COORD"
+      }
+    },
+    {
+      "$TYPE": "CraftItem",
+      "$DEFAULT": "true",
+      "$OUTPUT_GROUP": "BASIC",
+      "attributeId": "RECIPE_ID",
+      "attributeValue": {
+        "$SOURCE": "oa",
+        "$ATTRIBUTE_ID": "RECIPE_ID"
+      }
+    }
+  ],
+  "enum": {
+    "AXIS": [
+      "X",
+      "Y"
+    ],
+    "DIRECTIONS": [
+      "Top",
+      "TopLeft",
+      "TopRight",
+      "Bottom",
+      "BottomLeft",
+      "BottomRight",
+      "Left",
+      "Right"
+    ],
+    "MOVE_DIRECTIONS": [
+      "Left",
+      "Right"
+    ],
+    "COORD": [
+      "Zero",
+      "One",
+      "Two",
+      "Three",
+      "Four"
+    ],
+    "RANGE": [
+      "Zero",
+      "One",
+      "Two",
+      "Three",
+      "Four"
+    ]
+  },
+  "templates": {
+    "POSITION_RANGE": {
+      "minX": "{{rndInt '-5:5' }}",
+      "maxX": "{{rndInt '-5:5' }}",
+      "minY": "{{rndInt '-5:5' }}",
+      "maxY": "{{rndInt '-5:5' }}",
+      "minZ": "{{rndInt '-5:5' }}",
+      "maxZ": "{{rndInt '-5:5' }}"
+    }
+  },
+  "activators": [
+    "Gaussian",
+    "Sigmoid",
+    "BinaryStep",
+    "Relu"
+  ]
 }

@@ -10,15 +10,18 @@ namespace ChaosTerraria.AI
     {
         public List<Neuron> neurons;
 
-        public int GetOutput(Vector2 center, string speciesNamespace, List<Item> inventory, out int direction, out string itemToCraft)
+        public int GetOutput(Vector2 center, List<Item> inventory, out int direction, out string itemToCraft, out string blockToPlace, out int x, out int y)
         {
             int output = -100;
             double outputValue = -100;
             int tempDirection = -1;
             string tempitemToCraft = "";
+            string tempBlockToPlace = "";
             Vector2 tilePos = new Vector2();
             int tileType = 0;
-            Type rangeType = typeof(Range);
+            int blockX = 0;
+            int blockY = 0;
+            Type coordType = typeof(Coord);
             foreach (Neuron neuron in neurons)
             {
                 switch (neuron.type)
@@ -29,34 +32,34 @@ namespace ChaosTerraria.AI
 
                             case (int)Direction.Top:
                                 tilePos.X = center.X;
-                                tilePos.Y = center.Y - (int)Enum.Parse(rangeType, neuron.range);
+                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range);
                                 break;
                             case (int)Direction.TopLeft:
-                                tilePos.X = center.X - (int)Enum.Parse(rangeType, neuron.range);
-                                tilePos.Y = center.Y - (int)Enum.Parse(rangeType, neuron.range);
+                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range);
                                 break;
                             case (int)Direction.TopRight:
-                                tilePos.X = center.X + (int)Enum.Parse(rangeType, neuron.range);
-                                tilePos.Y = center.Y - (int)Enum.Parse(rangeType, neuron.range);
+                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range);
                                 break;
                             case (int)Direction.Bottom:
                                 tilePos.X = center.X;
-                                tilePos.Y = center.Y + (int)Enum.Parse(rangeType, neuron.range);
+                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range);
                                 break;
                             case (int)Direction.BottomLeft:
-                                tilePos.X = center.X - (int)Enum.Parse(rangeType, neuron.range);
-                                tilePos.Y = center.Y + (int)Enum.Parse(rangeType, neuron.range);
+                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range);
                                 break;
                             case (int)Direction.BottomRight:
-                                tilePos.X = center.X + (int)Enum.Parse(rangeType, neuron.range);
-                                tilePos.Y = center.Y + (int)Enum.Parse(rangeType, neuron.range);
+                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range);
                                 break;
                             case (int)Direction.Left:
-                                tilePos.X = center.X - (int)Enum.Parse(rangeType, neuron.range);
+                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range);
                                 tilePos.Y = center.Y;
                                 break;
                             case (int)Direction.Right:
-                                tilePos.X = center.X + (int)Enum.Parse(rangeType, neuron.range);
+                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range);
                                 tilePos.Y = center.Y;
                                 break;
                         }
@@ -117,10 +120,15 @@ namespace ChaosTerraria.AI
                             case "MineBlock":
                                 output = (int)OutputType.MineBlock;
                                 tempDirection = (int)Enum.Parse(typeof(Direction), neuron.direction);
+                                blockX = (int)Enum.Parse(coordType, neuron.x);
+                                blockY = (int)Enum.Parse(coordType, neuron.y);
                                 break;
                             case "PlaceBlock":
                                 output = (int)OutputType.PlaceBlock;
                                 tempDirection = (int)Enum.Parse(typeof(Direction), neuron.direction);
+                                tempBlockToPlace = neuron.attributeValue;
+                                blockX = (int)Enum.Parse(coordType, neuron.x);
+                                blockY = (int)Enum.Parse(coordType, neuron.y);
                                 break;
                             case "Move":
                                 output = (int)OutputType.Move;
@@ -136,6 +144,9 @@ namespace ChaosTerraria.AI
             }
             direction = tempDirection;
             itemToCraft = tempitemToCraft;
+            blockToPlace = tempBlockToPlace;
+            x = blockX;
+            y = blockY;
             return output;
         }
 

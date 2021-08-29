@@ -8,7 +8,6 @@ using ChaosTerraria.Classes;
 
 namespace ChaosTerraria.Fitness
 {
-    //TODO: Create EventHandler for Fitness Event
     //TODO: Change Postitions in TestMoveAlongAxis() to tileCoords?
     public class FitnessManager
     {

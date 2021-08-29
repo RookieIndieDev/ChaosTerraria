@@ -16,6 +16,8 @@ namespace ChaosTerraria.AI
         public string id;
         public string direction;
         public string range;
+        public string x;
+        public string y;
         public string attributeId;
         public string attributeValue;
         [JsonIgnore]
