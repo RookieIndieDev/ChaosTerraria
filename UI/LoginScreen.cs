@@ -73,7 +73,7 @@ namespace ChaosTerraria.UI
             ChaosNetConfig.data.trainingRoomNamespace = trainingroom.Text;
             ChaosNetConfig.data.username = username.Text.ToLower();
             ChaosNetConfig.data.trainingRoomUsernameNamespace = trainingroomOwnerUserName.Text.ToLower();
-            networkHelper.Auth(username.Text, password.Text, trainingroomOwnerUserName.Text.ToLower());
+            networkHelper.Auth(username.Text, password.Text);
         }
     }
 }

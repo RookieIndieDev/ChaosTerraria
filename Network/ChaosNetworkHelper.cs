@@ -29,7 +29,7 @@ namespace ChaosTerraria.Network
             httpClient = new HttpClient();
         }
 
-        public async void Auth(string username, string password, string trainingRoomOwnerUsername)
+        public async void Auth(string username, string password)
         {
             AuthInfo authInfo;
             {
@@ -267,17 +267,5 @@ namespace ChaosTerraria.Network
             string uri = baseURI + endpoint;
             return await httpClient.GetAsync(uri);
         }
-
-        private async Task<HttpResponseMessage> SendGetRequest(string json, string endpoint)
-        {
-            string uri = baseURI + endpoint;
-            var request = new HttpRequestMessage(HttpMethod.Get, uri)
-            {
-                Content = new StringContent(json)
-            };
-            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            return await httpClient.SendAsync(request);
-        }
-
     }
 }
