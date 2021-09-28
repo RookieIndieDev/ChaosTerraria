@@ -53,7 +53,7 @@ namespace ChaosTerraria.NPCs
         {
             npc.aiStyle = -1;
             npc.townNPC = false;
-            npc.friendly = false;
+            npc.friendly = true;
             npc.width = 18;
             npc.height = 40;
             npc.damage = 10;

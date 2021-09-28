@@ -60,7 +60,7 @@ namespace ChaosTerraria.NPCs
             npc.damage = 10;
             npc.defense = 10;
             npc.lifeMax = 100;
-            npc.knockBackResist = 0.8f;
+            npc.knockBackResist = 0.5f;
             animationType = NPCID.Guide;
             npc.homeless = true;
             npc.noGravity = false;
@@ -103,6 +103,9 @@ namespace ChaosTerraria.NPCs
                                     inventory[inventoryLastItemIndex].SetDefaults(ItemID.TypeFromUniqueKey("Terraria " + settingValue[0]));
                                     inventory[inventoryLastItemIndex].stack = int.Parse(settingValue[1]);
                                     inventoryLastItemIndex++;
+                                    break;
+                                case "friendly":
+                                    npc.friendly = bool.Parse(setting.value);
                                     break;
                             }
                         }

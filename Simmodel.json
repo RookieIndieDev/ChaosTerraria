@@ -17,6 +17,10 @@
       {
         "namespace": "INV_2",
         "value": "Gel@1"
+      },
+      {
+        "namespace": "friendly",
+        "value": "true"
       }
     ]
   },
