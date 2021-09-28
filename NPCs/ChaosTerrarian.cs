@@ -114,7 +114,7 @@ namespace ChaosTerraria.NPCs
 
             actionTimer++;
             lifeTimer++;
-            if (actionTimer > 18 && npc.active == true)
+            if (actionTimer > 18 && npc.active)
             {
                 if (organism != null)
                 {
@@ -134,7 +134,7 @@ namespace ChaosTerraria.NPCs
                 lifeTicks += (lifeEffect * 60);
             }
 
-            if (lifeTimer > lifeTicks && npc.active == true)
+            if (lifeTimer > lifeTicks && npc.active)
             {
                 RecipeFinder recipeFinder = new RecipeFinder();
                 foreach (Item item in inventory)
@@ -652,7 +652,7 @@ namespace ChaosTerraria.NPCs
                         {
                             if (invItem.Name == reqItem.Name && invItem.stack > 0)
                             {
-                                invItem.stack = invItem.stack - reqItem.stack;
+                                invItem.stack -= reqItem.stack;
                             }
                         }
                     }

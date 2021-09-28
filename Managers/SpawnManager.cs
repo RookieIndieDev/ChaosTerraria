@@ -4,7 +4,6 @@ using ChaosTerraria.NPCs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.World;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -19,7 +18,6 @@ namespace ChaosTerraria.Managers
         public static int numOfAdamZero = 5;
         public static int spawnCount;
         public static int totalSpawned;
-        private static Random rand = new Random();
         private static ChaosNetworkHelper networkHelper = new ChaosNetworkHelper();
         private static int timer;
         private static bool timerEnabled;

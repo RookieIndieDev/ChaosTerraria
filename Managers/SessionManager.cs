@@ -45,17 +45,6 @@ namespace ChaosTerraria.Managers
             }
         }
 
-        private static void ResetOrgs()
-        {
-            if (Organisms != null)
-            {
-                foreach (Organism org in Organisms)
-                {
-                    org.assigned = !org.assigned;
-                }
-            }
-        }
-
         public static Organism GetOrganism()
         {
             foreach (Organism org in organisms)

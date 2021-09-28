@@ -218,17 +218,6 @@ namespace ChaosTerraria.AI
             return value;
         }
 
-        private double GetWeight(Dependency[] dependencies)
-        {
-            double weight = 0;
-            foreach (Dependency dependency in dependencies)
-            {
-                weight += dependency.weight;
-            }
-
-            return weight;
-        }
-
         private void GetDependencyNeuron(Dependency dependency, out Neuron outputNeuron)
         {
             foreach (Neuron neuron in neurons)

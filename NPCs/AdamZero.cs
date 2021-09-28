@@ -25,6 +25,7 @@ namespace ChaosTerraria.NPCs
         private List<Item> inventory = new List<Item>();
         internal SpawnBlockTileEntity spawnBlockTileEntity;
         int lastItemIndex = 0;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 25;
@@ -39,22 +40,30 @@ namespace ChaosTerraria.NPCs
             return false;
         }
 
+        public override bool CheckDead()
+        {
+            SpawnManager.adamZeroCount--;
+            timeLeft = 0;
+            npc.life = 0;
+            spawnBlockTileEntity.spawnedSoFar--;
+            return true;
+        }
+
         public override void SetDefaults()
         {
-            int id = 0;
             npc.aiStyle = -1;
             npc.townNPC = false;
-            npc.friendly = true;
+            npc.friendly = false;
             npc.width = 18;
             npc.height = 40;
             npc.damage = 10;
-            npc.defense = 10;
+            npc.defense = 15;
             npc.lifeMax = 100;
-            npc.knockBackResist = 0.8f;
+            npc.knockBackResist = 0.5f;
             animationType = NPCID.Guide;
             npc.homeless = true;
             npc.noGravity = false;
-            npc.dontTakeDamage = true;
+            npc.dontTakeDamage = false;
 #if DEBUG
             organism = new Organism
             {
@@ -66,7 +75,7 @@ namespace ChaosTerraria.NPCs
 #endif
             npc.GivenName = "AdamZero";
             inventory.Add(new Item());
-            ItemID.Search.TryGetId("Wood", out id);
+            ItemID.Search.TryGetId("Wood", out int id);
             inventory[lastItemIndex].SetDefaults(id);
             inventory[lastItemIndex].stack = 10;
             lastItemIndex++;
@@ -86,8 +95,7 @@ namespace ChaosTerraria.NPCs
                     UpdateInventory();
                 }
             }
-
-            if (timeLeft > lifeTicks && npc.active == true)
+            if (timeLeft > lifeTicks && npc.active)
             {
                 SpawnManager.adamZeroCount--;
                 timeLeft = 0;
@@ -461,7 +469,7 @@ namespace ChaosTerraria.NPCs
                         {
                             if (invItem.Name == reqItem.Name && invItem.stack > 0)
                             {
-                                invItem.stack = invItem.stack - reqItem.stack;
+                                invItem.stack -= reqItem.stack;
                             }
                         }
                     }
