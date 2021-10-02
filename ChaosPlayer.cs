@@ -27,6 +27,11 @@ namespace ChaosTerraria
                     UIHandler.ShowSessionScreen();
                 }
             }
+
+            if (ChaosTerraria.observerModeHotkey.JustPressed)
+            {
+                UIHandler.ToggleObserveMode();
+            }
 		}
     }
 }

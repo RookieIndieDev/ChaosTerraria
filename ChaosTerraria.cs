@@ -19,6 +19,7 @@ namespace ChaosTerraria
         //TODO: Add Current Stats Hotkey
         public static ModHotKey loginHotkey;
         public static ModHotKey sessionHotkey;
+        public static ModHotKey observerModeHotkey;
 
         private GameTime _lastUpdateUiGameTime;
 
@@ -30,6 +31,7 @@ namespace ChaosTerraria
             spawnBlockScreen = new SpawnBlockScreen();
             loginHotkey = RegisterHotKey("Login", "P");
             sessionHotkey = RegisterHotKey("Session", "O");
+            observerModeHotkey = RegisterHotKey("Observe Mode", "N");
             if (Main.netMode != NetmodeID.Server)
             {
                 loginScreen.Activate();
@@ -55,6 +57,7 @@ namespace ChaosTerraria
         {
             loginHotkey = null;
             sessionHotkey = null;
+            observerModeHotkey = null;
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

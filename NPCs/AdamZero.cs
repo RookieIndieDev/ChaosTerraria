@@ -15,6 +15,8 @@ using System.Collections.Generic;
 
 namespace ChaosTerraria.NPCs
 {
+    //TODO: Add realistic block breaking
+    //No of ticks = time in seconds * 60
     class AdamZero : ModNPC
     {
         public override string Texture => "ChaosTerraria/NPCs/Terrarian";
@@ -25,6 +27,12 @@ namespace ChaosTerraria.NPCs
         private List<Item> inventory = new List<Item>();
         internal SpawnBlockTileEntity spawnBlockTileEntity;
         int lastItemIndex = 0;
+        HitTile hitTile = new HitTile();
+        Item axe = new Item();
+        Item pickaxe = new Item();
+        Item hammer = new Item();
+        private int damage = 0;
+        private int tileId = 0;
 
         public override void SetStaticDefaults()
         {
@@ -79,6 +87,9 @@ namespace ChaosTerraria.NPCs
             inventory[lastItemIndex].SetDefaults(id);
             inventory[lastItemIndex].stack = 10;
             lastItemIndex++;
+            axe.SetDefaults(ItemID.CopperAxe);
+            pickaxe.SetDefaults(ItemID.CopperPickaxe);
+            hammer.SetDefaults(ItemID.CopperHammer);
         }
 
         public override void AI()
@@ -343,9 +354,32 @@ namespace ChaosTerraria.NPCs
         private void MineBlockBottomRight()
         {
             var pos = npc.BottomRight.ToTileCoordinates();
-            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+            Tile tile = Framing.GetTileSafely(pos.X, pos.Y);
+            if (tile.type != ModContent.TileType<SpawnBlock>())
+            {
+                //SetDamage(pos, tile);
+                //if (hitTile.AddDamage(tileId, damage) >= 100)
                 WorldGen.KillTile(pos.X, pos.Y);
+            }
             npc.direction = 1;
+        }
+
+        private void SetDamage(Point pos, Tile tile)
+        {
+            damage = 0;
+            tileId = hitTile.HitObject(pos.X, pos.Y, 1);
+            if (Main.tileHammer[tile.type])
+            {
+                TileLoader.MineDamage(hammer.hammer, ref damage);
+            }
+            else if (Main.tileAxe[tile.type])
+            {
+                TileLoader.MineDamage(axe.axe, ref damage);
+            }
+            else
+            {
+                TileLoader.MineDamage(pickaxe.pick, ref damage);
+            }
         }
 
         private void MineBlockBottomLeft()
@@ -391,7 +425,7 @@ namespace ChaosTerraria.NPCs
                 WorldGen.KillTile(pos.X, pos.Y);
         }
 
-        public void DoActions(int action, int direction, string itemToCraft, string blockToPlace, int x, int y)
+        private void DoActions(int action, int direction, string itemToCraft, string blockToPlace, int x, int y)
         {
             switch (action)
             {

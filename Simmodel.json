@@ -20,7 +20,7 @@
       },
       {
         "namespace": "friendly",
-        "value": "true"
+        "value": true
       }
     ]
   },

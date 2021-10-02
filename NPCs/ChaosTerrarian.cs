@@ -64,7 +64,18 @@ namespace ChaosTerraria.NPCs
             animationType = NPCID.Guide;
             npc.homeless = true;
             npc.noGravity = false;
-            npc.dontTakeDamage = true;
+            npc.dontTakeDamage = false;
+        }
+
+        public override bool CheckDead()
+        {
+            SpawnManager.activeBotCount--;
+            SpawnManager.totalSpawned++;
+            lifeTimer = 0;
+            npc.life = 0;
+            if(spawnBlockTileEntity != null)
+                spawnBlockTileEntity.spawnedSoFar--;
+            return true;
         }
 
         public override void AI()
@@ -663,7 +674,7 @@ namespace ChaosTerraria.NPCs
             }
         }
 
-        public void DoActions(int action, int direction, string itemToCraft, string blockToPlace, int x, int y)
+        private void DoActions(int action, int direction, string itemToCraft, string blockToPlace, int x, int y)
         {
             switch (action)
             {
@@ -733,7 +744,7 @@ namespace ChaosTerraria.NPCs
 
             if (organism != null)
                 return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace 
-                    + "\n" + "Current Action: " + (OutputType)currentAction + "\n" + "Time Left: " + ((lifeTicks - lifeTimer) / 60) + "\n Inventory: " + inventoryItems;
+                    + "\n" + "Current Action: " + (OutputType)currentAction + "\n" + "Time Left: " + ((lifeTicks - lifeTimer) / 60) + "\nInventory: " + inventoryItems + "\nScore: " + report.score;
             return "Org Not Assigned";
         }
     }

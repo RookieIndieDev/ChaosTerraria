@@ -23,7 +23,7 @@ namespace ChaosTerraria.Fitness
         {
             int score = 0;
             int tempLifeEffect = 0;
-            int tempScore = 0;
+            int tempScore;
             if (fitnessRules != null)
             {
                 foreach (FitnessRule rule in fitnessRules)

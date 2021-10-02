@@ -1,11 +1,16 @@
-﻿namespace ChaosTerraria.UI
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+
+namespace ChaosTerraria.UI
 {
     //TODO: Add Current Stats Screen
+    //TODO: Finish observe mode up
     public static class UIHandler
     {
         public static bool isLoginUiVisible = false;
         public static bool isSessionUIVisible = false;
         public static bool isSpawnBlockScreenVisible = false;
+        public static bool isInObserverMode = false;
 
         public static void ShowLoginScreen()
         {
@@ -27,6 +32,20 @@
         public static void HideUI()
         {
             ChaosTerraria.mainInterface.SetState(null);
+        }
+
+        public static void ToggleObserveMode()
+        {
+            isInObserverMode = !isInObserverMode;
+
+            if (isInObserverMode)
+            {
+                Main.NewText("Observer Mode activated", Color.Blue);
+            }
+            else
+            {
+                Main.NewText("Observer Mode deactivated", Color.Blue);
+            }
         }
     }
 }
