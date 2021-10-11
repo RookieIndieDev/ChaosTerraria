@@ -615,6 +615,7 @@ namespace ChaosTerraria.NPCs
         {
             bool canCraft = false;
             int availableIngredientCount = 0;
+            int tileCount = 0;
             RecipeFinder finder = new RecipeFinder();
             itemToCraft = itemToCraft.Replace(" ", "");
             ItemID.Search.TryGetId(itemToCraft, out int id);
@@ -623,7 +624,7 @@ namespace ChaosTerraria.NPCs
             if (recipes != null && inventory != null)
             {
                 int requiredIngredientCount = 0;
-
+                int requiredTileCount = 0;
                 foreach (Item ingredient in recipes[0].requiredItem)
                 {
                     if (ingredient.active)
@@ -639,7 +640,17 @@ namespace ChaosTerraria.NPCs
                     }
                 }
 
-                if (requiredIngredientCount == availableIngredientCount)
+                foreach (int tileId in recipes[0].requiredTile)
+                {
+                    if (tileId != -1)
+                    {
+                        requiredTileCount++;
+                        if (IsTileNearby(tileId))
+                            tileCount++;
+                    }
+                }
+
+                if (requiredTileCount == tileCount && requiredIngredientCount == availableIngredientCount)
                     canCraft = true;
             }
             if (canCraft)
@@ -724,6 +735,19 @@ namespace ChaosTerraria.NPCs
                 }
             }
             return null;
+        }
+
+        private bool IsTileNearby(int tileId)
+        {
+            for (int x = -5; x <= 5; x++)
+            {
+                for (int y = -5; y <= 5; y++)
+                {
+                    if (Framing.GetTileSafely((int)npc.Center.ToTileCoordinates().X + x, (int)npc.Center.ToTileCoordinates().Y + y).type == tileId)
+                        return true;
+                }
+            }
+            return false;
         }
 
         public override bool CanChat()

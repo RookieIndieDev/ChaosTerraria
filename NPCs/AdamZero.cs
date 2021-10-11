@@ -21,18 +21,19 @@ namespace ChaosTerraria.NPCs
     {
         public override string Texture => "ChaosTerraria/NPCs/Terrarian";
         private static int timer;
-        private int timeLeft = 0;
+        private int timeLeft;
         internal Organism organism;
         private int lifeTicks = 600;
         private List<Item> inventory = new List<Item>();
         internal SpawnBlockTileEntity spawnBlockTileEntity;
-        int lastItemIndex = 0;
+        int lastItemIndex;
         HitTile hitTile = new HitTile();
         Item axe = new Item();
         Item pickaxe = new Item();
         Item hammer = new Item();
-        private int damage = 0;
-        private int tileId = 0;
+        private int damage;
+        private int tileId;
+        private int toolUseDelay;
 
         public override void SetStaticDefaults()
         {
@@ -96,8 +97,8 @@ namespace ChaosTerraria.NPCs
         {
             timer++;
             timeLeft++;
-
-            if (timer > 18 && npc.active == true)
+            toolUseDelay--;
+            if (timer > 18 && npc.active)
             {
                 if (organism != null)
                 {
@@ -105,6 +106,7 @@ namespace ChaosTerraria.NPCs
                     DoActions(action, direction, itemToCraft, blockToPlace, x, y);
                     UpdateInventory();
                 }
+                timer = 0;
             }
             if (timeLeft > lifeTicks && npc.active)
             {
@@ -347,7 +349,18 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Right.ToTileCoordinates();
             pos.X += range;
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
-                WorldGen.KillTile(pos.X, pos.Y + 1);
+            {
+                if(toolUseDelay < 0)
+                {
+                    SetDamage(pos, Framing.GetTileSafely(pos.X, pos.Y));
+                    if (hitTile.AddDamage(tileId, damage) >= 100)
+                    {
+                        hitTile.Clear(tileId);
+                        WorldGen.KillTile(pos.X, pos.Y + 1);
+                        damage = 0;
+                    }
+                }
+            }
             npc.direction = 1;
         }
 
@@ -366,20 +379,24 @@ namespace ChaosTerraria.NPCs
 
         private void SetDamage(Point pos, Tile tile)
         {
-            damage = 0;
             tileId = hitTile.HitObject(pos.X, pos.Y, 1);
             if (Main.tileHammer[tile.type])
             {
                 TileLoader.MineDamage(hammer.hammer, ref damage);
+                toolUseDelay = hammer.useTime;
             }
             else if (Main.tileAxe[tile.type])
             {
                 TileLoader.MineDamage(axe.axe, ref damage);
+                toolUseDelay = axe.useTime;
             }
             else
             {
                 TileLoader.MineDamage(pickaxe.pick, ref damage);
+                toolUseDelay = pickaxe.useTime;
             }
+            //if (damage != 0)
+            //    hitTile.Prune();
         }
 
         private void MineBlockBottomLeft()
@@ -453,6 +470,7 @@ namespace ChaosTerraria.NPCs
         {
             bool canCraft = false;
             int availableIngredientCount = 0;
+            int tileCount = 0;
             RecipeFinder finder = new RecipeFinder();
             ItemID.Search.TryGetId(itemToCraft.Replace(" ", ""), out int id);
             finder.SetResult(id);
@@ -460,7 +478,7 @@ namespace ChaosTerraria.NPCs
             if (recipes != null && inventory != null)
             {
                 int requiredIngredientCount = 0;
-
+                int requiredTileCount = 0;
                 foreach (Item ingredient in recipes[0].requiredItem)
                 {
                     if (ingredient.active)
@@ -475,8 +493,17 @@ namespace ChaosTerraria.NPCs
                         }
                     }
                 }
+                foreach(int tileId in recipes[0].requiredTile)
+                {
+                    if(tileId != -1)
+                    {
+                        requiredTileCount++;
+                        if (IsTileNearby(tileId))
+                            tileCount++;
+                    }
+                }
 
-                if (requiredIngredientCount == availableIngredientCount)
+                if (requiredTileCount == tileCount && requiredIngredientCount == availableIngredientCount)
                     canCraft = true;
             }
             if (canCraft)
@@ -491,7 +518,7 @@ namespace ChaosTerraria.NPCs
                     else
                     {
                         inventory.Add(new Item());
-                        int itemId = ItemID.Search.GetId(recipes[0].createItem.Name);
+                        int itemId = ItemID.Search.GetId(recipes[0].createItem.Name.Replace(" ", ""));
                         inventory[lastItemIndex].SetDefaults(itemId);
                         inventory[lastItemIndex].stack = recipes[0].createItem.stack;
                         lastItemIndex++;
@@ -509,6 +536,19 @@ namespace ChaosTerraria.NPCs
                     }
                 }
             }
+        }
+
+        private bool IsTileNearby(int tileId)
+        {
+            for(int x = -5; x <= 5; x++)
+            {
+                for (int y = -5; y <= 5; y++)
+                {
+                    if (Framing.GetTileSafely((int)npc.Center.ToTileCoordinates().X + x, (int)npc.Center.ToTileCoordinates().Y + y).type == tileId)
+                        return true;
+                }
+            }
+            return false;
         }
 
         private void PlaceBlock(int direction, string blockToPlace, int x, int y)
