@@ -1,29 +1,27 @@
 {
-    "neurons":
-    [
+  "neurons": [
+    {
+      "_base_type": "input",
+      "id": "neuron-1",
+      "$TYPE": "BiasInput",
+      "dependencies": [],
+      "weight": 5
+    },
+    {
+      "_base_type": "output",
+      "id": "neuron-2",
+      "$TYPE": "Move",
+      "dependencies": [
         {
-            "_base_type": "input",
-            "id": "neuron-1",
-            "$TYPE": "BiasInput",
-            "dependencies":
-            [],
-            "weight": 5
-        },
-        {
-            "_base_type": "output",
-            "id": "neuron-2",
-            "$TYPE": "CraftItem",
-            "dependencies":
-            [
-                {
-                    "neuronId": "neuron-1",
-                    "weight": 4.903708217976622,
-                    "_originNaturalGen": 0,
-                    "_originGen": 0
-                }
-            ],
-            "$OUTPUT_GROUP": "BASIC",
-            "attributeValue" : "WoodenChair"
+          "neuronId": "neuron-1",
+          "weight": 4.903708217976622,
+          "_originNaturalGen": 0,
+          "_originGen": 0
         }
-    ]
+      ],
+      "$OUTPUT_GROUP": "BASIC",
+      "attributeValue": "WoodenChair",
+      "direction": "Left"
+    }
+  ]
 }

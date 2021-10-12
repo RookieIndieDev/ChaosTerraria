@@ -1,16 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ChaosTerraria.Managers;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace ChaosTerraria.UI
 {
     //TODO: Add Current Stats Screen
-    //TODO: Finish observe mode up
     public static class UIHandler
     {
         public static bool isLoginUiVisible = false;
         public static bool isSessionUIVisible = false;
         public static bool isSpawnBlockScreenVisible = false;
         public static bool isInObserverMode = false;
+        internal static int currentOrgIndex;
 
         public static void ShowLoginScreen()
         {
@@ -37,14 +38,15 @@ namespace ChaosTerraria.UI
         public static void ToggleObserveMode()
         {
             isInObserverMode = !isInObserverMode;
-
             if (isInObserverMode)
             {
-                Main.NewText("Observer Mode activated", Color.Blue);
+                Main.NewText("Observer Mode activated", Color.LightBlue);
+                if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
+                    currentOrgIndex = 0;
             }
             else
             {
-                Main.NewText("Observer Mode deactivated", Color.Blue);
+                Main.NewText("Observer Mode deactivated", Color.LightBlue);
             }
         }
     }

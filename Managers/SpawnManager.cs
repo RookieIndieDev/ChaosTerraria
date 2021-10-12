@@ -43,6 +43,8 @@ namespace ChaosTerraria.Managers
                                 AdamZero adamZero = (AdamZero)Main.npc[index].modNPC;
                                 adamZero.npc.GivenName += " " + i;
                                 adamZero.spawnBlockTileEntity = tileEntity;
+                                if(SessionManager.ObservableNPCs != null)
+                                    SessionManager.ObservableNPCs.Add(adamZero);
                                 adamZeroCount++;
                                 tileEntity.spawnedSoFar++;
                                 break;
@@ -75,6 +77,8 @@ namespace ChaosTerraria.Managers
                                             {
                                                 var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
                                                 ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].modNPC;
+                                                if (SessionManager.ObservableNPCs != null)
+                                                    SessionManager.ObservableNPCs.Add(terrarian);
                                                 terrarian.spawnBlockTileEntity = null;
                                                 activeBotCount++;
                                                 break;
@@ -83,6 +87,8 @@ namespace ChaosTerraria.Managers
                                             {
                                                 var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
                                                 ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].modNPC;
+                                                if (SessionManager.ObservableNPCs != null)
+                                                    SessionManager.ObservableNPCs.Add(terrarian);
                                                 terrarian.spawnBlockTileEntity = tileEntity;
                                                 activeBotCount++;
                                                 tileEntity.spawnedSoFar++;

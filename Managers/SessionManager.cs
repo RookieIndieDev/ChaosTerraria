@@ -2,6 +2,7 @@
 using ChaosTerraria.Classes;
 using ChaosTerraria.Structs;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 
 namespace ChaosTerraria.Managers
 {
@@ -15,6 +16,7 @@ namespace ChaosTerraria.Managers
         private static List<ObservedAttributes> observedAttributes;
         private static bool sessionStarted = false;
         private static Package package;
+        private static List<ModNPC> observableNPCs;
 
         public static bool SessionStarted { get => sessionStarted; set => sessionStarted = value; }
         public static List<Report> Reports { get => reports; set => reports = value; }
@@ -25,6 +27,7 @@ namespace ChaosTerraria.Managers
         public static Session CurrentSession { get => currentSession; set => currentSession = value; }
 
         public static Package Package { get => package; set => package = value; }
+        public static List<ModNPC> ObservableNPCs { get => observableNPCs; set => observableNPCs = value; }
 
         public static void InitializeSession()
         {
@@ -34,6 +37,7 @@ namespace ChaosTerraria.Managers
                 species = new List<Species>();
                 organisms = new List<Organism>();
                 observedAttributes = new List<ObservedAttributes>();
+                observableNPCs = new List<ModNPC>();
             }
         }
 

@@ -20,6 +20,7 @@ namespace ChaosTerraria
         public static ModHotKey loginHotkey;
         public static ModHotKey sessionHotkey;
         public static ModHotKey observerModeHotkey;
+        public static ModHotKey cycleOrgs;
 
         private GameTime _lastUpdateUiGameTime;
 
@@ -32,6 +33,7 @@ namespace ChaosTerraria
             loginHotkey = RegisterHotKey("Login", "P");
             sessionHotkey = RegisterHotKey("Session", "O");
             observerModeHotkey = RegisterHotKey("Observe Mode", "N");
+            cycleOrgs = RegisterHotKey("Cycle Orgs", "]"); 
             if (Main.netMode != NetmodeID.Server)
             {
                 loginScreen.Activate();
@@ -58,6 +60,7 @@ namespace ChaosTerraria
             loginHotkey = null;
             sessionHotkey = null;
             observerModeHotkey = null;
+            cycleOrgs = null;
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

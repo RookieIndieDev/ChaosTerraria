@@ -1,6 +1,8 @@
 ﻿using Terraria.GameInput;
 using Terraria.ModLoader;
 using ChaosTerraria.UI;
+using Terraria;
+using ChaosTerraria.Managers;
 
 namespace ChaosTerraria
 {
@@ -32,6 +34,30 @@ namespace ChaosTerraria
             {
                 UIHandler.ToggleObserveMode();
             }
-		}
+
+            if(ChaosTerraria.cycleOrgs.JustPressed)
+            {
+                if(SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
+                {
+                    if(UIHandler.currentOrgIndex + 1 == SessionManager.ObservableNPCs.Count)
+                    {
+                        UIHandler.currentOrgIndex = 0;
+                    }
+                    else
+                    {
+                        UIHandler.currentOrgIndex++;
+                    }
+                }
+            }
+        }
+
+        public override void ModifyScreenPosition()
+        {
+            if(SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0 && UIHandler.isInObserverMode)
+            {
+                Main.screenPosition.X = SessionManager.ObservableNPCs[UIHandler.currentOrgIndex].npc.Center.X - Main.screenWidth / 2;
+                Main.screenPosition.Y = SessionManager.ObservableNPCs[UIHandler.currentOrgIndex].npc.Center.Y - Main.screenHeight / 2;
+            }
+        }
     }
 }

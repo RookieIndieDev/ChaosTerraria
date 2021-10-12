@@ -75,6 +75,8 @@ namespace ChaosTerraria.NPCs
             npc.life = 0;
             if(spawnBlockTileEntity != null)
                 spawnBlockTileEntity.spawnedSoFar--;
+            if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
+                SessionManager.ObservableNPCs.Remove(this);
             return true;
         }
 
@@ -188,6 +190,8 @@ namespace ChaosTerraria.NPCs
                 npc.life = 0;
                 if (spawnBlockTileEntity != null)
                     spawnBlockTileEntity.spawnedSoFar--;
+                if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
+                    SessionManager.ObservableNPCs.Remove(this);
             }
         }
 
