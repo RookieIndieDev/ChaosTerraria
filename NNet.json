@@ -10,7 +10,7 @@
     {
       "_base_type": "output",
       "id": "neuron-2",
-      "$TYPE": "Move",
+      "$TYPE": "MineBlock",
       "dependencies": [
         {
           "neuronId": "neuron-1",
@@ -20,8 +20,9 @@
         }
       ],
       "$OUTPUT_GROUP": "BASIC",
-      "attributeValue": "WoodenChair",
-      "direction": "Left"
+      "direction": "Right",
+      "x": "One",
+      "y": "Two"
     }
   ]
 }

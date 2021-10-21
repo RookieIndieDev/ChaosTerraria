@@ -20,7 +20,7 @@ namespace ChaosTerraria.NPCs
     class AdamZero : ModNPC
     {
         public override string Texture => "ChaosTerraria/NPCs/Terrarian";
-        private static int timer;
+        private int timer;
         private int timeLeft;
         internal Organism organism;
         private int lifeTicks = 600;
@@ -33,7 +33,6 @@ namespace ChaosTerraria.NPCs
         Item hammer = new Item();
         private int damage;
         private int tileId;
-        private int toolUseDelay;
 
         public override void SetStaticDefaults()
         {
@@ -99,7 +98,6 @@ namespace ChaosTerraria.NPCs
         {
             timer++;
             timeLeft++;
-            toolUseDelay--;
             if (timer > 18 && npc.active)
             {
                 if (organism != null)
@@ -116,7 +114,7 @@ namespace ChaosTerraria.NPCs
                 timeLeft = 0;
                 npc.life = 0;
                 spawnBlockTileEntity.spawnedSoFar--;
-                if(SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
+                if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
                     SessionManager.ObservableNPCs.Remove(this);
             }
         }
@@ -343,8 +341,12 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Left.ToTileCoordinates();
             pos.X -= range;
-            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
-                WorldGen.KillTile(pos.X, pos.Y - 1);
+            pos.Y++;
+            var tile = Framing.GetTileSafely(pos.X, pos.Y);
+            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.active())
+            {
+                HitTargetPos(pos);
+            }
             npc.direction = -1;
         }
 
@@ -352,31 +354,33 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Right.ToTileCoordinates();
             pos.X += range;
-            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
+            pos.Y++;
+            var tile = Framing.GetTileSafely(pos.X, pos.Y);
+            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.active())
             {
-                if(toolUseDelay < 0)
-                {
-                    SetDamage(pos, Framing.GetTileSafely(pos.X, pos.Y));
-                    if (hitTile.AddDamage(tileId, damage) >= 100)
-                    {
-                        hitTile.Clear(tileId);
-                        WorldGen.KillTile(pos.X, pos.Y + 1);
-                        damage = 0;
-                    }
-                }
+                HitTargetPos(pos);
             }
             npc.direction = 1;
+        }
+
+        private void HitTargetPos(Point pos)
+        {
+            SetDamage(pos, Framing.GetTileSafely(pos.X, pos.Y));
+            if (hitTile.AddDamage(tileId, damage) >= 100)
+            {
+                hitTile.Clear(tileId);
+                WorldGen.KillTile(pos.X, pos.Y);
+                damage = 0;
+            }
         }
 
         private void MineBlockBottomRight()
         {
             var pos = npc.BottomRight.ToTileCoordinates();
             Tile tile = Framing.GetTileSafely(pos.X, pos.Y);
-            if (tile.type != ModContent.TileType<SpawnBlock>())
+            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.active())
             {
-                //SetDamage(pos, tile);
-                //if (hitTile.AddDamage(tileId, damage) >= 100)
-                WorldGen.KillTile(pos.X, pos.Y);
+                HitTargetPos(pos);
             }
             npc.direction = 1;
         }
@@ -387,27 +391,23 @@ namespace ChaosTerraria.NPCs
             if (Main.tileHammer[tile.type])
             {
                 TileLoader.MineDamage(hammer.hammer, ref damage);
-                toolUseDelay = hammer.useTime;
             }
             else if (Main.tileAxe[tile.type])
             {
                 TileLoader.MineDamage(axe.axe, ref damage);
-                toolUseDelay = axe.useTime;
             }
             else
             {
                 TileLoader.MineDamage(pickaxe.pick, ref damage);
-                toolUseDelay = pickaxe.useTime;
             }
-            //if (damage != 0)
-            //    hitTile.Prune();
         }
 
         private void MineBlockBottomLeft()
         {
             var pos = npc.BottomLeft.ToTileCoordinates();
-            if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
-                WorldGen.KillTile(pos.X, pos.Y);
+            var tile = Framing.GetTileSafely(pos.X, pos.Y);
+            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.active())
+                HitTargetPos(pos);
             npc.direction = -1;
         }
 
@@ -497,9 +497,9 @@ namespace ChaosTerraria.NPCs
                         }
                     }
                 }
-                foreach(int tileId in recipes[0].requiredTile)
+                foreach (int tileId in recipes[0].requiredTile)
                 {
-                    if(tileId != -1)
+                    if (tileId != -1)
                     {
                         requiredTileCount++;
                         if (IsTileNearby(tileId))
@@ -544,7 +544,7 @@ namespace ChaosTerraria.NPCs
 
         private bool IsTileNearby(int tileId)
         {
-            for(int x = -5; x <= 5; x++)
+            for (int x = -5; x <= 5; x++)
             {
                 for (int y = -5; y <= 5; y++)
                 {

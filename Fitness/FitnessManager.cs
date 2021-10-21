@@ -181,6 +181,18 @@ namespace ChaosTerraria.Fitness
                         score += scoreEffect;
                     }
                     break;
+                case "-y": //Up
+                    if(org.npc.position.Y < org.npc.oldPosition.Y)
+                    {
+                        score += scoreEffect;
+                    }
+                    break;
+                case "y": //Down
+                    if(org.npc.position.Y > org.npc.oldPosition.Y)
+                    {
+                        score += scoreEffect;
+                    }
+                    break;
                 default:
                     throw new Exception("Invalid Axis Value for this rule!");
             }

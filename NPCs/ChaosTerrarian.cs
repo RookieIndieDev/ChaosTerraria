@@ -410,11 +410,12 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Left.ToTileCoordinates();
             pos.X -= range;
+            pos.Y++;
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
             lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
-                WorldGen.KillTile(pos.X, pos.Y - 1);
+                WorldGen.KillTile(pos.X, pos.Y);
                 npc.direction = -1;
             }
             else
@@ -427,11 +428,12 @@ namespace ChaosTerraria.NPCs
         {
             var pos = npc.Right.ToTileCoordinates();
             pos.X += range;
+            pos.Y++;
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
             lastMinedTileType = lastMinedTile.type;
             if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.active())
             {
-                WorldGen.KillTile(pos.X, pos.Y + 1);
+                WorldGen.KillTile(pos.X, pos.Y);
                 npc.direction = 1;
             }
             else

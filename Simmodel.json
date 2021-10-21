@@ -64,12 +64,12 @@
   "inputNeurons": [
     {
       "$TYPE": "BiasInput",
-      "$DEFAULT": "true",
+      "$DEFAULT": true,
       "weight": "{{rndFloat '-5:5' }}"
     },
     {
       "$TYPE": "BlockInput",
-      "$DEFAULT": "true",
+      "$DEFAULT": true,
       "direction": {
         "$SOURCE": "enum",
         "$ENUM": "DIRECTIONS"
@@ -81,7 +81,7 @@
     },
     {
       "$TYPE": "HasInInventory",
-      "$DEFAULT": "true",
+      "$DEFAULT": true,
       "attributeId": "ITEM_ID",
       "attributeValue": {
         "$SOURCE": "oa",
@@ -92,7 +92,7 @@
   "outputNeurons": [
     {
       "$TYPE": "Move",
-      "$DEFAULT": "true",
+      "$DEFAULT": true,
       "$OUTPUT_GROUP": "BASIC",
       "direction": {
         "$SOURCE": "enum",
@@ -101,7 +101,6 @@
     },
     {
       "$TYPE": "MineBlock",
-      "$DEFAULT": "true",
       "$OUTPUT_GROUP": "BASIC",
       "direction": {
         "$SOURCE": "enum",
@@ -118,7 +117,6 @@
     },
     {
       "$TYPE": "PlaceBlock",
-      "$DEFAULT": "true",
       "$OUTPUT_GROUP": "BASIC",
       "attributeId": "ITEM_ID",
       "attributeValue": {
@@ -140,13 +138,17 @@
     },
     {
       "$TYPE": "CraftItem",
-      "$DEFAULT": "true",
       "$OUTPUT_GROUP": "BASIC",
       "attributeId": "RECIPE_ID",
       "attributeValue": {
         "$SOURCE": "oa",
         "$ATTRIBUTE_ID": "RECIPE_ID"
       }
+    },
+    {
+      "$TYPE": "Jump",
+      "$DEFAULT": true,
+      "$OUTPUT_GROUP": "BASIC"
     }
   ],
   "enum": {
