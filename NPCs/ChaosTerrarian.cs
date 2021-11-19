@@ -221,7 +221,7 @@ namespace ChaosTerraria.NPCs
             pos.X -= x;
             pos.Y = blockToPlace.Contains("Door") ? pos.Y : pos.Y + 1;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -245,7 +245,7 @@ namespace ChaosTerraria.NPCs
             pos.X += x;
             pos.Y = blockToPlace.Contains("Door") ? pos.Y : pos.Y + 1;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -269,7 +269,7 @@ namespace ChaosTerraria.NPCs
             pos.X += x;
             pos.Y += y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -293,7 +293,7 @@ namespace ChaosTerraria.NPCs
             pos.X -= x;
             pos.Y += y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -316,7 +316,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Bottom.ToTileCoordinates();
             pos.Y += y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -339,7 +339,7 @@ namespace ChaosTerraria.NPCs
             pos.X += x;
             pos.Y -= y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -363,7 +363,7 @@ namespace ChaosTerraria.NPCs
             pos.X -= x;
             pos.Y -= y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -386,7 +386,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Top.ToTileCoordinates();
             pos.Y -= y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -622,11 +622,16 @@ namespace ChaosTerraria.NPCs
             bool canCraft = false;
             int availableIngredientCount = 0;
             int tileCount = 0;
+            List<Recipe> recipes = null;
             RecipeFinder finder = new RecipeFinder();
-            itemToCraft = itemToCraft.Replace(" ", "");
+            itemToCraft = itemToCraft == "Wooden Yoyo"?"WoodYoyo":itemToCraft.Replace(" ", "");
             ItemID.Search.TryGetId(itemToCraft, out int id);
-            finder.SetResult(id);
-            List<Recipe> recipes = finder.SearchRecipes();
+            if(id != 0)
+            {
+                finder.SetResult(id);
+                recipes = finder.SearchRecipes();
+            }
+
             if (recipes != null && inventory != null)
             {
                 int requiredIngredientCount = 0;

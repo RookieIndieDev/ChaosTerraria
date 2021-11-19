@@ -94,10 +94,13 @@
       "$TYPE": "Move",
       "$DEFAULT": true,
       "$OUTPUT_GROUP": "BASIC",
-      "direction": {
-        "$SOURCE": "enum",
-        "$ENUM": "MOVE_DIRECTIONS"
-      }
+      "direction": "Left"
+    },
+    {
+      "$TYPE": "Move",
+      "$DEFAULT": true,
+      "$OUTPUT_GROUP": "BASIC",
+      "direction": "Right"
     },
     {
       "$TYPE": "MineBlock",

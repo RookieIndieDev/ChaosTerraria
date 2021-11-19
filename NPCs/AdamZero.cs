@@ -173,7 +173,7 @@ namespace ChaosTerraria.NPCs
             pos.X -= x;
             pos.Y = blockToPlace.Contains("Door") ? pos.Y : pos.Y + 1;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -195,7 +195,7 @@ namespace ChaosTerraria.NPCs
             pos.X += x;
             pos.Y = blockToPlace.Contains("Door") ? pos.Y : pos.Y + 1;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -217,7 +217,7 @@ namespace ChaosTerraria.NPCs
             pos.X += x;
             pos.Y += y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -238,7 +238,7 @@ namespace ChaosTerraria.NPCs
             pos.X -= x;
             pos.Y += y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -259,7 +259,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Bottom.ToTileCoordinates();
             pos.Y += y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -279,7 +279,7 @@ namespace ChaosTerraria.NPCs
             pos.X += x;
             pos.Y -= y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -301,7 +301,7 @@ namespace ChaosTerraria.NPCs
             pos.X -= x;
             pos.Y -= y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -322,7 +322,7 @@ namespace ChaosTerraria.NPCs
             var pos = npc.Top.ToTileCoordinates();
             pos.Y -= y;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active())
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
                 if (blockToPlace.Contains("Door"))
                 {
