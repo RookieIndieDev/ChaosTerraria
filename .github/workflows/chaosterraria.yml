@@ -17,7 +17,7 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
     - name: Setup NuGet
-      uses: nuget/setup-nuget@v1.0.2
+      uses: nuget/setup-nuget@v1
     - name: Restore NuGet Packages
       run: nuget restore ChaosTerraria.sln
     - name: Build
