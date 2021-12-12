@@ -18,4 +18,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: msbuild build /p:Configuration=Release
+      run: msbuild ChaosTerraria.sln /p:Configuration=Release
