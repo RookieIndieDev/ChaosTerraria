@@ -15,7 +15,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Add msbuild to PATH
     - uses: microsoft/setup-msbuild@v1.1
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.2
+    - name: Restore NuGet Packages
+      run: nuget restore ChaosTerraria.sln
     - name: Build
       run: msbuild ChaosTerraria.sln /p:Configuration=Release
