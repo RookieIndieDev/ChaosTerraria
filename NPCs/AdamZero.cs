@@ -1,17 +1,8 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using ChaosTerraria.Classes;
-using Microsoft.Xna.Framework;
+﻿using ChaosTerraria.Classes;
 using ChaosTerraria.Managers;
-using ChaosTerraria.AI;
-using System.IO;
-using Newtonsoft.Json;
 using ChaosTerraria.Enums;
 using ChaosTerraria.Tiles;
 using ChaosTerraria.TileEntities;
-using System.Collections.Generic;
 
 namespace ChaosTerraria.NPCs
 {

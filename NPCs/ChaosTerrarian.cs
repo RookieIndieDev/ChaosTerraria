@@ -1,15 +1,11 @@
-﻿using ChaosTerraria.Classes;
+﻿
+using ChaosTerraria.Classes;
 using ChaosTerraria.Enums;
 using ChaosTerraria.Fitness;
 using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ChaosTerraria.NPCs
 {
