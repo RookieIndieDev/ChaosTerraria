@@ -3,6 +3,15 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.Enums;
 using ChaosTerraria.Tiles;
 using ChaosTerraria.TileEntities;
+using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Newtonsoft.Json;
+using ChaosTerraria.AI;
+using System;
+using System.IO;
+using Microsoft.Xna.Framework;
 
 namespace ChaosTerraria.NPCs
 {

@@ -6,6 +6,11 @@ using ChaosTerraria.Managers;
 using ChaosTerraria.Structs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ChaosTerraria.NPCs
 {
@@ -31,7 +36,6 @@ namespace ChaosTerraria.NPCs
         internal SpawnBlockTileEntity spawnBlockTileEntity;
         FitnessManager fitnessManager;
         private int inventoryLastItemIndex = 0;
-        
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 25;
@@ -69,7 +73,7 @@ namespace ChaosTerraria.NPCs
             SpawnManager.totalSpawned++;
             lifeTimer = 0;
             npc.life = 0;
-            if(spawnBlockTileEntity != null)
+            if (spawnBlockTileEntity != null)
                 spawnBlockTileEntity.spawnedSoFar--;
             if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
                 SessionManager.ObservableNPCs.Remove(this);
@@ -100,18 +104,10 @@ namespace ChaosTerraria.NPCs
                                     lifeTicks = int.Parse(setting.value) * 60;
                                     break;
                                 case "INV_1":
-                                    var settingValue = setting.value.Split('@');
-                                    inventory.Add(new Item());
-                                    inventory[inventoryLastItemIndex].SetDefaults(ItemID.TypeFromUniqueKey("Terraria " + settingValue[0]));
-                                    inventory[inventoryLastItemIndex].stack = int.Parse(settingValue[1]);
-                                    inventoryLastItemIndex++;
+                                    AddItemToInventory(setting);
                                     break;
                                 case "INV_2":
-                                    settingValue = setting.value.Split('@');
-                                    inventory.Add(new Item());
-                                    inventory[inventoryLastItemIndex].SetDefaults(ItemID.TypeFromUniqueKey("Terraria " + settingValue[0]));
-                                    inventory[inventoryLastItemIndex].stack = int.Parse(settingValue[1]);
-                                    inventoryLastItemIndex++;
+                                    AddItemToInventory(setting);
                                     break;
                                 case "friendly":
                                     npc.friendly = bool.Parse(setting.value);
@@ -155,17 +151,46 @@ namespace ChaosTerraria.NPCs
                     int id = ItemID.Search.GetId(name);
                     recipeFinder.AddIngredient(id);
                     List<Recipe> recipes = recipeFinder.SearchRecipes();
-                    if(recipes != null)
+                    if (recipes != null)
                     {
-                        foreach (Recipe recipe in recipes)
+                        switch (item.Name)
                         {
-                            ObservedAttributes observedAttr;
-                            observedAttr.attributeId = "RECIPE_ID";
-                            observedAttr.attributeValue = recipe.createItem.Name;
-                            observedAttr.species = organism.speciesNamespace;
-                            if (!SessionManager.ObservedAttributes.Contains(observedAttr))
-                                SessionManager.ObservedAttributes.Add(observedAttr);
+                            case "Wood":
+                                AddMatchingRecipe(recipes, "Wooden");
+                                break;
+                            case "RichMahogony":
+                                AddMatchingRecipe(recipes, item.Name);
+                                break;
+                            case "Ebonwood":
+                                AddMatchingRecipe(recipes, item.Name);
+                                break;
+                            case "Shadewood":
+                                AddMatchingRecipe(recipes, item.Name);
+                                break;
+                            case "Pearlwood":
+                                AddMatchingRecipe(recipes, item.Name);
+                                break;
+                            case "BorealWood":
+                                AddMatchingRecipe(recipes, item.Name);
+                                break;
+                            case "PalmWood":
+                                AddMatchingRecipe(recipes, item.Name);
+                                break;
+                            case "DynastyWood":
+                                AddMatchingRecipe(recipes, item.Name);
+                                break;
+                            case "SpookyWood":
+                                AddMatchingRecipe(recipes, item.Name);
+                                break;                            
+                            default:
+                                foreach (Recipe recipe in recipes)
+                                {
+                                    AddRecipeObsAttr(recipe);
+                                }
+                                break;
                         }
+
+
                     }
                     ObservedAttributes inventoryObsAttr;
                     inventoryObsAttr.attributeId = "ITEM_ID";
@@ -189,6 +214,37 @@ namespace ChaosTerraria.NPCs
                 if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
                     SessionManager.ObservableNPCs.Remove(this);
             }
+        }
+
+        private void AddItemToInventory(Setting setting)
+        {
+            if (setting.value != "none")
+            {
+                var settingValue = setting.value.Split('@');
+                inventory.Add(new Item());
+                inventory[inventoryLastItemIndex].SetDefaults(ItemID.TypeFromUniqueKey("Terraria " + settingValue[0]));
+                inventory[inventoryLastItemIndex].stack = int.Parse(settingValue[1]);
+                inventoryLastItemIndex++;
+            }
+        }
+
+        private void AddMatchingRecipe(List<Recipe> recipes, string startString)
+        {
+            foreach (Recipe recipe in recipes)
+            {
+                if (recipe.createItem.Name.StartsWith(startString))
+                    AddRecipeObsAttr(recipe);
+            }
+        }
+
+        private void AddRecipeObsAttr(Recipe recipe)
+        {
+            ObservedAttributes observedAttr;
+            observedAttr.attributeId = "RECIPE_ID";
+            observedAttr.attributeValue = recipe.createItem.Name;
+            observedAttr.species = organism.speciesNamespace;
+            if (!SessionManager.ObservedAttributes.Contains(observedAttr))
+                SessionManager.ObservedAttributes.Add(observedAttr);
         }
 
         private void MoveRight()
@@ -249,7 +305,7 @@ namespace ChaosTerraria.NPCs
                     item.stack--;
                     lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
-                else if(item.createTile != -1)
+                else if (item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
                     item.stack--;
@@ -273,13 +329,13 @@ namespace ChaosTerraria.NPCs
                     lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                     item.stack--;
                 }
-                else if(item.createTile !=-1)
+                else if (item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
                     lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                     item.stack--;
                 }
-            } 
+            }
             npc.direction = 1;
         }
 
@@ -337,13 +393,13 @@ namespace ChaosTerraria.NPCs
             var item = FindInventoryItemStack(blockToPlace);
             if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
             {
-                                if (blockToPlace.Contains("Door") && item.createTile != -1)
+                if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
                     item.stack--;
                     lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
-                else if(item.createTile != -1)
+                else if (item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
                     item.stack--;
@@ -367,7 +423,7 @@ namespace ChaosTerraria.NPCs
                     lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                     item.stack--;
                 }
-                else if(item.createTile != -1)
+                else if (item.createTile != -1)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
                     lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
@@ -392,7 +448,7 @@ namespace ChaosTerraria.NPCs
                 }
                 else if (Framing.GetTileSafely(pos.X - 1, pos.Y).active() || Framing.GetTileSafely(pos.X + 1, pos.Y).active() || Framing.GetTileSafely(pos.X, pos.Y + 1).active())
                 {
-                    if(item.createTile != -1)
+                    if (item.createTile != -1)
                     {
                         WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
                         item.stack--;
@@ -620,9 +676,9 @@ namespace ChaosTerraria.NPCs
             int tileCount = 0;
             List<Recipe> recipes = null;
             RecipeFinder finder = new RecipeFinder();
-            itemToCraft = itemToCraft == "Wooden Yoyo"?"WoodYoyo":itemToCraft.Replace(" ", "");
+            itemToCraft = itemToCraft == "Wooden Yoyo" ? "WoodYoyo" : itemToCraft.Replace(" ", "");
             ItemID.Search.TryGetId(itemToCraft, out int id);
-            if(id != 0)
+            if (id != 0)
             {
                 finder.SetResult(id);
                 recipes = finder.SearchRecipes();
@@ -774,7 +830,7 @@ namespace ChaosTerraria.NPCs
             }
 
             if (organism != null)
-                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace 
+                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace
                     + "\n" + "Current Action: " + (OutputType)currentAction + "\n" + "Time Left: " + ((lifeTicks - lifeTimer) / 60) + "\nInventory: " + inventoryItems + "\nScore: " + report.score;
             return "Org Not Assigned";
         }
