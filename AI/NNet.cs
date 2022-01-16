@@ -64,6 +64,7 @@ namespace ChaosTerraria.AI
                                 break;
                         }
                         Point pos = tilePos.ToTileCoordinates();
+                        Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Red, null);
                         if (pos.X >= 0 && pos.Y >= 0 && pos.X < Main.maxTilesX && pos.Y < Main.maxTilesY)
                         {
                             Tile tile = Framing.GetTileSafely(pos);

@@ -20,9 +20,9 @@
         }
       ],
       "$OUTPUT_GROUP": "BASIC",
-      "direction": "Top",
-      "x": "Zero",
-      "y": "Three",
+      "direction": "TopRight",
+      "x": "One",
+      "y": "Zero",
       "attributeValue": "Wood"
     }
   ]
