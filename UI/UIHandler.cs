@@ -1,5 +1,6 @@
 ﻿using ChaosTerraria.Managers;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 
 namespace ChaosTerraria.UI
@@ -48,6 +49,12 @@ namespace ChaosTerraria.UI
             {
                 Main.NewText("Observer Mode deactivated", Color.LightBlue);
             }
+        }
+
+        internal static void ShowProgressBar()
+        {
+            if(!isSpawnBlockScreenVisible && !isLoginUiVisible && !isSessionUIVisible)
+                ChaosTerraria.mainInterface.SetState(ChaosTerraria.progressBar);
         }
     }
 }

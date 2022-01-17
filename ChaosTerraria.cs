@@ -16,6 +16,7 @@ namespace ChaosTerraria
         internal static LoginScreen loginScreen;
         internal static SessionScreen sessionScreen;
         internal static SpawnBlockScreen spawnBlockScreen;
+        internal static GenProgressBar progressBar;
         //TODO: Add Current Stats Hotkey
         public static ModHotKey loginHotkey;
         public static ModHotKey sessionHotkey;
@@ -30,6 +31,7 @@ namespace ChaosTerraria
             loginScreen = new LoginScreen();
             sessionScreen = new SessionScreen();
             spawnBlockScreen = new SpawnBlockScreen();
+            progressBar = new GenProgressBar();
             loginHotkey = RegisterHotKey("Login", "P");
             sessionHotkey = RegisterHotKey("Session", "O");
             observerModeHotkey = RegisterHotKey("Observe Mode", "N");
@@ -39,7 +41,7 @@ namespace ChaosTerraria
                 loginScreen.Activate();
                 sessionScreen.Activate();
                 spawnBlockScreen.Activate();
-
+                progressBar.Activate();
                 SessionManager.InitializeSession();
 
                 if (!ChaosNetConfig.CheckForConfig())
@@ -95,6 +97,12 @@ namespace ChaosTerraria
             if (mainInterface.CurrentState != null)
             {
                 mainInterface.Update(gameTime);
+            }
+
+            if(SessionManager.SessionStarted)
+            {
+                UIHandler.ShowProgressBar();
+                progressBar.Update(gameTime);
             }
         }
     }
