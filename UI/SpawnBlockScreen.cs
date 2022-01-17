@@ -16,7 +16,6 @@ namespace ChaosTerraria.UI
         ModTextBox spawnCountTextbox;
         UIImageButton closeButton;
         SpawnBlockTileEntity spawnBlockTileEntity;
-
         public override void OnInitialize()
         {
             mainPanel = new UIPanel();

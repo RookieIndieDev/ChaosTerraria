@@ -33,7 +33,6 @@ namespace ChaosTerraria.NPCs
         Item hammer = new Item();
         private int damage;
         private int tileId;
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 25;

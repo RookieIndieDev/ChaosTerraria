@@ -13,7 +13,7 @@ namespace ChaosTerraria.Fitness
     {
         private List<FitnessRule> fitnessRules;
         private FitnessRuleType type;
-
+        private int maxAlongAxis;
         public FitnessManager(List<FitnessRule> rules)
         {
             fitnessRules = new List<FitnessRule>(rules);
@@ -169,28 +169,49 @@ namespace ChaosTerraria.Fitness
             switch (axis)
             {
                 case "x":
-                    if (org.npc.position.X > org.npc.oldPosition.X)
+                    if (org.npc.position.X > org.npc.oldPosition.X && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
+                        maxAlongAxis = (int)org.npc.position.X;
+                    }else if (org.npc.position.X > maxAlongAxis)
+                    {
+                        score += scoreEffect;
+                        maxAlongAxis = (int)org.npc.position.X;
                     }
 
                     break;
                 case "-x":
-                    if (org.npc.position.X < org.npc.oldPosition.X)
+                    if (org.npc.position.X < org.npc.oldPosition.X && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
+                        maxAlongAxis = (int)org.npc.position.X;
+                    }else if(org.npc.position.X < maxAlongAxis)
+                    {
+                        score += scoreEffect;
+                        maxAlongAxis = (int)org.npc.position.X;
                     }
                     break;
                 case "-y": //Up
-                    if(org.npc.position.Y < org.npc.oldPosition.Y)
+                    if(org.npc.position.Y < org.npc.oldPosition.Y && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
+                        maxAlongAxis = (int)org.npc.position.Y;
+                    }
+                    else if(org.npc.position.Y < maxAlongAxis)
+                    {
+                        score += scoreEffect;
+                        maxAlongAxis = (int)org.npc.position.Y;
                     }
                     break;
                 case "y": //Down
-                    if(org.npc.position.Y > org.npc.oldPosition.Y)
+                    if(org.npc.position.Y > org.npc.oldPosition.Y && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
+                        maxAlongAxis = (int)org.npc.position.Y;
+                    }else if (org.npc.position.Y > maxAlongAxis)
+                    {
+                        score += scoreEffect;
+                        maxAlongAxis = (int)org.npc.position.Y;
                     }
                     break;
                 default:
