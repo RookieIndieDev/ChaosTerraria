@@ -3,13 +3,33 @@
     {
       "_base_type": "input",
       "id": "neuron-1",
-      "$TYPE": "BiasInput",
+      "$TYPE": "BlockInput",
       "dependencies": [],
-      "weight": 5
+      "weight": 5,
+      "direction": "Top",
+      "range": "Zero"
+    },
+    {
+      "_base_type": "input",
+      "id": "neuron-2",
+      "$TYPE": "BlockInput",
+      "dependencies": [],
+      "weight": 5,
+      "direction": "Bottom",
+      "range": "One"
+    },
+    {
+      "_base_type": "input",
+      "id": "neuron-3",
+      "$TYPE": "BlockInput",
+      "dependencies": [],
+      "weight": 5,
+      "direction": "BottomLeft",
+      "range": "Zero"
     },
     {
       "_base_type": "output",
-      "id": "neuron-2",
+      "id": "neuron-4",
       "$TYPE": "MineBlock",
       "dependencies": [
         {

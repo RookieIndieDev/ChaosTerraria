@@ -6,18 +6,19 @@ using Terraria;
 
 namespace ChaosTerraria.AI
 {
+    //TODO: Replace Current system for BlockInputs with X & y + direction similar to PlaceBlock and MineBlock?
     public class NNet
     {
         public List<Neuron> neurons;
 
-        public int GetOutput(Vector2 center, List<Item> inventory, out int direction, out string itemToCraft, out string blockToPlace, out int x, out int y)
+        public int GetOutput(Point center, List<Item> inventory, out int direction, out string itemToCraft, out string blockToPlace, out int x, out int y)
         {
             int output = -100;
             double outputValue = -100;
             int tempDirection = -1;
             string tempitemToCraft = "";
             string tempBlockToPlace = "";
-            Vector2 tilePos = new Vector2();
+            Point tilePos = new Point();
             int tileType = 0;
             int blockX = 0;
             int blockY = 0;
@@ -32,38 +33,38 @@ namespace ChaosTerraria.AI
 
                             case (int)Direction.Top:
                                 tilePos.X = center.X;
-                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range) - 1;
                                 break;
                             case (int)Direction.TopLeft:
-                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range);
-                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range) - 1;
+                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range) - 1;
                                 break;
                             case (int)Direction.TopRight:
-                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range);
-                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range) + 1;
+                                tilePos.Y = center.Y - (int)Enum.Parse(coordType, neuron.range) - 1;
                                 break;
                             case (int)Direction.Bottom:
                                 tilePos.X = center.X;
-                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range) + 1;
                                 break;
                             case (int)Direction.BottomLeft:
-                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range);
-                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range) - 1;
+                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range) + 1;
                                 break;
                             case (int)Direction.BottomRight:
-                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range);
-                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range) + 1;
+                                tilePos.Y = center.Y + (int)Enum.Parse(coordType, neuron.range) + 1;
                                 break;
                             case (int)Direction.Left:
-                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.X = center.X - (int)Enum.Parse(coordType, neuron.range) - 1;
                                 tilePos.Y = center.Y;
                                 break;
                             case (int)Direction.Right:
-                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range);
+                                tilePos.X = center.X + (int)Enum.Parse(coordType, neuron.range) + 1;
                                 tilePos.Y = center.Y;
                                 break;
                         }
-                        Point pos = tilePos.ToTileCoordinates();
+                        Point pos = tilePos;
                         Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Red, null);
                         if (pos.X >= 0 && pos.Y >= 0 && pos.X < Main.maxTilesX && pos.Y < Main.maxTilesY)
                         {

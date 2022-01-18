@@ -127,7 +127,7 @@ namespace ChaosTerraria.NPCs
             {
                 if (organism != null)
                 {
-                    int action = organism.nNet.GetOutput(npc.Center, inventory, out int direction, out string itemToCraft, out string itemToPlace, out int x, out int y);
+                    int action = organism.nNet.GetOutput(npc.Center.ToTileCoordinates(), inventory, out int direction, out string itemToCraft, out string itemToPlace, out int x, out int y);
                     currentAction = action;
                     DoActions(action, direction, itemToCraft, itemToPlace, x, y);
                     UpdateInventory();
