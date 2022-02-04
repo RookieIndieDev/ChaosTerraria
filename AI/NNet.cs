@@ -6,7 +6,7 @@ using Terraria;
 
 namespace ChaosTerraria.AI
 {
-    //TODO: Replace Current system for BlockInputs with X & y + direction similar to PlaceBlock and MineBlock?
+    //TODO: Replace Current system for BlockInputs with X & Y + direction similar to PlaceBlock and MineBlock?
     public class NNet
     {
         public List<Neuron> neurons;

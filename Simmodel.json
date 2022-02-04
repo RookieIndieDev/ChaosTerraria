@@ -87,6 +87,15 @@
         "$SOURCE": "oa",
         "$ATTRIBUTE_ID": "ITEM_ID"
       }
+    },
+    {
+      "$TYPE": "HowManyInInventory",
+      "$DEFAULT": true,
+      "attributeId": "ITEM_ID",
+      "attributeValue": {
+        "$SOURCE": "oa",
+        "$ATTRIBUTE_ID": "ITEM_ID"
+      }
     }
   ],
   "outputNeurons": [
@@ -104,6 +113,7 @@
     },
     {
       "$TYPE": "MineBlock",
+      "$DEFAULT": false,
       "$OUTPUT_GROUP": "BASIC",
       "direction": {
         "$SOURCE": "enum",
@@ -121,6 +131,7 @@
     {
       "$TYPE": "PlaceBlock",
       "$OUTPUT_GROUP": "BASIC",
+      "$DEFAULT": false,
       "attributeId": "ITEM_ID",
       "attributeValue": {
         "$SOURCE": "oa",
@@ -142,6 +153,7 @@
     {
       "$TYPE": "CraftItem",
       "$OUTPUT_GROUP": "BASIC",
+      "$DEFAULT": false,
       "attributeId": "RECIPE_ID",
       "attributeValue": {
         "$SOURCE": "oa",
