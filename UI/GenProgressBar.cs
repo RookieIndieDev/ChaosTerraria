@@ -25,7 +25,7 @@ namespace ChaosTerraria.UI
             };
             percent = new UIText("");
             content = new UIText("Generation Progress");
-            progressBar = ModContent.GetTexture("ChaosTerraria/UI/ProgressBar");
+            progressBar = ModContent.Request<Texture2D>("ChaosTerraria/UI/ProgressBar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             mainPanel.Width.Set(Main.screenWidth * 0.20f, 0f);
             mainPanel.Height.Set(100f, 0f);
             mainPanel.Top.Set(Main.screenHeight * 0.85f, 0f);

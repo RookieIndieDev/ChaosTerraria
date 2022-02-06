@@ -1,17 +1,17 @@
-﻿using ChaosTerraria.Classes;
-using ChaosTerraria.Managers;
+﻿using ChaosTerraria.AI;
+using ChaosTerraria.Classes;
 using ChaosTerraria.Enums;
-using ChaosTerraria.Tiles;
+using ChaosTerraria.Managers;
 using ChaosTerraria.TileEntities;
-using Terraria.ModLoader;
+using ChaosTerraria.Tiles;
+using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ID;
-using Newtonsoft.Json;
-using ChaosTerraria.AI;
-using System;
-using System.IO;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace ChaosTerraria.NPCs
 {
@@ -20,6 +20,8 @@ namespace ChaosTerraria.NPCs
     class AdamZero : ModNPC
     {
         public override string Texture => "ChaosTerraria/NPCs/Terrarian";
+
+        private const int ticksUntilNextAction = 18;
         private int timer;
         private int timeLeft;
         internal Organism organism;
@@ -35,11 +37,11 @@ namespace ChaosTerraria.NPCs
         private int tileId;
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 25;
-            NPCID.Sets.ExtraFramesCount[npc.type] = 9;
-            NPCID.Sets.AttackFrameCount[npc.type] = 4;
-            NPCID.Sets.DangerDetectRange[npc.type] = 700;
-            NPCID.Sets.MustAlwaysDraw[npc.type] = true;
+            Main.npcFrameCount[Type] = 25;
+            NPCID.Sets.ExtraFramesCount[Type] = 9;
+            NPCID.Sets.AttackFrameCount[Type] = 4;
+            NPCID.Sets.DangerDetectRange[Type] = 700;
+            NPCID.Sets.MustAlwaysDraw[Type] = true;
         }
 
         public override bool CheckActive()
@@ -51,7 +53,7 @@ namespace ChaosTerraria.NPCs
         {
             SpawnManager.adamZeroCount--;
             timeLeft = 0;
-            npc.life = 0;
+            NPC.life = 0;
             spawnBlockTileEntity.spawnedSoFar--;
             if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
                 SessionManager.ObservableNPCs.Remove(this);
@@ -60,19 +62,19 @@ namespace ChaosTerraria.NPCs
 
         public override void SetDefaults()
         {
-            npc.aiStyle = -1;
-            npc.townNPC = false;
-            npc.friendly = true;
-            npc.width = 18;
-            npc.height = 40;
-            npc.damage = 10;
-            npc.defense = 15;
-            npc.lifeMax = 100;
-            npc.knockBackResist = 0.5f;
-            animationType = NPCID.Guide;
-            npc.homeless = true;
-            npc.noGravity = false;
-            npc.dontTakeDamage = false;
+            NPC.aiStyle = -1;
+            NPC.townNPC = false;
+            NPC.friendly = true;
+            NPC.width = 18;
+            NPC.height = 40;
+            NPC.damage = 10;
+            NPC.defense = 15;
+            NPC.lifeMax = 100;
+            NPC.knockBackResist = 0.5f;
+            AnimationType = NPCID.Guide;
+            NPC.homeless = true;
+            NPC.noGravity = false;
+            NPC.dontTakeDamage = false;
 #if DEBUG
             organism = new Organism
             {
@@ -82,7 +84,7 @@ namespace ChaosTerraria.NPCs
                 trainingRoomRoleNamespace = "AdamZero"
             };
 #endif
-            npc.GivenName = "AdamZero";
+            NPC.GivenName = "AdamZero";
             inventory.Add(new Item());
             ItemID.Search.TryGetId("Wood", out int id);
             inventory[lastItemIndex].SetDefaults(id);
@@ -97,21 +99,21 @@ namespace ChaosTerraria.NPCs
         {
             timer++;
             timeLeft++;
-            if (timer > 18 && npc.active)
+            if (timer > ticksUntilNextAction && NPC.active)
             {
                 if (organism != null)
                 {
-                    int action = organism.nNet.GetOutput(npc.Center.ToTileCoordinates(), inventory, out int direction, out string itemToCraft, out string blockToPlace, out int x, out int y);
+                    int action = organism.nNet.GetOutput(NPC.Center.ToTileCoordinates(), inventory, out int direction, out string itemToCraft, out string blockToPlace, out int x, out int y);
                     DoActions(action, direction, itemToCraft, blockToPlace, x, y);
                     UpdateInventory();
                 }
                 timer = 0;
             }
-            if (timeLeft > lifeTicks && npc.active)
+            if (timeLeft > lifeTicks && NPC.active)
             {
                 SpawnManager.adamZeroCount--;
                 timeLeft = 0;
-                npc.life = 0;
+                NPC.life = 0;
                 spawnBlockTileEntity.spawnedSoFar--;
                 if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
                     SessionManager.ObservableNPCs.Remove(this);
@@ -148,31 +150,31 @@ namespace ChaosTerraria.NPCs
 
         private void MoveRight()
         {
-            npc.velocity.X = 0.5f;
-            npc.direction = 1;
+            NPC.velocity.X = 0.5f;
+            NPC.direction = 1;
         }
 
         private void MoveLeft()
         {
-            npc.velocity.X = -0.5f;
-            npc.direction = -1;
+            NPC.velocity.X = -0.5f;
+            NPC.direction = -1;
         }
 
         private void Jump()
         {
-            if (npc.collideY)
+            if (NPC.collideY)
             {
-                npc.velocity.Y = -8f;
+                NPC.velocity.Y = -8f;
             }
         }
 
         private void PlaceBlockLeft(string blockToPlace, int x)
         {
-            var pos = npc.Left.ToTileCoordinates();
+            var pos = NPC.Left.ToTileCoordinates();
             pos.X -= x;
             pos.Y = blockToPlace.Contains("Door") ? pos.Y : pos.Y + 1;
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -185,17 +187,17 @@ namespace ChaosTerraria.NPCs
                 item.stack--;
             }
 
-            npc.direction = -1;
+            NPC.direction = -1;
         }
 
         private void PlaceBlockRight(string blockToPlace, int x)
         {
-            var pos = npc.Right.ToTileCoordinates();
+            var pos = NPC.Right.ToTileCoordinates();
             pos.X += x;
             pos.Y = blockToPlace.Contains("Door") ? pos.Y : pos.Y + 1;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -208,17 +210,17 @@ namespace ChaosTerraria.NPCs
                 item.stack--;
             }
 
-            npc.direction = 1;
+            NPC.direction = 1;
         }
 
         private void PlaceBlockBottomRight(string blockToPlace, int x, int y)
         {
-            var pos = npc.BottomRight.ToTileCoordinates();
+            var pos = NPC.BottomRight.ToTileCoordinates();
             pos.X += x;
             pos.Y += y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -230,17 +232,17 @@ namespace ChaosTerraria.NPCs
                 }
                 item.stack--;
             }
-            npc.direction = 1;
+            NPC.direction = 1;
         }
 
         private void PlaceBlockBottomLeft(string blockToPlace, int x, int y)
         {
-            var pos = npc.BottomLeft.ToTileCoordinates();
+            var pos = NPC.BottomLeft.ToTileCoordinates();
             pos.X -= x;
             pos.Y += y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -253,16 +255,16 @@ namespace ChaosTerraria.NPCs
                 item.stack--;
             }
 
-            npc.direction = -1;
+            NPC.direction = -1;
         }
 
         private void PlaceBlockBottom(string blockToPlace, int y)
         {
-            var pos = npc.Bottom.ToTileCoordinates();
+            var pos = NPC.Bottom.ToTileCoordinates();
             pos.Y += y;
             var item = FindInventoryItemStack(blockToPlace);
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -278,12 +280,12 @@ namespace ChaosTerraria.NPCs
 
         private void PlaceBlockTopRight(string blockToPlace, int x, int y)
         {
-            var pos = npc.TopRight.ToTileCoordinates();
+            var pos = NPC.TopRight.ToTileCoordinates();
             pos.X += x;
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -296,17 +298,17 @@ namespace ChaosTerraria.NPCs
                 item.stack--;
             }
 
-            npc.direction = 1;
+            NPC.direction = 1;
         }
 
         private void PlaceBlockTopLeft(string blockToPlace, int x, int y)
         {
-            var pos = npc.TopLeft.ToTileCoordinates();
+            var pos = NPC.TopLeft.ToTileCoordinates();
             pos.X -= x;
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
             {
                 if (blockToPlace.Contains("Door"))
                 {
@@ -319,23 +321,23 @@ namespace ChaosTerraria.NPCs
                 item.stack--;
             }
 
-            npc.direction = -1;
+            NPC.direction = -1;
         }
 
         private void PlaceBlockTop(string blockToPlace, int y)
         {
-            var pos = npc.Top.ToTileCoordinates();
+            var pos = NPC.Top.ToTileCoordinates();
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).active() && (Framing.GetTileSafely(pos.X, pos.Y + 1).active() || Framing.GetTileSafely(pos.X, pos.Y - 1).active()))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
             {
                 if (blockToPlace.Contains("Door"))
                 {
                     WorldGen.PlaceDoor(pos.X, pos.Y, item.createTile);
                     item.stack--;
                 }
-                else if (Framing.GetTileSafely(pos.X - 1, pos.Y).active() || Framing.GetTileSafely(pos.X + 1, pos.Y).active() || Framing.GetTileSafely(pos.X, pos.Y + 1).active())
+                else if (Framing.GetTileSafely(pos.X - 1, pos.Y).IsActive || Framing.GetTileSafely(pos.X + 1, pos.Y).IsActive || Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive)
                 {
                     WorldGen.PlaceTile(pos.X, pos.Y, item.createTile);
                     item.stack--;
@@ -345,30 +347,30 @@ namespace ChaosTerraria.NPCs
 
         private void MineBlockLeft(int range)
         {
-            var pos = npc.Left.ToTileCoordinates();
+            var pos = NPC.Left.ToTileCoordinates();
             pos.X -= range;
             pos.Y++;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var tile = Framing.GetTileSafely(pos.X, pos.Y);
-            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.active())
+            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.IsActive)
             {
                 HitTargetPos(pos);
             }
-            npc.direction = -1;
+            NPC.direction = -1;
         }
 
         private void MineBlockRight(int range)
         {
-            var pos = npc.Right.ToTileCoordinates();
+            var pos = NPC.Right.ToTileCoordinates();
             pos.X += range;
             pos.Y++;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var tile = Framing.GetTileSafely(pos.X, pos.Y);
-            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.active())
+            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.IsActive)
             {
                 HitTargetPos(pos);
             }
-            npc.direction = 1;
+            NPC.direction = 1;
         }
 
         private void HitTargetPos(Point pos)
@@ -384,14 +386,14 @@ namespace ChaosTerraria.NPCs
 
         private void MineBlockBottomRight()
         {
-            var pos = npc.BottomRight.ToTileCoordinates();
+            var pos = NPC.BottomRight.ToTileCoordinates();
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             Tile tile = Framing.GetTileSafely(pos.X, pos.Y);
-            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.active())
+            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.IsActive)
             {
                 HitTargetPos(pos);
             }
-            npc.direction = 1;
+            NPC.direction = 1;
         }
 
         private void SetDamage(Point pos, Tile tile)
@@ -413,17 +415,17 @@ namespace ChaosTerraria.NPCs
 
         private void MineBlockBottomLeft()
         {
-            var pos = npc.BottomLeft.ToTileCoordinates();
+            var pos = NPC.BottomLeft.ToTileCoordinates();
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             var tile = Framing.GetTileSafely(pos.X, pos.Y);
-            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.active())
+            if (tile.type != ModContent.TileType<SpawnBlock>() && tile.IsActive)
                 HitTargetPos(pos);
-            npc.direction = -1;
+            NPC.direction = -1;
         }
 
         private void MineBlockBottom()
         {
-            var pos = npc.Bottom.ToTileCoordinates();
+            var pos = NPC.Bottom.ToTileCoordinates();
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
@@ -431,29 +433,29 @@ namespace ChaosTerraria.NPCs
 
         private void MineBlockTopRight(int x, int y)
         {
-            var pos = npc.TopRight.ToTileCoordinates();
+            var pos = NPC.TopRight.ToTileCoordinates();
             pos.X += x;
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
-            npc.direction = 1;
+            NPC.direction = 1;
         }
 
         private void MineBlockTopLeft(int x, int y)
         {
-            var pos = npc.TopLeft.ToTileCoordinates();
+            var pos = NPC.TopLeft.ToTileCoordinates();
             pos.X -= x;
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
                 WorldGen.KillTile(pos.X, pos.Y);
-            npc.direction = -1;
+            NPC.direction = -1;
         }
 
         private void MineBlockTop(int y)
         {
-            var pos = npc.Top.ToTileCoordinates();
+            var pos = NPC.Top.ToTileCoordinates();
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.White, null);
             if (Framing.GetTileSafely(pos.X, pos.Y).type != ModContent.TileType<SpawnBlock>())
@@ -487,17 +489,23 @@ namespace ChaosTerraria.NPCs
         private void CraftItem(string itemToCraft)
         {
             bool canCraft = false;
+            Recipe requiredRecipe = null;
             int availableIngredientCount = 0;
             int tileCount = 0;
-            RecipeFinder finder = new RecipeFinder();
             ItemID.Search.TryGetId(itemToCraft.Replace(" ", ""), out int id);
-            finder.SetResult(id);
-            List<Recipe> recipes = finder.SearchRecipes();
-            if (recipes != null && inventory != null)
+            foreach (Recipe recipe in Main.recipe)
+            {
+                if (recipe.createItem.type == id)
+                {
+                    requiredRecipe = recipe;
+                    break;
+                }
+            }
+            if (requiredRecipe != null && inventory != null)
             {
                 int requiredIngredientCount = 0;
                 int requiredTileCount = 0;
-                foreach (Item ingredient in recipes[0].requiredItem)
+                foreach (Item ingredient in requiredRecipe.requiredItem)
                 {
                     if (ingredient.active)
                     {
@@ -511,7 +519,7 @@ namespace ChaosTerraria.NPCs
                         }
                     }
                 }
-                foreach (int tileId in recipes[0].requiredTile)
+                foreach (int tileId in requiredRecipe.requiredTile)
                 {
                     if (tileId != -1)
                     {
@@ -531,20 +539,20 @@ namespace ChaosTerraria.NPCs
                     var item = inventory.Find(x => x.Name == itemToCraft && x.active);
                     if (item != null)
                     {
-                        item.stack += recipes[0].createItem.stack;
+                        item.stack += requiredRecipe.createItem.stack;
                     }
                     else
                     {
                         inventory.Add(new Item());
-                        int itemId = ItemID.Search.GetId(recipes[0].createItem.Name.Replace(" ", ""));
+                        int itemId = ItemID.Search.GetId(requiredRecipe.createItem.Name.Replace(" ", ""));
                         inventory[lastItemIndex].SetDefaults(itemId);
-                        inventory[lastItemIndex].stack = recipes[0].createItem.stack;
+                        inventory[lastItemIndex].stack = requiredRecipe.createItem.stack;
                         lastItemIndex++;
                     }
 
                     foreach (Item invItem in inventory)
                     {
-                        foreach (Item reqItem in recipes[0].requiredItem)
+                        foreach (Item reqItem in requiredRecipe.requiredItem)
                         {
                             if (invItem.Name == reqItem.Name && invItem.stack > 0)
                             {
@@ -562,7 +570,7 @@ namespace ChaosTerraria.NPCs
             {
                 for (int y = -5; y <= 5; y++)
                 {
-                    if (Framing.GetTileSafely((int)npc.Center.ToTileCoordinates().X + x, (int)npc.Center.ToTileCoordinates().Y + y).type == tileId)
+                    if (Framing.GetTileSafely((int)NPC.Center.ToTileCoordinates().X + x, (int)NPC.Center.ToTileCoordinates().Y + y).type == tileId)
                         return true;
                 }
             }

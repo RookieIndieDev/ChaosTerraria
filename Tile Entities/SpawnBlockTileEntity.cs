@@ -11,20 +11,20 @@ namespace ChaosTerraria.TileEntities
         internal int spawnCount = 1;
         internal int spawnedSoFar;
 
-        public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
+        public override bool IsTileValidForEntity(int x, int y)
+        {
+            Tile tile = Main.tile[x, y];
+            return tile.IsActive && tile.type == ModContent.TileType<SpawnBlock>() && tile.frameX == 0 && tile.frameY == 0;
+        }
+
+        public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction, int alternate)
         {
             return Place(i, j);
         }
 
-        public override void Load(TagCompound tag)
+        public override void SaveData(TagCompound tag)
         {
-            roleNamespace = tag.Get<string>("roleNamespace");
-            spawnCount = tag.GetAsInt("spawnCount");
-        }
-
-        public override TagCompound Save()
-        {
-            return new TagCompound
+            tag = new TagCompound
             {
                 {"roleNamespace", roleNamespace},
                 {"spawnCount", spawnCount}
@@ -32,10 +32,10 @@ namespace ChaosTerraria.TileEntities
             };
         }
 
-        public override bool ValidTile(int i, int j)
+        public override void LoadData(TagCompound tag)
         {
-            Tile tile = Main.tile[i, j];
-            return tile.active() && tile.type == ModContent.TileType<SpawnBlock>() && tile.frameX == 0 && tile.frameY == 0;
+            roleNamespace = tag.Get<string>("roleNamespace");
+            spawnCount = tag.GetAsInt("spawnCount");
         }
     }
 }

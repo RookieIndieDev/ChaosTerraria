@@ -1,4 +1,5 @@
 ﻿using ChaosTerraria.TileEntities;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.UI.Elements;
@@ -23,8 +24,7 @@ namespace ChaosTerraria.UI
             spawnCount = new UIText("Spawn Count: ");
             spawnPointTextbox = new ModTextBox("");
             spawnCountTextbox = new ModTextBox("");
-            closeButton = new UIImageButton(ModContent.GetTexture("ChaosTerraria/UI/CloseButton"));
-
+            closeButton = new UIImageButton(ModContent.Request<Texture2D>("ChaosTerraria/UI/CloseButton", ReLogic.Content.AssetRequestMode.ImmediateLoad));
             mainPanel.Width.Set(Main.screenWidth * 0.25f, 0f);
             mainPanel.Height.Set(Main.screenHeight * 0.45f, 0f);
             mainPanel.Top.Set(Main.screenHeight * 0.50f, 0f);
@@ -37,8 +37,8 @@ namespace ChaosTerraria.UI
             spawnPointTextbox.Top.Set(mainPanel.Height.Pixels * 0.40f, 0f);
             spawnCountTextbox.Left.Set(mainPanel.Width.Pixels / 2 - 20f, 0f);
             spawnCountTextbox.Top.Set(mainPanel.Height.Pixels * 0.55f, 0f);
-            closeButton.Left.Set(mainPanel.Width.Pixels / 2 - closeButton.Width.Pixels / 2, 0f);
-            closeButton.Top.Set(mainPanel.Height.Pixels * 0.65f, 0f);
+            closeButton.HAlign = 0.5f;
+            closeButton.VAlign = 0.9f;
             closeButton.OnClick += this.OnClose;
             mainPanel.Append(spawnPointId);
             mainPanel.Append(spawnCount);

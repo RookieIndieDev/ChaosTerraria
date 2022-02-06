@@ -1,4 +1,5 @@
 ﻿using ChaosTerraria.Managers;
+using ChaosTerraria.World;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -16,24 +17,24 @@ namespace ChaosTerraria.UI
 
         public static void ShowLoginScreen()
         {
-            ChaosTerraria.mainInterface.SetState(ChaosTerraria.loginScreen);
+            ChaosSystem.mainInterface.SetState(ChaosSystem.loginScreen);
         }
 
         public static void ShowSessionScreen()
         {
-            ChaosTerraria.mainInterface.SetState(ChaosTerraria.sessionScreen);
+            ChaosSystem.mainInterface.SetState(ChaosSystem.sessionScreen);
         }
 
         public static void ShowSpawnBlockScreen(int i, int j)
         {
             isSpawnBlockScreenVisible = true;
-            ChaosTerraria.mainInterface.SetState(ChaosTerraria.spawnBlockScreen);
-            ChaosTerraria.spawnBlockScreen.GetValues(i, j);
+            ChaosSystem.mainInterface.SetState(ChaosSystem.spawnBlockScreen);
+            ChaosSystem.spawnBlockScreen.GetValues(i, j);
         }
 
         public static void HideUI()
         {
-            ChaosTerraria.mainInterface.SetState(null);
+            ChaosSystem.mainInterface.SetState(null);
         }
 
         public static void ToggleObserveMode()
@@ -54,7 +55,7 @@ namespace ChaosTerraria.UI
         internal static void ShowProgressBar()
         {
             if(!isSpawnBlockScreenVisible && !isLoginUiVisible && !isSessionUIVisible)
-                ChaosTerraria.mainInterface.SetState(ChaosTerraria.progressBar);
+                ChaosSystem.mainInterface.SetState(ChaosSystem.progressBar);
         }
     }
 }

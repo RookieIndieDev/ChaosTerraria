@@ -69,7 +69,7 @@ namespace ChaosTerraria.AI
                         if (pos.X >= 0 && pos.Y >= 0 && pos.X < Main.maxTilesX && pos.Y < Main.maxTilesY)
                         {
                             Tile tile = Framing.GetTileSafely(pos);
-                            if (tile.active())
+                            if (tile.IsActive)
                             {
                                 tileType = tile.type == 0 ? 1 : tile.type;
                             }

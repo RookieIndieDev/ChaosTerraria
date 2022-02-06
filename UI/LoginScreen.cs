@@ -1,5 +1,6 @@
 ﻿using ChaosTerraria.ChaosUtils;
 using ChaosTerraria.Network;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -29,7 +30,7 @@ namespace ChaosTerraria.UI
             trainingRoomText = new UIText("Training Room Name: ");
             heading = new UIText("ChaosNet Login");
             trainingRoomOwnerText = new UIText("Training Room Owner Name: ");
-            loginButton = new UIImageButton(ModContent.GetTexture("ChaosTerraria/UI/LoginButton"));
+            loginButton = new UIImageButton(ModContent.Request<Texture2D>("ChaosTerraria/UI/LoginButton", ReLogic.Content.AssetRequestMode.ImmediateLoad));
             loginButton.OnClick += new MouseEvent(DoAuth);
             username = new ModTextBox("");
             password = new ModTextBox("");
@@ -40,8 +41,8 @@ namespace ChaosTerraria.UI
             mainPanel.Height.Set(Main.screenHeight * 0.65f, 0f);
             mainPanel.Top.Set(Main.screenHeight * 0.25f, 0f);
             mainPanel.Left.Set(Main.screenWidth * 0.25f, 0f);
-            loginButton.Left.Set(mainPanel.Width.Pixels / 2 - loginButton.Width.Pixels / 2, 0f);
-            loginButton.Top.Set(mainPanel.Height.Pixels * 0.70f, 0f);
+            loginButton.HAlign = 0.5f;
+            loginButton.VAlign = 0.9f;
             username.Top.Set(mainPanel.Height.Pixels * 0.25f, 0f);
             username.Left.Set((mainPanel.Width.Pixels / 2) - (username.Width.Pixels / 2), 0f);
             password.Top.Set(mainPanel.Height.Pixels * 0.35f, 0f);

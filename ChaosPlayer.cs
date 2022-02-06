@@ -55,8 +55,8 @@ namespace ChaosTerraria
         {
             if(SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0 && UIHandler.isInObserverMode)
             {
-                Main.screenPosition.X = SessionManager.ObservableNPCs[UIHandler.currentOrgIndex].npc.Center.X - Main.screenWidth / 2;
-                Main.screenPosition.Y = SessionManager.ObservableNPCs[UIHandler.currentOrgIndex].npc.Center.Y - Main.screenHeight / 2;
+                Main.screenPosition.X = SessionManager.ObservableNPCs[UIHandler.currentOrgIndex].NPC.Center.X - Main.screenWidth / 2;
+                Main.screenPosition.Y = SessionManager.ObservableNPCs[UIHandler.currentOrgIndex].NPC.Center.Y - Main.screenHeight / 2;
             }
         }
     }

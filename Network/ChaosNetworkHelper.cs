@@ -180,7 +180,7 @@ namespace ChaosTerraria.Network
 
         private void AddAuthorizationHeader()
         {
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ChaosNetConfig.data.accessToken);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ChaosNetConfig.data.accessToken);                                         
         }
 
         private async void DoTokenRefresh(string message)

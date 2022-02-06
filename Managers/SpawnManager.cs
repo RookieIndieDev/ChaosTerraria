@@ -31,7 +31,7 @@ namespace ChaosTerraria.Managers
             {
                 for (int i = 0; i < numOfAdamZero; i++)
                 {
-                    foreach (Point spawnPoint in ChaosWorld.spawnBlocks)
+                    foreach (Point spawnPoint in ChaosSystem.spawnBlocks)
                     {
                         int tileEntityIndex = ModContent.GetInstance<SpawnBlockTileEntity>().Find(spawnPoint.X, spawnPoint.Y);
                         if (tileEntityIndex != -1)
@@ -40,8 +40,8 @@ namespace ChaosTerraria.Managers
                             if (tileEntity.roleNamespace == "AdamZero" && tileEntity.spawnedSoFar < tileEntity.spawnCount)
                             {
                                 var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<AdamZero>(), 1);
-                                AdamZero adamZero = (AdamZero)Main.npc[index].modNPC;
-                                adamZero.npc.GivenName += " " + i;
+                                AdamZero adamZero = (AdamZero)Main.npc[index].ModNPC;
+                                adamZero.NPC.GivenName += " " + i;
                                 adamZero.spawnBlockTileEntity = tileEntity;
                                 if(SessionManager.ObservableNPCs != null)
                                     SessionManager.ObservableNPCs.Add(adamZero);
@@ -56,7 +56,7 @@ namespace ChaosTerraria.Managers
 #endif
             if (activeBotCount == 0 && SessionManager.SessionStarted)
             {
-                if (ChaosWorld.spawnBlocks.Count > 0)
+                if (ChaosSystem.spawnBlocks.Count > 0)
                 {
 
                     if (SessionManager.Organisms != null)
@@ -65,7 +65,7 @@ namespace ChaosTerraria.Managers
                         {
                             if (organism.assigned == false)
                             {
-                                foreach (Point spawnPoint in ChaosWorld.spawnBlocks)
+                                foreach (Point spawnPoint in ChaosSystem.spawnBlocks)
                                 {
                                     int tileEntityIndex = ModContent.GetInstance<SpawnBlockTileEntity>().Find(spawnPoint.X, spawnPoint.Y);
                                     if (tileEntityIndex != -1)
@@ -76,7 +76,7 @@ namespace ChaosTerraria.Managers
                                             if (tileEntity.spawnCount == -1)
                                             {
                                                 var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
-                                                ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].modNPC;
+                                                ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].ModNPC;
                                                 if (SessionManager.ObservableNPCs != null)
                                                     SessionManager.ObservableNPCs.Add(terrarian);
                                                 terrarian.spawnBlockTileEntity = null;
@@ -86,7 +86,7 @@ namespace ChaosTerraria.Managers
                                             else if (tileEntity.spawnedSoFar < tileEntity.spawnCount)
                                             {
                                                 var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
-                                                ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].modNPC;
+                                                ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].ModNPC;
                                                 if (SessionManager.ObservableNPCs != null)
                                                     SessionManager.ObservableNPCs.Add(terrarian);
                                                 terrarian.spawnBlockTileEntity = tileEntity;

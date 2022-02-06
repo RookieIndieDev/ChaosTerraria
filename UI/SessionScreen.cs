@@ -1,4 +1,5 @@
 ﻿using ChaosTerraria.Network;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -16,7 +17,7 @@ namespace ChaosTerraria.UI
         {
             mainPanel = new UIPanel();
             sessionText = new UIText("Press the button to start the Session!");
-            startSession = new UIImageButton(ModContent.GetTexture("ChaosTerraria/UI/StartButton"));
+            startSession = new UIImageButton(ModContent.Request<Texture2D>("ChaosTerraria/UI/StartButton", ReLogic.Content.AssetRequestMode.ImmediateLoad));
             startSession.OnClick += new MouseEvent(StartSession);
 
             mainPanel.Width.Set(Main.screenWidth * 0.50f, 0f);

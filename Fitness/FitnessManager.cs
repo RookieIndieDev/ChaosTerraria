@@ -134,11 +134,11 @@ namespace ChaosTerraria.Fitness
         private int TestBlockPlaced(string blockId, Tile placedTile, int scoreEffect)
         {
             int score = 0;
-
+            var blockName = "";
             if (placedTile != null)
             {
-                ;
-                if (TileID.GetUniqueKey(placedTile.type).Split(' ')[1] == blockId)
+                TileID.Search.TryGetName(placedTile.type, out blockName);
+                if ( blockName == blockId)
                 {
                     score += scoreEffect;
                 }
@@ -150,11 +150,11 @@ namespace ChaosTerraria.Fitness
         private int TestBlockMined(String blockId, int minedTileType, int scoreEffect)
         {
             int score = 0;
-
+            var blockName = "";
             if (minedTileType != -1)
             {
-
-                if (TileID.GetUniqueKey(minedTileType).Split(' ')[1] == blockId)
+                TileID.Search.TryGetName(minedTileType, out blockName);
+                if (blockName == blockId)
                 {
                     score += scoreEffect;
                 }
@@ -169,49 +169,49 @@ namespace ChaosTerraria.Fitness
             switch (axis)
             {
                 case "x":
-                    if (org.npc.position.X > org.npc.oldPosition.X && maxAlongAxis == 0)
+                    if (org.NPC.position.X > org.NPC.oldPosition.X && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.npc.position.X;
-                    }else if (org.npc.position.X > maxAlongAxis)
+                        maxAlongAxis = (int)org.NPC.position.X;
+                    }else if (org.NPC.position.X > maxAlongAxis)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.npc.position.X;
+                        maxAlongAxis = (int)org.NPC.position.X;
                     }
 
                     break;
                 case "-x":
-                    if (org.npc.position.X < org.npc.oldPosition.X && maxAlongAxis == 0)
+                    if (org.NPC.position.X < org.NPC.oldPosition.X && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.npc.position.X;
-                    }else if(org.npc.position.X < maxAlongAxis)
+                        maxAlongAxis = (int)org.NPC.position.X;
+                    }else if(org.NPC.position.X < maxAlongAxis)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.npc.position.X;
+                        maxAlongAxis = (int)org.NPC.position.X;
                     }
                     break;
                 case "-y": //Up
-                    if(org.npc.position.Y < org.npc.oldPosition.Y && maxAlongAxis == 0)
+                    if(org.NPC.position.Y < org.NPC.oldPosition.Y && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.npc.position.Y;
+                        maxAlongAxis = (int)org.NPC.position.Y;
                     }
-                    else if(org.npc.position.Y < maxAlongAxis)
+                    else if(org.NPC.position.Y < maxAlongAxis)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.npc.position.Y;
+                        maxAlongAxis = (int)org.NPC.position.Y;
                     }
                     break;
                 case "y": //Down
-                    if(org.npc.position.Y > org.npc.oldPosition.Y && maxAlongAxis == 0)
+                    if(org.NPC.position.Y > org.NPC.oldPosition.Y && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.npc.position.Y;
-                    }else if (org.npc.position.Y > maxAlongAxis)
+                        maxAlongAxis = (int)org.NPC.position.Y;
+                    }else if (org.NPC.position.Y > maxAlongAxis)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.npc.position.Y;
+                        maxAlongAxis = (int)org.NPC.position.Y;
                     }
                     break;
                 default:
