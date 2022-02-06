@@ -15,6 +15,7 @@ using log4net;
 namespace ChaosTerraria.Network
 {
     //TODO: GetPackage() Called separately instead of being called by StartSession()?
+    //TODO: Replace HttpClient with RestSharp
     public class ChaosNetworkHelper
     {
         private static HttpClient httpClient;

@@ -42,7 +42,7 @@
       "$OUTPUT_GROUP": "BASIC",
       "direction": "BottomLeft",
       "x": "Zero",
-      "y": "Zero",
+      "y": "One",
       "attributeValue": "Wood"
     }
   ]
