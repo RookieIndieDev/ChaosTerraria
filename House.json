@@ -1,0 +1,215 @@
+{
+    "houseBlocks":
+    [
+        {
+            "x": -2,
+            "y": 4,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": -2,
+            "y": 5,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": -1,
+            "y": 5,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": 0,
+            "y": 5,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": 1,
+            "y": 5,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": 2,
+            "y": 5,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": 3,
+            "y": 5,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": 4,
+            "y": 5,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": 4,
+            "y": 4,
+            "type": "WoodBlock",
+            "wall": false
+        },
+        {
+            "x": 4,
+            "y": 3,
+            "type": "ClosedDoor",
+            "wall": false
+        },
+        {
+            "x": 4,
+            "y": 2,
+            "type": "ClosedDoor",
+            "wall": false
+        },
+        {
+            "x": 4,
+            "y": 1,
+            "type": "ClosedDoor",
+            "wall": false
+        },
+        {
+            "x": -2,
+            "y": 1,
+            "type": "ClosedDoor",
+            "wall": false
+        },
+        {
+            "x": -2,
+            "y": 2,
+            "type": "ClosedDoor",
+            "wall": false
+        },
+        {
+            "x": -2,
+            "y": 3,
+            "type": "ClosedDoor",
+            "wall": false
+        },
+        {
+            "x": -1,
+            "y": 4,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": -1,
+            "y": 3,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 0,
+            "y": 4,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 0,
+            "y": 3,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": -1,
+            "y": 1,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 0,
+            "y": 1,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 0,
+            "y": 2,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 1,
+            "y": 1,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 1,
+            "y": 2,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 2,
+            "y": 1,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 2,
+            "y": 2,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 3,
+            "y": 1,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 3,
+            "y": 2,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 3,
+            "y": 3,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 3,
+            "y": 4,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 1,
+            "y": 4,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 2,
+            "y": 4,
+            "type": "Wood",
+            "wall": true
+        },
+        {
+            "x": 1,
+            "y": 3,
+            "type": "Wood",
+            "wall": true
+        },
+      {
+        "x": 2,
+        "y": 3,
+        "type": "Wood",
+        "wall": true
+      },
+      {
+        "x": -1,
+        "y": 2,
+        "type": "Wood",
+        "wall": true
+      }
+    ]
+}

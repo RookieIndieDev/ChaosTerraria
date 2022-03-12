@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ChaosTerraria.NPCs
@@ -29,7 +30,7 @@ namespace ChaosTerraria.NPCs
         private bool orgAssigned = false;
         private Report report;
         private int lifeTicks;
-        public List<Item> inventory = new List<Item>();
+        public List<Item> inventory = new();
         Tile lastPlacedTile;
         Tile lastMinedTile;
         int lastMinedTileType = -1;
@@ -132,8 +133,8 @@ namespace ChaosTerraria.NPCs
 
                 if (SessionManager.Package.roles != null && fitnessManager != null)
                     report.score += fitnessManager.TestFitness(this, lastMinedTileType, lastPlacedTile, craftedItem, out lifeEffect);
-                lastMinedTile = null;
-                lastPlacedTile = null;
+                //lastMinedTile = null;
+                //lastPlacedTile = null;
                 lastMinedTileType = -1;
                 craftedItem = "";
                 actionTimer = 0;
@@ -274,7 +275,7 @@ namespace ChaosTerraria.NPCs
             pos.Y = blockToPlace.Contains("Door") ? pos.Y : pos.Y + 1;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Blue, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).HasTile && (Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile || Framing.GetTileSafely(pos.X, pos.Y - 1).HasTile))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -299,7 +300,7 @@ namespace ChaosTerraria.NPCs
             pos.Y = blockToPlace.Contains("Door") ? pos.Y : pos.Y + 1;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Blue, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).HasTile && (Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile || Framing.GetTileSafely(pos.X, pos.Y - 1).HasTile))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -324,7 +325,7 @@ namespace ChaosTerraria.NPCs
             pos.Y += y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Blue, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).HasTile && (Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile || Framing.GetTileSafely(pos.X, pos.Y - 1).HasTile))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -349,7 +350,7 @@ namespace ChaosTerraria.NPCs
             pos.Y += y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Blue, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).HasTile && (Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile || Framing.GetTileSafely(pos.X, pos.Y - 1).HasTile))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -373,7 +374,7 @@ namespace ChaosTerraria.NPCs
             pos.Y += y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Blue, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).HasTile && (Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile || Framing.GetTileSafely(pos.X, pos.Y - 1).HasTile))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -397,7 +398,7 @@ namespace ChaosTerraria.NPCs
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Blue, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).HasTile && (Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile || Framing.GetTileSafely(pos.X, pos.Y - 1).HasTile))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -422,7 +423,7 @@ namespace ChaosTerraria.NPCs
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Blue, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).HasTile && (Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile || Framing.GetTileSafely(pos.X, pos.Y - 1).HasTile))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -446,7 +447,7 @@ namespace ChaosTerraria.NPCs
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Blue, null);
             var item = FindInventoryItemStack(blockToPlace);
-            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).IsActive && (Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive || Framing.GetTileSafely(pos.X, pos.Y - 1).IsActive))
+            if (item != null && !Framing.GetTileSafely(pos.X, pos.Y).HasTile && (Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile || Framing.GetTileSafely(pos.X, pos.Y - 1).HasTile))
             {
                 if (blockToPlace.Contains("Door") && item.createTile != -1)
                 {
@@ -454,7 +455,7 @@ namespace ChaosTerraria.NPCs
                     item.stack--;
                     lastPlacedTile = Framing.GetTileSafely(pos.X, pos.Y);
                 }
-                else if (Framing.GetTileSafely(pos.X - 1, pos.Y).IsActive || Framing.GetTileSafely(pos.X + 1, pos.Y).IsActive || Framing.GetTileSafely(pos.X, pos.Y + 1).IsActive)
+                else if (Framing.GetTileSafely(pos.X - 1, pos.Y).HasTile || Framing.GetTileSafely(pos.X + 1, pos.Y).HasTile || Framing.GetTileSafely(pos.X, pos.Y + 1).HasTile)
                 {
                     if (item.createTile != -1)
                     {
@@ -473,16 +474,16 @@ namespace ChaosTerraria.NPCs
             pos.Y++;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Green, null);
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            lastMinedTileType = lastMinedTile.type;
-            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.IsActive)
+            lastMinedTileType = lastMinedTile.TileType;
+            if (lastMinedTile.TileType != ModContent.TileType<SpawnBlock>() && lastMinedTile.HasTile)
             {
                 WorldGen.KillTile(pos.X, pos.Y);
                 NPC.direction = -1;
             }
-            else
-            {
-                lastMinedTile = null;
-            }
+            //else
+            //{
+            //    lastMinedTile = null;
+            //}
         }
 
         private void MineBlockRight(int range)
@@ -492,16 +493,16 @@ namespace ChaosTerraria.NPCs
             pos.Y++;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Green, null);
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            lastMinedTileType = lastMinedTile.type;
-            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.IsActive)
+            lastMinedTileType = lastMinedTile.TileType;
+            if (lastMinedTile.TileType != ModContent.TileType<SpawnBlock>() && lastMinedTile.HasTile)
             {
                 WorldGen.KillTile(pos.X, pos.Y);
                 NPC.direction = 1;
             }
-            else
-            {
-                lastMinedTile = null;
-            }
+            //else
+            //{
+            //    lastMinedTile = null;
+            //}
         }
 
         private void MineBlockBottomRight()
@@ -509,16 +510,16 @@ namespace ChaosTerraria.NPCs
             var pos = NPC.BottomRight.ToTileCoordinates();
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Green, null);
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            lastMinedTileType = lastMinedTile.type;
-            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.IsActive)
+            lastMinedTileType = lastMinedTile.TileType;
+            if (lastMinedTile.TileType != ModContent.TileType<SpawnBlock>() && lastMinedTile.HasTile)
             {
                 WorldGen.KillTile(pos.X, pos.Y);
                 NPC.direction = 1;
             }
-            else
-            {
-                lastMinedTile = null;
-            }
+            //else
+            //{
+            //    lastMinedTile = null;
+            //}
         }
 
         private void MineBlockBottomLeft()
@@ -526,16 +527,16 @@ namespace ChaosTerraria.NPCs
             var pos = NPC.BottomLeft.ToTileCoordinates();
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Green, null);
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            lastMinedTileType = lastMinedTile.type;
-            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.IsActive)
+            lastMinedTileType = lastMinedTile.TileType;
+            if (lastMinedTile.TileType != ModContent.TileType<SpawnBlock>() && lastMinedTile.HasTile)
             {
                 WorldGen.KillTile(pos.X, pos.Y);
                 NPC.direction = -1;
             }
-            else
-            {
-                lastMinedTile = null;
-            }
+            //else
+            //{
+            //    lastMinedTile = null;
+            //}
         }
 
         private void MineBlockBottom()
@@ -543,15 +544,15 @@ namespace ChaosTerraria.NPCs
             var pos = NPC.Bottom.ToTileCoordinates();
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Green, null);
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            lastMinedTileType = lastMinedTile.type;
-            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.IsActive)
+            lastMinedTileType = lastMinedTile.TileType;
+            if (lastMinedTile.TileType != ModContent.TileType<SpawnBlock>() && lastMinedTile.HasTile)
             {
                 WorldGen.KillTile(pos.X, pos.Y);
             }
-            else
-            {
-                lastMinedTile = null;
-            }
+            //else
+            //{
+            //    lastMinedTile = null;
+            //}
         }
 
         private void MineBlockTopRight(int x, int y)
@@ -561,16 +562,16 @@ namespace ChaosTerraria.NPCs
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Green, null);
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            lastMinedTileType = lastMinedTile.type;
-            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.IsActive)
+            lastMinedTileType = lastMinedTile.TileType;
+            if (lastMinedTile.TileType != ModContent.TileType<SpawnBlock>() && lastMinedTile.HasTile)
             {
                 WorldGen.KillTile(pos.X, pos.Y);
                 NPC.direction = 1;
             }
-            else
-            {
-                lastMinedTile = null;
-            }
+            //else
+            //{
+            //    lastMinedTile = null;
+            //}
         }
 
         private void MineBlockTopLeft(int x, int y)
@@ -580,16 +581,16 @@ namespace ChaosTerraria.NPCs
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Green, null);
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            lastMinedTileType = lastMinedTile.type;
-            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.IsActive)
+            lastMinedTileType = lastMinedTile.TileType;
+            if (lastMinedTile.TileType != ModContent.TileType<SpawnBlock>() && lastMinedTile.HasTile)
             {
                 WorldGen.KillTile(pos.X, pos.Y);
                 NPC.direction = -1;
             }
-            else
-            {
-                lastMinedTile = null;
-            }
+            //else
+            //{
+            //    lastMinedTile = null;
+            //}
         }
 
         private void MineBlockTop(int y)
@@ -598,15 +599,15 @@ namespace ChaosTerraria.NPCs
             pos.Y -= y;
             Dust.QuickBox(new Vector2(pos.X, pos.Y) * 16, new Vector2(pos.X + 1, pos.Y + 1) * 16, 2, Color.Green, null);
             lastMinedTile = Framing.GetTileSafely(pos.X, pos.Y);
-            lastMinedTileType = lastMinedTile.type;
-            if (lastMinedTile.type != ModContent.TileType<SpawnBlock>() && lastMinedTile.IsActive)
+            lastMinedTileType = lastMinedTile.TileType;
+            if (lastMinedTile.TileType != ModContent.TileType<SpawnBlock>() && lastMinedTile.HasTile)
             {
                 WorldGen.KillTile(pos.X, pos.Y);
             }
-            else
-            {
-                lastMinedTile = null;
-            }
+            //else
+            //{
+            //    lastMinedTile = null;
+            //}
         }
 
         private void MineBlock(int direction, int x, int y)
@@ -825,7 +826,7 @@ namespace ChaosTerraria.NPCs
             {
                 for (int y = -5; y <= 5; y++)
                 {
-                    if (Framing.GetTileSafely((int)NPC.Center.ToTileCoordinates().X + x, (int)NPC.Center.ToTileCoordinates().Y + y).type == tileId)
+                    if (Framing.GetTileSafely((int)NPC.Center.ToTileCoordinates().X + x, (int)NPC.Center.ToTileCoordinates().Y + y).TileType == tileId)
                         return true;
                 }
             }
@@ -850,7 +851,8 @@ namespace ChaosTerraria.NPCs
 
             if (organism != null)
                 return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace
-                    + "\n" + "Current Action: " + (OutputType)currentAction + "\n" + "Time Left: " + ((lifeTicks - lifeTimer) / 60) + "\nInventory: " + inventoryItems + "\nScore: " + report.score;
+                    + "\n" + "Current Action: " + (OutputType)currentAction + "\n" + "Time Left: "
+                    + ((lifeTicks - lifeTimer) / 60) + "\nInventory: " + inventoryItems + "\nScore: " + report.score;
             return "Org Not Assigned";
         }
     }

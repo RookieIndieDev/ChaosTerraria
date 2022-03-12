@@ -36,14 +36,14 @@ namespace ChaosTerraria.World
         //TODO: Don't make call to StartSession if namespace already exists?
         public override void PostUpdateWorld()
         {
-            if (!SessionManager.SessionStarted)
-            {
-                if (SessionManager.CurrentSession.nameSpace != null)
-                {
-                    networkHelper.StartSession();
-                    SessionManager.SessionStarted = true;
-                }
-            }
+            //if (!SessionManager.SessionStarted)
+            //{
+            //    if (SessionManager.CurrentSession.nameSpace != null)
+            //    {
+            //        networkHelper.StartSession();
+            //        SessionManager.SessionStarted = true;
+            //    }
+            //}
             SpawnManager.SpawnTerrarians();
         }
 

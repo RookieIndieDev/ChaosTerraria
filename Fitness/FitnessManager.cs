@@ -1,16 +1,18 @@
-﻿using ChaosTerraria.Enums;
+﻿using ChaosTerraria.Classes;
+using ChaosTerraria.Enums;
 using ChaosTerraria.NPCs;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using ChaosTerraria.Classes;
 
 namespace ChaosTerraria.Fitness
 {
     //TODO: Change Postitions in TestMoveAlongAxis() to tileCoords?
     public class FitnessManager
     {
+
+
         private List<FitnessRule> fitnessRules;
         private FitnessRuleType type;
         private int maxAlongAxis;
@@ -45,7 +47,7 @@ namespace ChaosTerraria.Fitness
                                 }
 
                             }
-                            else if(rule.maxOccurrences > 0)
+                            else if (rule.maxOccurrences > 0)
                             {
                                 tempScore += TestMoveAlongAxis(rule.attributeValue.ToLower(), org, rule.scoreEffect);
                                 if (tempScore != 0)
@@ -68,7 +70,7 @@ namespace ChaosTerraria.Fitness
                                 }
 
                             }
-                            else if(rule.maxOccurrences > 0)
+                            else if (rule.maxOccurrences > 0)
                             {
                                 tempScore += TestBlockMined(rule.attributeValue, minedTileType, rule.scoreEffect);
                                 if (tempScore != 0)
@@ -80,7 +82,7 @@ namespace ChaosTerraria.Fitness
                             }
                             break;
                         case FitnessRuleType.BLOCK_PLACED:
-                            if(rule.maxOccurrences == -1)
+                            if (rule.maxOccurrences == -1)
                             {
                                 tempScore += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
                                 if (tempScore != 0)
@@ -89,7 +91,7 @@ namespace ChaosTerraria.Fitness
                                     score += tempScore;
                                 }
                             }
-                            else if(rule.maxOccurrences > 0)
+                            else if (rule.maxOccurrences > 0)
                             {
                                 tempScore += TestBlockPlaced(rule.attributeValue, placedTile, rule.scoreEffect);
                                 if (tempScore != 0)
@@ -137,8 +139,8 @@ namespace ChaosTerraria.Fitness
             var blockName = "";
             if (placedTile != null)
             {
-                TileID.Search.TryGetName(placedTile.type, out blockName);
-                if ( blockName == blockId)
+                TileID.Search.TryGetName(placedTile.TileType, out blockName);
+                if (blockName == blockId)
                 {
                     score += scoreEffect;
                 }
@@ -173,7 +175,8 @@ namespace ChaosTerraria.Fitness
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.X;
-                    }else if (org.NPC.position.X > maxAlongAxis)
+                    }
+                    else if (org.NPC.position.X > maxAlongAxis)
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.X;
@@ -185,30 +188,32 @@ namespace ChaosTerraria.Fitness
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.X;
-                    }else if(org.NPC.position.X < maxAlongAxis)
+                    }
+                    else if (org.NPC.position.X < maxAlongAxis)
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.X;
                     }
                     break;
                 case "-y": //Up
-                    if(org.NPC.position.Y < org.NPC.oldPosition.Y && maxAlongAxis == 0)
+                    if (org.NPC.position.Y < org.NPC.oldPosition.Y && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.Y;
                     }
-                    else if(org.NPC.position.Y < maxAlongAxis)
+                    else if (org.NPC.position.Y < maxAlongAxis)
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.Y;
                     }
                     break;
                 case "y": //Down
-                    if(org.NPC.position.Y > org.NPC.oldPosition.Y && maxAlongAxis == 0)
+                    if (org.NPC.position.Y > org.NPC.oldPosition.Y && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.Y;
-                    }else if (org.NPC.position.Y > maxAlongAxis)
+                    }
+                    else if (org.NPC.position.Y > maxAlongAxis)
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.Y;
@@ -226,6 +231,12 @@ namespace ChaosTerraria.Fitness
             if (craftedItem == expectedItem)
                 score += scoreEffect;
             return score;
+        }
+
+        public int EvaluateBuilding()
+        {
+
+            return 0;
         }
     }
 }

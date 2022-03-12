@@ -14,7 +14,7 @@ namespace ChaosTerraria.TileEntities
         public override bool IsTileValidForEntity(int x, int y)
         {
             Tile tile = Main.tile[x, y];
-            return tile.IsActive && tile.type == ModContent.TileType<SpawnBlock>() && tile.frameX == 0 && tile.frameY == 0;
+            return tile.HasTile && tile.TileType == ModContent.TileType<SpawnBlock>() && tile.TileFrameX == 0 && tile.TileFrameY == 0;
         }
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction, int alternate)
@@ -24,12 +24,8 @@ namespace ChaosTerraria.TileEntities
 
         public override void SaveData(TagCompound tag)
         {
-            tag = new TagCompound
-            {
-                {"roleNamespace", roleNamespace},
-                {"spawnCount", spawnCount}
-
-            };
+            tag.Set("roleNamespace", roleNamespace);
+            tag.Set("spawnCount", spawnCount);
         }
 
         public override void LoadData(TagCompound tag)

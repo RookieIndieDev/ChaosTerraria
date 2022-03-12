@@ -30,7 +30,7 @@
     {
       "_base_type": "output",
       "id": "neuron-4",
-      "$TYPE": "MineBlock",
+      "$TYPE": "PlaceBlock",
       "dependencies": [
         {
           "neuronId": "neuron-1",
@@ -40,9 +40,9 @@
         }
       ],
       "$OUTPUT_GROUP": "BASIC",
-      "direction": "BottomLeft",
-      "x": "Zero",
-      "y": "One",
+      "direction": "Left",
+      "x": "One",
+      "y": "Zero",
       "attributeValue": "Wood"
     }
   ]

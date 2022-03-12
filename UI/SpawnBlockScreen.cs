@@ -70,7 +70,7 @@ namespace ChaosTerraria.UI
             }
             else
             {
-                Main.NewText("Couldn't get the tile entity at X: " + i + " Y: " + j + "Tile Type" + Main.tile[i, j].type);
+                Main.NewText("Couldn't get the tile entity at X: " + i + " Y: " + j + "Tile Type" + Main.tile[i, j].TileType);
             }
         }
     }
