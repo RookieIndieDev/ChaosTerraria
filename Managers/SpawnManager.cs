@@ -39,7 +39,7 @@ namespace ChaosTerraria.Managers
                             SpawnBlockTileEntity tileEntity = (SpawnBlockTileEntity)TileEntity.ByID[tileEntityIndex];
                             if (tileEntity.roleNamespace == "AdamZero" && tileEntity.spawnedSoFar < tileEntity.spawnCount)
                             {
-                                var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<AdamZero>(), 1);
+                                var index = NPC.NewNPC(null, spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<AdamZero>(), 1);
                                 AdamZero adamZero = (AdamZero)Main.npc[index].ModNPC;
                                 adamZero.NPC.GivenName += " " + i;
                                 adamZero.spawnBlockTileEntity = tileEntity;
@@ -75,7 +75,7 @@ namespace ChaosTerraria.Managers
                                         {
                                             if (tileEntity.spawnCount == -1)
                                             {
-                                                var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
+                                                var index = NPC.NewNPC(null,spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
                                                 ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].ModNPC;
                                                 if (SessionManager.ObservableNPCs != null)
                                                     SessionManager.ObservableNPCs.Add(terrarian);
@@ -85,7 +85,7 @@ namespace ChaosTerraria.Managers
                                             }
                                             else if (tileEntity.spawnedSoFar < tileEntity.spawnCount)
                                             {
-                                                var index = NPC.NewNPC(spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
+                                                var index = NPC.NewNPC(null, spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
                                                 ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].ModNPC;
                                                 if (SessionManager.ObservableNPCs != null)
                                                     SessionManager.ObservableNPCs.Add(terrarian);
