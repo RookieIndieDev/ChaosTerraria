@@ -6,7 +6,6 @@ using ChaosTerraria.Structs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -85,12 +84,12 @@ namespace ChaosTerraria.NPCs
             organism = new Organism
             {
                 nNet = JsonConvert.DeserializeObject<NNet>(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                + @"\My Games\Terraria\ModLoader\Beta\Mod Sources\ChaosTerraria\NNet.json")),
+                + @"\My Games\Terraria\tModLoader\ModSources\ChaosTerraria\NNet.json")),
                 nameSpace = "AdamZero",
                 trainingRoomRoleNamespace = "AdamZero"
             };
             houseBlocksFromFile = JsonConvert.DeserializeObject<Building>(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-+ @"\My Games\Terraria\ModLoader\Beta\Mod Sources\ChaosTerraria\House.json"));
+            + @"\My Games\Terraria\tModLoader\ModSources\ChaosTerraria\House.json"));
 #endif
             NPC.GivenName = "AdamZero";
             inventory.Add(new Item());
@@ -708,7 +707,7 @@ namespace ChaosTerraria.NPCs
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            foreach(Item item in inventory)
+            foreach (Item item in inventory)
             {
                 shop.item[nextSlot++] = item;
             }
