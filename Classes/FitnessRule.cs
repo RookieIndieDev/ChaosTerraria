@@ -7,5 +7,6 @@
         public int maxOccurrences;
         public string eventType;
         public string attributeValue;
+        public string roleName;
     }
 }

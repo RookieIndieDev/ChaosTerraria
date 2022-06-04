@@ -12,9 +12,9 @@ namespace ChaosTerraria
         {
             if (ChaosTerraria.loginHotkey.JustPressed)
 			{
-                UIHandler.isLoginUiVisible = !UIHandler.isLoginUiVisible;
+                UIHandler.IsLoginUiVisible = !UIHandler.IsLoginUiVisible;
 
-                if (UIHandler.isLoginUiVisible)
+                if (UIHandler.IsLoginUiVisible)
                 {
                     UIHandler.ShowLoginScreen();
                 }
@@ -22,9 +22,9 @@ namespace ChaosTerraria
 
             if (ChaosTerraria.sessionHotkey.JustPressed)
             {
-                UIHandler.isSessionUIVisible = !UIHandler.isSessionUIVisible;
+                UIHandler.IsSessionUIVisible = !UIHandler.IsSessionUIVisible;
 
-                if (UIHandler.isSessionUIVisible)
+                if (UIHandler.IsSessionUIVisible)
                 {
                     UIHandler.ShowSessionScreen();
                 }
@@ -53,7 +53,7 @@ namespace ChaosTerraria
 
         public override void ModifyScreenPosition()
         {
-            if(SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0 && UIHandler.isInObserverMode)
+            if(SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0 && UIHandler.IsInObserverMode)
             {
                 Main.screenPosition.X = SessionManager.ObservableNPCs[UIHandler.currentOrgIndex].NPC.Center.X - Main.screenWidth / 2;
                 Main.screenPosition.Y = SessionManager.ObservableNPCs[UIHandler.currentOrgIndex].NPC.Center.Y - Main.screenHeight / 2;

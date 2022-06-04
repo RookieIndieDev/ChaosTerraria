@@ -1,4 +1,5 @@
-﻿using ChaosTerraria.Enums;
+﻿using ChaosTerraria.Classes;
+using ChaosTerraria.Enums;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,17 @@ namespace ChaosTerraria.AI
     public class NNet
     {
         public List<Neuron> neurons;
+        private double inputMagnitude;
 
         public int GetOutput(Point center, List<Item> inventory, out int direction, out string itemToCraft, out string blockToPlace, out int x, out int y)
         {
+            inputMagnitude = 0;
             int output = -100;
             double outputValue = -100;
             int tempDirection = -1;
             string tempitemToCraft = "";
             string tempBlockToPlace = "";
-            Point tilePos = new Point();
+            Point tilePos = new();
             int tileType = 0;
             int blockX = 0;
             int blockY = 0;
@@ -77,10 +80,12 @@ namespace ChaosTerraria.AI
                         }
 
                         neuron.value = tileType;
+                        inputMagnitude += neuron.value * neuron.value;
                         neuron.evaluated = true;
                         break;
                     case "BiasInput":
                         neuron.value = neuron.weight;
+                        inputMagnitude += neuron.value * neuron.value;
                         neuron.evaluated = true;
                         break;
                     case "HasInInventory":
@@ -91,12 +96,14 @@ namespace ChaosTerraria.AI
                                 if (neuron.attributeValue.Contains("Door") && item.Name.Contains("Door"))
                                 {
                                     neuron.value = 1;
+                                    inputMagnitude += neuron.value;
                                     neuron.evaluated = true;
                                     break;
                                 }
                                 else if (neuron.attributeValue == item.Name)
                                 {
                                     neuron.value = 1;
+                                    inputMagnitude += neuron.value;
                                     neuron.evaluated = true;
                                     break;
                                 }
@@ -105,7 +112,7 @@ namespace ChaosTerraria.AI
                         break;
                 }
             }
-
+            NormalizeInputs();
             foreach (Neuron neuron in neurons)
             {
                 if (neuron.baseType == "output")
@@ -167,13 +174,13 @@ namespace ChaosTerraria.AI
                     else
                     {
                         value += SetValue(dependencyNeuron) * dependency.weight;
-                        dependencyNeuron.evaluated = true;
+                        dependencyNeuron.evaluated = dependencyNeuron.baseType != "middle";
                     }
                 }
             }
             if (neuron.baseType == "middle")
             {
-                switch (neuron.activator)
+                switch (neuron.type)
                 {
                     case "Gaussian":
                         value = GetGaussianActivation(value);
@@ -231,6 +238,34 @@ namespace ChaosTerraria.AI
                 }
             }
             outputNeuron = null;
+        }
+
+        internal void AssignWeight(Weight weight)
+        {
+            int counter = 0;
+            foreach(Neuron neuron in neurons)
+            {
+                if(neuron.baseType != "input")
+                {
+                    foreach(Dependency dependency in neuron.dependencies)
+                    {
+                        dependency.weight = weight.values[counter];
+                        counter++;
+                    }
+                }
+            }
+        }
+
+        private void NormalizeInputs()
+        {
+            inputMagnitude = Math.Sqrt(inputMagnitude);
+            foreach(Neuron neuron in neurons)
+            {
+                if(neuron.baseType == "input" && neuron.type != "HasInInventory")
+                {
+                    neuron.value /= inputMagnitude;
+                }
+            }
         }
     }
 }

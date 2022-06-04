@@ -1,8 +1,9 @@
 ﻿using ChaosTerraria.Managers;
-using ChaosTerraria.Network;
 using ChaosTerraria.UI;
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +15,6 @@ namespace ChaosTerraria.World
     class ChaosSystem : ModSystem
     {
         public static HashSet<Point> spawnBlocks;
-        ChaosNetworkHelper networkHelper = new();
         internal static UserInterface mainInterface;
         internal static LoginScreen loginScreen;
         internal static SessionScreen sessionScreen;
@@ -33,17 +33,8 @@ namespace ChaosTerraria.World
             base.Load();
         }
 
-        //TODO: Don't make call to StartSession if namespace already exists?
         public override void PostUpdateWorld()
         {
-            //if (!SessionManager.SessionStarted)
-            //{
-            //    if (SessionManager.CurrentSession.nameSpace != null)
-            //    {
-            //        networkHelper.StartSession();
-            //        SessionManager.SessionStarted = true;
-            //    }
-            //}
             SpawnManager.SpawnTerrarians();
         }
 
@@ -62,6 +53,7 @@ namespace ChaosTerraria.World
                 vectorList.Add(new Vector2(pointArray[i].X, pointArray[i].Y));
             }
             tag.Set("spawnBlocks", vectorList);
+            File.WriteAllText("weight.json", JsonConvert.SerializeObject(ChaosTerraria.weight));
         }
 
         public override void AddRecipes()
@@ -86,7 +78,7 @@ namespace ChaosTerraria.World
         {
             _lastUpdateUiGameTime = gameTime;
 
-            if (!UIHandler.isLoginUiVisible && !UIHandler.isSessionUIVisible && !UIHandler.isSpawnBlockScreenVisible)
+            if (!UIHandler.IsLoginUiVisible && !UIHandler.IsSessionUIVisible && !UIHandler.IsSpawnBlockScreenVisible)
             {
                 UIHandler.HideUI();
             }

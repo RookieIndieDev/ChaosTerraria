@@ -1,5 +1,6 @@
 ﻿
 using ChaosTerraria.Classes;
+using ChaosTerraria.Config;
 using ChaosTerraria.Enums;
 using ChaosTerraria.Fitness;
 using ChaosTerraria.Managers;
@@ -7,11 +8,10 @@ using ChaosTerraria.Structs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
 using Microsoft.Xna.Framework;
-using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ChaosTerraria.NPCs
@@ -27,8 +27,6 @@ namespace ChaosTerraria.NPCs
         private int lifeTimer = 0;
         private int currentAction = -1;
         internal Organism organism;
-        private bool orgAssigned = false;
-        private Report report;
         private int lifeTicks;
         public List<Item> inventory = new();
         Tile lastPlacedTile;
@@ -39,6 +37,7 @@ namespace ChaosTerraria.NPCs
         FitnessManager fitnessManager;
         private int inventoryLastItemIndex = 0;
         List<Recipe> recipesForObs;
+        int score;
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 25;
@@ -68,8 +67,8 @@ namespace ChaosTerraria.NPCs
 
         public override bool CheckDead()
         {
-            SpawnManager.activeBotCount--;
-            SpawnManager.totalSpawned++;
+            SpawnManager.ActiveBotCount--;
+            SpawnManager.TotalSpawned++;
             lifeTimer = 0;
             NPC.life = 0;
             if (spawnBlockTileEntity != null)
@@ -82,42 +81,70 @@ namespace ChaosTerraria.NPCs
         public override void AI()
         {
             int lifeEffect = 0;
-            if (SessionManager.Organisms != null && !orgAssigned && SessionManager.Organisms.Count > 0)
+            if (fitnessManager == null)
             {
-                organism = SessionManager.GetOrganism();
-                if (organism != null)
+                NPC.GivenName = organism.trainingRoomRoleNamespace + " " + organism.name;
+                List<FitnessRule> rules = new();
+                foreach (Role role in ModContent.GetInstance<ChaosTerrariaConfig>().roles)
                 {
-                    NPC.GivenName = organism.nameSpace;
-                    report.nameSpace = organism.nameSpace;
-                }
-                orgAssigned = true;
-                foreach (Role role in SessionManager.Package.roles)
-                {
-                    if (role.nameSpace == organism.trainingRoomRoleNamespace)
+                    if (organism.trainingRoomRoleNamespace == role.name)
                     {
-                        foreach (Setting setting in role.settings)
+                        foreach (string item in role.inventory)
                         {
-                            switch (setting.nameSpace)
-                            {
-                                case "BASE_LIFE_SECONDS":
-                                    lifeTicks = int.Parse(setting.value) * 60;
-                                    break;
-                                case "INV_1":
-                                    AddItemToInventory(setting);
-                                    break;
-                                case "INV_2":
-                                    AddItemToInventory(setting);
-                                    break;
-                                case "friendly":
-                                    NPC.friendly = bool.Parse(setting.value);
-                                    break;
-                            }
+                            var value = item.Split('@');
+                            AddItemToInventory(value);
                         }
-                        fitnessManager = new FitnessManager(JsonConvert.DeserializeObject<List<FitnessRule>>(role.fitnessRulesRaw));
-                        break;
+                        lifeTicks = role.lifeSeconds * 60;
+                        NPC.friendly = role.friendly;
+
+                        foreach (FitnessRule fitnessRule in ModContent.GetInstance<ChaosTerrariaConfig>().fitnessRules)
+                        {
+                            if (fitnessRule.roleName == organism.trainingRoomRoleNamespace)
+                            {
+                                FitnessRule newFitnessRule = new()
+                                {
+                                    lifeEffect = fitnessRule.lifeEffect,
+                                    attributeValue = fitnessRule.attributeValue,
+                                    maxOccurrences = fitnessRule.maxOccurrences,
+                                    eventType = fitnessRule.eventType,
+                                    scoreEffect = fitnessRule.scoreEffect,
+                                };
+                                rules.Add(newFitnessRule);
+                            }
+
+                        }
+                        fitnessManager = new(rules);
                     }
                 }
+
             }
+
+            //foreach (Role role in SessionManager.Package.roles)
+            //{
+            //    if (role.nameSpace == organism.trainingRoomRoleNamespace)
+            //    {
+            //        foreach (Setting setting in role.settings)
+            //        {
+            //            switch (setting.nameSpace)
+            //            {
+            //                case "BASE_LIFE_SECONDS":
+            //                    lifeTicks = int.Parse(setting.value) * 60;
+            //                    break;
+            //                case "INV_1":
+            //                    AddItemToInventory(setting);
+            //                    break;
+            //                case "INV_2":
+            //                    AddItemToInventory(setting);
+            //                    break;
+            //                case "friendly":
+            //                    NPC.friendly = bool.Parse(setting.value);
+            //                    break;
+            //            }
+            //        }
+            //        fitnessManager = new FitnessManager(JsonConvert.DeserializeObject<List<FitnessRule>>(role.fitnessRulesRaw));
+            //        break;
+            //    }
+            //}
 
             actionTimer++;
             lifeTimer++;
@@ -131,8 +158,8 @@ namespace ChaosTerraria.NPCs
                     UpdateInventory();
                 }
 
-                if (SessionManager.Package.roles != null && fitnessManager != null)
-                    report.score += fitnessManager.TestFitness(this, lastMinedTileType, lastPlacedTile, craftedItem, out lifeEffect);
+                if (fitnessManager != null)
+                    score += fitnessManager.TestFitness(this, lastMinedTileType, lastPlacedTile, craftedItem, out lifeEffect);
                 //lastMinedTile = null;
                 //lastPlacedTile = null;
                 lastMinedTileType = -1;
@@ -201,15 +228,16 @@ namespace ChaosTerraria.NPCs
                         SessionManager.ObservedAttributes.Add(inventoryObsAttr);
                 }
 
-                if (organism != null && !SessionManager.Reports.Contains(report))
-                {
-                    SessionManager.Reports.Add(report);
-                }
-
-                SpawnManager.activeBotCount--;
-                SpawnManager.totalSpawned++;
-                lifeTimer = 0;
+                SpawnManager.ActiveBotCount--;
+                SpawnManager.TotalSpawned++;
                 NPC.life = 0;
+                for (int i = 0; i < SessionManager.Scores.Count; i++)
+                {
+                    if (SessionManager.Scores[i].Item1 == NPC.GivenName)
+                    {
+                        SessionManager.Scores[i] = (NPC.GivenName, score);
+                    }
+                }
                 if (spawnBlockTileEntity != null)
                     spawnBlockTileEntity.spawnedSoFar--;
                 if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
@@ -217,14 +245,13 @@ namespace ChaosTerraria.NPCs
             }
         }
 
-        private void AddItemToInventory(Setting setting)
+        private void AddItemToInventory(string[] item)
         {
-            if (setting.value != "none")
+            if (item[0] != "none")
             {
-                var settingValue = setting.value.Split('@');
                 inventory.Add(new Item());
-                inventory[inventoryLastItemIndex].SetDefaults(ItemID.Search.GetId(settingValue[0]));
-                inventory[inventoryLastItemIndex].stack = int.Parse(settingValue[1]);
+                inventory[inventoryLastItemIndex].SetDefaults(ItemID.Search.GetId(item[0]));
+                inventory[inventoryLastItemIndex].stack = int.Parse(item[1]);
                 inventoryLastItemIndex++;
             }
         }
@@ -838,6 +865,8 @@ namespace ChaosTerraria.NPCs
             return true;
         }
 
+
+        //TODO: Add score back in
         public override string GetChat()
         {
             string inventoryItems = "";
@@ -850,9 +879,9 @@ namespace ChaosTerraria.NPCs
             }
 
             if (organism != null)
-                return organism.nameSpace + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace
+                return organism.name + "\n" + "Role Name: " + organism.trainingRoomRoleNamespace
                     + "\n" + "Current Action: " + (OutputType)currentAction + "\n" + "Time Left: "
-                    + ((lifeTicks - lifeTimer) / 60) + "\nInventory: " + inventoryItems + "\nScore: " + report.score;
+                    + ((lifeTicks - lifeTimer) / 60) + "\n Score: " + score + "\nInventory: " + inventoryItems;
             return "Org Not Assigned";
         }
     }

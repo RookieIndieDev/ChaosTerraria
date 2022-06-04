@@ -1,9 +1,10 @@
-﻿using ChaosTerraria.Classes;
-using ChaosTerraria.Network;
+﻿using ChaosTerraria.AI;
+using ChaosTerraria.Classes;
 using ChaosTerraria.NPCs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.World;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -13,23 +14,25 @@ namespace ChaosTerraria.Managers
 {
     public static class SpawnManager
     {
-        public static int activeBotCount;
-        public static int adamZeroCount;
-        public static int numOfAdamZero = 5;
-        public static int spawnCount;
-        public static int totalSpawned;
-        private static ChaosNetworkHelper networkHelper = new ChaosNetworkHelper();
-        private static int timer;
-        private static bool timerEnabled;
+        private static int activeBotCount;
+        private static int adamZeroCount;
+        private static int numOfAdamZero = 5;
+        private static int spawnCount;
+        private static int totalSpawned;
+        private const double learningRate = 0.001f;
+        private static Random rand = new();
+        public static int ActiveBotCount { get => activeBotCount; set => activeBotCount = value; }
+        public static int AdamZeroCount { get => adamZeroCount; set => adamZeroCount = value; }
+        public static int NumOfAdamZero { get => numOfAdamZero; set => numOfAdamZero = value; }
+        public static int SpawnCount { get => spawnCount; set => spawnCount = value; }
+        public static int TotalSpawned { get => totalSpawned; set => totalSpawned = value; }
 
         public static void SpawnTerrarians()
         {
-            if(timerEnabled)
-                timer++;
 #if DEBUG
-            if (adamZeroCount == 0)
+            if (AdamZeroCount == 0)
             {
-                for (int i = 0; i < numOfAdamZero; i++)
+                for (int i = 0; i < NumOfAdamZero; i++)
                 {
                     foreach (Point spawnPoint in ChaosSystem.spawnBlocks)
                     {
@@ -43,9 +46,9 @@ namespace ChaosTerraria.Managers
                                 AdamZero adamZero = (AdamZero)Main.npc[index].ModNPC;
                                 adamZero.NPC.GivenName += " " + i;
                                 adamZero.spawnBlockTileEntity = tileEntity;
-                                if(SessionManager.ObservableNPCs != null)
+                                if (SessionManager.ObservableNPCs != null)
                                     SessionManager.ObservableNPCs.Add(adamZero);
-                                adamZeroCount++;
+                                AdamZeroCount++;
                                 tileEntity.spawnedSoFar++;
                                 break;
                             }
@@ -54,10 +57,16 @@ namespace ChaosTerraria.Managers
                 }
             }
 #endif
-            if (activeBotCount == 0 && SessionManager.SessionStarted)
+            if (ChaosSystem.spawnBlocks.Count > 0)
             {
-                if (ChaosSystem.spawnBlocks.Count > 0)
+                if (ActiveBotCount == 0)
                 {
+
+                    if (TotalSpawned == ChaosTerraria.weights.Count)
+                    {
+                        ES.UpdateWeights();
+                        TotalSpawned = 0;
+                    }
 
                     if (SessionManager.Organisms != null)
                     {
@@ -75,12 +84,13 @@ namespace ChaosTerraria.Managers
                                         {
                                             if (tileEntity.spawnCount == -1)
                                             {
-                                                var index = NPC.NewNPC(null,spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
+                                                var index = NPC.NewNPC(null, spawnPoint.X * 16, spawnPoint.Y * 16, NPCType<ChaosTerrarian>(), 1);
                                                 ChaosTerrarian terrarian = (ChaosTerrarian)Main.npc[index].ModNPC;
                                                 if (SessionManager.ObservableNPCs != null)
                                                     SessionManager.ObservableNPCs.Add(terrarian);
                                                 terrarian.spawnBlockTileEntity = null;
-                                                activeBotCount++;
+                                                terrarian.organism = SessionManager.GetOrganism(organism.trainingRoomRoleNamespace);
+                                                ActiveBotCount++;
                                                 break;
                                             }
                                             else if (tileEntity.spawnedSoFar < tileEntity.spawnCount)
@@ -90,7 +100,8 @@ namespace ChaosTerraria.Managers
                                                 if (SessionManager.ObservableNPCs != null)
                                                     SessionManager.ObservableNPCs.Add(terrarian);
                                                 terrarian.spawnBlockTileEntity = tileEntity;
-                                                activeBotCount++;
+                                                terrarian.organism = SessionManager.GetOrganism(organism.trainingRoomRoleNamespace);
+                                                ActiveBotCount++;
                                                 tileEntity.spawnedSoFar++;
                                                 break;
                                             }
@@ -98,28 +109,15 @@ namespace ChaosTerraria.Managers
                                     }
                                 }
                             }
-
-                        }
-
-                        if(timer == 3600 && totalSpawned == 0)
-                        {
-                            timer = 0;
-                            totalSpawned = spawnCount;
-                        }
-
-                        if (spawnCount != 0 && spawnCount == totalSpawned)
-                        {
-                            networkHelper.DoSessionNext();
-                            totalSpawned = 0;
-                            timerEnabled = !timerEnabled;
                         }
                     }
                 }
-                else
-                {
-                    Main.NewText("No Spawn Blocks Found! Place Spawn Blocks in the world!", Color.Red);
-                    return;
-                }
+
+            }
+            else
+            {
+                Main.NewText("No Spawn Blocks Found! Place Spawn Blocks in the world!", Color.Red);
+                return;
             }
         }
     }

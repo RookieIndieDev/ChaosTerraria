@@ -56,7 +56,7 @@ namespace ChaosTerraria.NPCs
 
         public override bool CheckDead()
         {
-            SpawnManager.adamZeroCount--;
+            SpawnManager.AdamZeroCount--;
             timeLeft = 0;
             NPC.life = 0;
             spawnBlockTileEntity.spawnedSoFar--;
@@ -83,10 +83,7 @@ namespace ChaosTerraria.NPCs
 #if DEBUG
             organism = new Organism
             {
-                nNet = JsonConvert.DeserializeObject<NNet>(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                + @"\My Games\Terraria\tModLoader\ModSources\ChaosTerraria\NNet.json")),
-                nameSpace = "AdamZero",
-                trainingRoomRoleNamespace = "AdamZero"
+                nNet = ChaosTerraria.nNet
             };
             houseBlocksFromFile = JsonConvert.DeserializeObject<Building>(File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             + @"\My Games\Terraria\tModLoader\ModSources\ChaosTerraria\House.json"));
@@ -121,10 +118,10 @@ namespace ChaosTerraria.NPCs
             }
             if (timeLeft > lifeTicks && NPC.active)
             {
-                SpawnManager.adamZeroCount--;
+                SpawnManager.AdamZeroCount--;
                 timeLeft = 0;
                 NPC.life = 0;
-                //TODO: Move into FitnessManager after some cleanup
+                //TODO: Remove, going to use Novelty search for building stuff
                 foreach (BuildingBlock houseBlock in houseBlocksFromFile.houseBlocks)
                 {
                     Vector2 pos = new((float)(spawnBlockTileEntity.Position.X + houseBlock.x) * 16, (float)(spawnBlockTileEntity.Position.Y - houseBlock.y) * 16);

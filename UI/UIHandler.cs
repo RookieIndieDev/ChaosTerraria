@@ -6,14 +6,18 @@ using Terraria;
 
 namespace ChaosTerraria.UI
 {
-    //TODO: Add Current Stats Screen
     public static class UIHandler
     {
-        public static bool isLoginUiVisible = false;
-        public static bool isSessionUIVisible = false;
-        public static bool isSpawnBlockScreenVisible = false;
-        public static bool isInObserverMode = false;
+        private static bool isLoginUiVisible = false;
+        private static bool isSessionUIVisible = false;
+        private static bool isSpawnBlockScreenVisible = false;
+        private static bool isInObserverMode = false;
         internal static int currentOrgIndex;
+
+        public static bool IsLoginUiVisible { get => isLoginUiVisible; set => isLoginUiVisible = value; }
+        public static bool IsSessionUIVisible { get => isSessionUIVisible; set => isSessionUIVisible = value; }
+        public static bool IsSpawnBlockScreenVisible { get => isSpawnBlockScreenVisible; set => isSpawnBlockScreenVisible = value; }
+        public static bool IsInObserverMode { get => isInObserverMode; set => isInObserverMode = value; }
 
         public static void ShowLoginScreen()
         {
@@ -27,7 +31,7 @@ namespace ChaosTerraria.UI
 
         public static void ShowSpawnBlockScreen(int i, int j)
         {
-            isSpawnBlockScreenVisible = true;
+            IsSpawnBlockScreenVisible = true;
             ChaosSystem.mainInterface.SetState(ChaosSystem.spawnBlockScreen);
             ChaosSystem.spawnBlockScreen.GetValues(i, j);
         }
@@ -39,8 +43,8 @@ namespace ChaosTerraria.UI
 
         public static void ToggleObserveMode()
         {
-            isInObserverMode = !isInObserverMode;
-            if (isInObserverMode)
+            IsInObserverMode = !IsInObserverMode;
+            if (IsInObserverMode)
             {
                 Main.NewText("Observer Mode activated", Color.LightBlue);
                 if (SessionManager.ObservableNPCs != null && SessionManager.ObservableNPCs.Count > 0)
@@ -54,7 +58,7 @@ namespace ChaosTerraria.UI
 
         internal static void ShowProgressBar()
         {
-            if(!isSpawnBlockScreenVisible && !isLoginUiVisible && !isSessionUIVisible)
+            if(!IsSpawnBlockScreenVisible && !IsLoginUiVisible && !IsSessionUIVisible)
                 ChaosSystem.mainInterface.SetState(ChaosSystem.progressBar);
         }
     }

@@ -1,7 +1,9 @@
 ﻿using ChaosTerraria.ChaosUtils;
 using ChaosTerraria.Classes;
 using ChaosTerraria.Structs;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria.ModLoader;
 
 namespace ChaosTerraria.Managers
@@ -17,9 +19,10 @@ namespace ChaosTerraria.Managers
         private static bool sessionStarted = false;
         private static Package package;
         private static List<ModNPC> observableNPCs;
-
+        private static List<(string, int)> scores;
         public static bool SessionStarted { get => sessionStarted; set => sessionStarted = value; }
         public static List<Report> Reports { get => reports; set => reports = value; }
+        public static List<(string, int)> Scores { get => scores; set => scores = value; }
         public static List<Species> Species { get => species; set => species = value; }
         public static List<ObservedAttributes> ObservedAttributes { get => observedAttributes; set => observedAttributes = value; }
         public static Stats CurrentStats { get => currentStats; set => currentStats = value; }
@@ -33,11 +36,20 @@ namespace ChaosTerraria.Managers
         {
             if (!sessionStarted)
             {
-                reports = new List<Report>();
-                species = new List<Species>();
-                organisms = new List<Organism>();
-                observedAttributes = new List<ObservedAttributes>();
-                observableNPCs = new List<ModNPC>();
+                reports = new();
+                species = new();
+                organisms = new();
+                observedAttributes = new();
+                observableNPCs = new();
+                scores = new();
+            }
+        }
+
+        public static void InitScores()
+        {
+            foreach(Organism org in organisms)
+            {
+                scores.Add((org.trainingRoomRoleNamespace + " " + org.name, 0));
             }
         }
 
@@ -49,11 +61,11 @@ namespace ChaosTerraria.Managers
             }
         }
 
-        public static Organism GetOrganism()
+        public static Organism GetOrganism(string roleName)
         {
             foreach (Organism org in organisms)
             {
-                if (org.assigned == false)
+                if (org.assigned == false && roleName == org.trainingRoomRoleNamespace)
                 {
                     org.assigned = true;
                     return org;

@@ -14,8 +14,6 @@ using log4net;
 
 namespace ChaosTerraria.Network
 {
-    //TODO: GetPackage() Called separately instead of being called by StartSession()?
-    //TODO: Replace HttpClient with RestSharp
     public class ChaosNetworkHelper
     {
         private static HttpClient httpClient;
@@ -95,7 +93,7 @@ namespace ChaosTerraria.Network
                     SessionManager.CurrentSession = sessionStartResponse.session;
                     ChaosNetConfig.data.sessionNamespace = SessionManager.CurrentSession.nameSpace;
                     ChaosNetConfig.Save();
-                    GetPackage();
+                    //GetPackage();
                     DoSessionNext();
                     break;
                 case System.Net.HttpStatusCode.BadRequest:
@@ -233,24 +231,24 @@ namespace ChaosTerraria.Network
             }
         }
 
-        private async void GetPackage()
-        {
-            string endpoint = $"{ChaosNetConfig.data.trainingRoomUsernameNamespace}/trainingrooms/{ChaosNetConfig.data.trainingRoomNamespace}/package";
-            HttpResponseMessage response = await DoGet(endpoint);
-            Package pack = JsonConvert.DeserializeObject<Package>(await response.Content.ReadAsStringAsync());
-            SessionManager.Package = pack;
-            foreach (Role role in SessionManager.Package.roles)
-            {
-                foreach (Setting setting in role.settings)
-                {
-                    if (setting.nameSpace == "ORG_BATCH_SIZE")
-                    {
-                        SpawnManager.spawnCount += int.Parse(setting.value);
-                        break;
-                    }
-                }
-            }
-        }
+        //private async void GetPackage()
+        //{
+        //    string endpoint = $"{ChaosNetConfig.data.trainingRoomUsernameNamespace}/trainingrooms/{ChaosNetConfig.data.trainingRoomNamespace}/package";
+        //    HttpResponseMessage response = await DoGet(endpoint);
+        //    Package pack = JsonConvert.DeserializeObject<Package>(await response.Content.ReadAsStringAsync());
+        //    SessionManager.Package = pack;
+        //    foreach (Role role in SessionManager.Package.roles)
+        //    {
+        //        foreach (Setting setting in role.settings)
+        //        {
+        //            if (setting.nameSpace == "ORG_BATCH_SIZE")
+        //            {
+        //                SpawnManager.SpawnCount += int.Parse(setting.value);
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
 
         private async Task<HttpResponseMessage> SendPostRequest(string json, string endpoint, string headers = "", string headerName = "", bool headersRequired = false)
         {

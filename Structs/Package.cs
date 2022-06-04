@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ChaosTerraria.Classes;
+using System.Collections.Generic;
 
 namespace ChaosTerraria.Structs
 {

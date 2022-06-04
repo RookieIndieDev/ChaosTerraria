@@ -55,7 +55,7 @@ namespace ChaosTerraria.UI
                 spawnBlockTileEntity.roleNamespace = spawnPointTextbox.Text;
                 spawnBlockTileEntity.spawnCount = int.Parse(spawnCountTextbox.Text);
             }
-            UIHandler.isSpawnBlockScreenVisible = false;
+            UIHandler.IsSpawnBlockScreenVisible = false;
         }
 
         public void GetValues(int i, int j)

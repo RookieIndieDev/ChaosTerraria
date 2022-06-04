@@ -1,6 +1,8 @@
 ﻿using ChaosTerraria.Classes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Terraria.ID;
 using Terraria.ModLoader.Config;
 
 namespace ChaosTerraria.Config
@@ -10,8 +12,8 @@ namespace ChaosTerraria.Config
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
         [Label("Example Fitness Rules")]
-        [Tooltip("List of example of fitness rules to use with your agent")]
-        public readonly List<FitnessRule> exampleFitnessRules = new List<FitnessRule>()
+        [Tooltip("Example of fitness rules to train your agent.")]
+        public readonly List<FitnessRule> exampleFitnessRules = new()
         {
             new ()
             {
@@ -19,17 +21,46 @@ namespace ChaosTerraria.Config
                 scoreEffect = 5,
                 lifeEffect = 5,
                 maxOccurrences = -1,
-                attributeValue = "X"
+                attributeValue = "X",
+                roleName="RoleOne"
             }, new (){
                 eventType = "BLOCK_PLACED",
                 scoreEffect = 5,
                 lifeEffect = 5,
                 maxOccurrences = -1,
-                attributeValue = "Wood"
+                attributeValue = "Wood",
+                roleName="RoleTwo"
+            }
+        };
+        [Label("Exmaple Roles")]
+        [Tooltip("Example roles for reference")]
+        public readonly List<Role> exampleRoles = new()
+        {
+            new()
+            {
+                name = "RoleOne",
+                inventory = new List<string>{"Wood@20", "StoneBlock@30"},
+                count = 1,
+                craftItemOne = "Torch",
+                craftItemTwo = "IronBar",
+                craftItemThree = "WoodenBow",
+                craftItemFour = "IronAnvil",
+                craftItemFive = "Chest",
+                friendly = true
+            },
+            new()
+            {
+                name = "RoleTwo",
+                inventory = new List<string>{"CopperOre@20", "IronAxe@30"},
+                count = 2,
+                friendly = false
             }
         };
         [Label("Actual fitness rules")]
         [Tooltip("Add your fitness rules here for your agent to train with")]
         public List<FitnessRule> fitnessRules;
+        [Label("Roles")]
+        [Tooltip("Allow you configure various things such as inventory, etc., Look at Example Roles for reference")]
+        public List<Role> roles;
     }
 }

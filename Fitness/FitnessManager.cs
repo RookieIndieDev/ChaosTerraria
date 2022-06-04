@@ -8,7 +8,6 @@ using Terraria.ID;
 
 namespace ChaosTerraria.Fitness
 {
-    //TODO: Change Postitions in TestMoveAlongAxis() to tileCoords?
     public class FitnessManager
     {
 
@@ -149,7 +148,7 @@ namespace ChaosTerraria.Fitness
             return score;
         }
 
-        private int TestBlockMined(String blockId, int minedTileType, int scoreEffect)
+        private int TestBlockMined(string blockId, int minedTileType, int scoreEffect)
         {
             int score = 0;
             var blockName = "";
@@ -165,34 +164,34 @@ namespace ChaosTerraria.Fitness
             return score;
         }
 
-        private int TestMoveAlongAxis(String axis, ChaosTerrarian org, int scoreEffect)
+        private int TestMoveAlongAxis(string axis, ChaosTerrarian org, int scoreEffect)
         {
             int score = 0;
             switch (axis)
             {
                 case "x":
-                    if (org.NPC.position.X > org.NPC.oldPosition.X && maxAlongAxis == 0)
+                    if (org.NPC.position.ToTileCoordinates().X > org.NPC.oldPosition.ToTileCoordinates().X && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.X;
+                        maxAlongAxis = (int)org.NPC.position.ToTileCoordinates().X;
                     }
-                    else if (org.NPC.position.X > maxAlongAxis)
+                    else if (org.NPC.position.ToTileCoordinates().X > maxAlongAxis && maxAlongAxis != 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.X;
+                        maxAlongAxis = (int)org.NPC.position.ToTileCoordinates().X;
                     }
 
                     break;
                 case "-x":
-                    if (org.NPC.position.X < org.NPC.oldPosition.X && maxAlongAxis == 0)
+                    if (org.NPC.position.ToTileCoordinates().X < org.NPC.position.ToTileCoordinates().X && maxAlongAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.X;
+                        maxAlongAxis = (int)org.NPC.position.ToTileCoordinates().X;
                     }
-                    else if (org.NPC.position.X < maxAlongAxis)
+                    else if (org.NPC.position.ToTileCoordinates().X < maxAlongAxis && maxAlongAxis != 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.X;
+                        maxAlongAxis = (int)org.NPC.position.ToTileCoordinates().X;
                     }
                     break;
                 case "-y": //Up
@@ -201,7 +200,7 @@ namespace ChaosTerraria.Fitness
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.Y;
                     }
-                    else if (org.NPC.position.Y < maxAlongAxis)
+                    else if (org.NPC.position.Y < maxAlongAxis && maxAlongAxis != 0)
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.Y;
@@ -213,7 +212,7 @@ namespace ChaosTerraria.Fitness
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.Y;
                     }
-                    else if (org.NPC.position.Y > maxAlongAxis)
+                    else if (org.NPC.position.ToTileCoordinates().Y > maxAlongAxis && maxAlongAxis != 0)
                     {
                         score += scoreEffect;
                         maxAlongAxis = (int)org.NPC.position.Y;
@@ -225,7 +224,7 @@ namespace ChaosTerraria.Fitness
             return score;
         }
 
-        private int TestItemCrafted(String expectedItem, string craftedItem, int scoreEffect)
+        private int TestItemCrafted(string expectedItem, string craftedItem, int scoreEffect)
         {
             int score = 0;
             if (craftedItem == expectedItem)
