@@ -51,7 +51,6 @@ namespace ChaosTerraria.Tiles
             Main.tileLighted[Type] = true;
             DustType = 84;
             ItemDrop = ModContent.ItemType<Items.SpawnBlock>();
-            AddMapEntry(new Color(125, 41, 162));
             Main.tileLavaDeath[Type] = false;
             Main.tileWaterDeath[Type] = false;
             Main.tileFrameImportant[Type] = true;

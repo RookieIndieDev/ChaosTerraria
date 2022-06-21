@@ -6,5 +6,6 @@ namespace ChaosTerraria.Classes
     {
         public List<double> values;
         public string roleName;
+        public int epoch;
     }
 }

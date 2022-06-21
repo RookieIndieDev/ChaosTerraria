@@ -19,8 +19,6 @@ namespace ChaosTerraria.Managers
         private static int numOfAdamZero = 5;
         private static int spawnCount;
         private static int totalSpawned;
-        private const double learningRate = 0.001f;
-        private static Random rand = new();
         public static int ActiveBotCount { get => activeBotCount; set => activeBotCount = value; }
         public static int AdamZeroCount { get => adamZeroCount; set => adamZeroCount = value; }
         public static int NumOfAdamZero { get => numOfAdamZero; set => numOfAdamZero = value; }
@@ -62,7 +60,7 @@ namespace ChaosTerraria.Managers
                 if (ActiveBotCount == 0)
                 {
 
-                    if (TotalSpawned == ChaosTerraria.weights.Count)
+                    if (TotalSpawned == SessionManager.Organisms.Count)
                     {
                         ES.UpdateWeights();
                         TotalSpawned = 0;

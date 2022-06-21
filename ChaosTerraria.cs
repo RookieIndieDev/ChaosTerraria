@@ -25,7 +25,7 @@ namespace ChaosTerraria
         internal static NNet nNet;
         internal static Weight weight;
         internal static List<Weight> weights;
-        readonly static Random rand = new(DateTime.Now.Millisecond);
+        readonly static Random rand = new();
         internal static Weight sum;
         public override void Load()
         {
@@ -47,7 +47,7 @@ namespace ChaosTerraria
                     {
                         foreach (Dependency dependency in neuron.dependencies)
                         {
-                            sum.values.Add(0);
+                            //sum.values.Add(0);
                             weight.values.Add(dependency.weight);
                         }
                     }
@@ -55,8 +55,10 @@ namespace ChaosTerraria
                 if (config.roles != null)
                 {
                     foreach (Role role in config.roles)
-                        CreatePop(weight.values, role);
+                        //CreatePop(weight.values, role);
+                        AddOrgs(role);
                     weight.roleName = "main";
+                    weight.epoch = 0;
                     File.WriteAllText("weight.json", JsonConvert.SerializeObject(weight));
                 }
             }
@@ -66,11 +68,13 @@ namespace ChaosTerraria
                 if (config.roles != null)
                 {
                     foreach (Role role in config.roles)
-                        CreatePop(weight.values, role);
-                    for(int i = 0; i < weight.values.Count; i++)
-                    {
-                        sum.values.Add(0);
-                    }
+                        //CreatePop(weight.values, role);
+                        AddOrgs(role);
+
+                    //for (int i = 0; i < weight.values.Count; i++)
+                    //{
+                    //    sum.values.Add(0);
+                    //}
                 }
             }
             SessionManager.InitScores();
@@ -103,7 +107,7 @@ namespace ChaosTerraria
                 {
                     //var val = rand.NextDouble();
                     //vals[j] *= ((val * 10) - 5);
-                    vals[j] += rand.NextDouble();
+                    vals[j] += rand.NextDouble() * 0.001;
                 }
                 Weight temp = new()
                 {
@@ -121,12 +125,14 @@ namespace ChaosTerraria
             {
                 Organism organism = new()
                 {
-                    nNet = nNet,
+                    nNet = new(),
                     trainingRoomRoleNamespace = role.name,
-                    name = "ChaosTerrarian " + i,
+                    name = i.ToString(),
                     assigned = false
                 };
-                organism.nNet.AssignWeight(weights[i]);
+                organism.nNet.neurons = new(nNet.neurons);
+                organism.nNet.id = i;
+                organism.nNet.AssignWeight(weight, ES.GenerateGaussianNoise());
                 SessionManager.Organisms.Add(organism);
             }
         }

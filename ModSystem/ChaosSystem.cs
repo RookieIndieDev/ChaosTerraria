@@ -58,7 +58,7 @@ namespace ChaosTerraria.World
 
         public override void AddRecipes()
         {
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<Items.SpawnBlock>(), 999);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Items.SpawnBlock>(), 999);
             recipe.AddIngredient(ItemID.Wood);
             recipe.Register();
         }

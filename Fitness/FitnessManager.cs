@@ -14,7 +14,8 @@ namespace ChaosTerraria.Fitness
 
         private List<FitnessRule> fitnessRules;
         private FitnessRuleType type;
-        private int maxAlongAxis;
+        private float maxAlongHorizontalAxis;
+        private float maxAlongVerticalAxis;
         public FitnessManager(List<FitnessRule> rules)
         {
             fitnessRules = new List<FitnessRule>(rules);
@@ -170,52 +171,52 @@ namespace ChaosTerraria.Fitness
             switch (axis)
             {
                 case "x":
-                    if (org.NPC.position.ToTileCoordinates().X > org.NPC.oldPosition.ToTileCoordinates().X && maxAlongAxis == 0)
+                    if (org.NPC.position.X > org.NPC.oldPosition.X && maxAlongHorizontalAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.ToTileCoordinates().X;
+                        maxAlongHorizontalAxis = org.NPC.position.X;
                     }
-                    else if (org.NPC.position.ToTileCoordinates().X > maxAlongAxis && maxAlongAxis != 0)
+                    else if (org.NPC.position.X > maxAlongHorizontalAxis && maxAlongHorizontalAxis != 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.ToTileCoordinates().X;
+                        maxAlongHorizontalAxis = org.NPC.position.X;
                     }
 
                     break;
                 case "-x":
-                    if (org.NPC.position.ToTileCoordinates().X < org.NPC.position.ToTileCoordinates().X && maxAlongAxis == 0)
+                    if (org.NPC.position.X < org.NPC.position.X && maxAlongHorizontalAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.ToTileCoordinates().X;
+                        maxAlongHorizontalAxis = org.NPC.position.X;
                     }
-                    else if (org.NPC.position.ToTileCoordinates().X < maxAlongAxis && maxAlongAxis != 0)
+                    else if (org.NPC.position.X < maxAlongHorizontalAxis && maxAlongHorizontalAxis != 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.ToTileCoordinates().X;
+                        maxAlongHorizontalAxis = org.NPC.position.X;
                     }
                     break;
                 case "-y": //Up
-                    if (org.NPC.position.Y < org.NPC.oldPosition.Y && maxAlongAxis == 0)
+                    if (org.NPC.position.Y < org.NPC.oldPosition.Y && maxAlongVerticalAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.Y;
+                        maxAlongVerticalAxis = (int)org.NPC.position.Y;
                     }
-                    else if (org.NPC.position.Y < maxAlongAxis && maxAlongAxis != 0)
+                    else if (org.NPC.position.Y < maxAlongVerticalAxis && maxAlongVerticalAxis != 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.Y;
+                        maxAlongVerticalAxis = (int)org.NPC.position.Y;
                     }
                     break;
                 case "y": //Down
-                    if (org.NPC.position.Y > org.NPC.oldPosition.Y && maxAlongAxis == 0)
+                    if (org.NPC.position.Y > org.NPC.oldPosition.Y && maxAlongVerticalAxis == 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.Y;
+                        maxAlongVerticalAxis = (int)org.NPC.position.Y;
                     }
-                    else if (org.NPC.position.ToTileCoordinates().Y > maxAlongAxis && maxAlongAxis != 0)
+                    else if (org.NPC.position.Y > maxAlongVerticalAxis && maxAlongVerticalAxis != 0)
                     {
                         score += scoreEffect;
-                        maxAlongAxis = (int)org.NPC.position.Y;
+                        maxAlongVerticalAxis = (int)org.NPC.position.Y;
                     }
                     break;
                 default:

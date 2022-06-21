@@ -12,12 +12,14 @@ namespace ChaosTerraria.AI
     {
         public List<Neuron> neurons;
         private double inputMagnitude;
-
+        Type coordType = typeof(Coord);
+        internal int id;
+        
         public int GetOutput(Point center, List<Item> inventory, out int direction, out string itemToCraft, out string blockToPlace, out int x, out int y)
         {
             inputMagnitude = 0;
             int output = -100;
-            double outputValue = -100;
+            double outputValue = -1000000;
             int tempDirection = -1;
             string tempitemToCraft = "";
             string tempBlockToPlace = "";
@@ -25,7 +27,7 @@ namespace ChaosTerraria.AI
             int tileType = 0;
             int blockX = 0;
             int blockY = 0;
-            Type coordType = typeof(Coord);
+
             foreach (Neuron neuron in neurons)
             {
                 switch (neuron.type)
@@ -240,16 +242,16 @@ namespace ChaosTerraria.AI
             outputNeuron = null;
         }
 
-        internal void AssignWeight(Weight weight)
+        internal void AssignWeight(Weight weight, double random)
         {
             int counter = 0;
-            foreach(Neuron neuron in neurons)
+            foreach (Neuron neuron in neurons)
             {
-                if(neuron.baseType != "input")
+                if (neuron.baseType != "input")
                 {
-                    foreach(Dependency dependency in neuron.dependencies)
+                    foreach (Dependency dependency in neuron.dependencies)
                     {
-                        dependency.weight = weight.values[counter];
+                        dependency.weight = weight.values[counter] + 0.1 * random;
                         counter++;
                     }
                 }
@@ -259,9 +261,9 @@ namespace ChaosTerraria.AI
         private void NormalizeInputs()
         {
             inputMagnitude = Math.Sqrt(inputMagnitude);
-            foreach(Neuron neuron in neurons)
+            foreach (Neuron neuron in neurons)
             {
-                if(neuron.baseType == "input" && neuron.type != "HasInInventory")
+                if (neuron.baseType == "input" && neuron.type != "HasInInventory")
                 {
                     neuron.value /= inputMagnitude;
                 }

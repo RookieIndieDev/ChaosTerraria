@@ -1,1 +1,2505 @@
-{"neurons":[{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-1","dependencies":[],"layerId":0,"direction":"Top","range":"Four"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-2","dependencies":[],"layerId":0,"direction":"Top","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-3","dependencies":[],"layerId":0,"direction":"Top","range":"Two"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-4","dependencies":[],"layerId":0,"direction":"Top","range":"One"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-5","dependencies":[],"layerId":0,"direction":"Top","range":"Zero"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-6","dependencies":[],"layerId":0,"direction":"TopLeft","range":"Four"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-7","dependencies":[],"layerId":0,"direction":"TopLeft","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-8","dependencies":[],"layerId":0,"direction":"TopLeft","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-9","dependencies":[],"layerId":0,"direction":"TopLeft","range":"Two"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-10","dependencies":[],"layerId":0,"direction":"TopLeft","range":"One"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-11","dependencies":[],"layerId":0,"direction":"TopLeft","range":"Zero"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-12","dependencies":[],"layerId":0,"direction":"TopRight","range":"Four"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-13","dependencies":[],"layerId":0,"direction":"TopRight","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-14","dependencies":[],"layerId":0,"direction":"TopRight","range":"Two"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-15","dependencies":[],"layerId":0,"range":"One","direction":"TopRight"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-16","dependencies":[],"layerId":0,"direction":"TopRight","range":"Zero"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-17","dependencies":[],"layerId":0,"direction":"Bottom","range":"Four"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-18","dependencies":[],"layerId":0,"direction":"Bottom","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-19","dependencies":[],"layerId":0,"direction":"Bottom","range":"Two"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-20","dependencies":[],"layerId":0,"direction":"Bottom","range":"One"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-21","dependencies":[],"layerId":0,"direction":"Bottom","range":"Zero"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-22","dependencies":[],"layerId":0,"direction":"BottomLeft","range":"Four"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-23","dependencies":[],"layerId":0,"direction":"BottomLeft","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-24","dependencies":[],"layerId":0,"direction":"BottomLeft","range":"Two"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-25","dependencies":[],"layerId":0,"direction":"BottomLeft","range":"One"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-26","dependencies":[],"layerId":0,"direction":"BottomLeft","range":"Zero"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-27","dependencies":[],"layerId":0,"direction":"BottomRight","range":"Four"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-28","dependencies":[],"layerId":0,"direction":"BottomRight","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-29","dependencies":[],"layerId":0,"direction":"BottomRight","range":"Two"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-30","dependencies":[],"layerId":0,"direction":"BottomRight","range":"One"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-31","dependencies":[],"layerId":0,"direction":"BottomRight","range":"Zero"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-32","dependencies":[],"layerId":0,"direction":"Left","range":"Four"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-33","dependencies":[],"layerId":0,"direction":"Left","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-34","dependencies":[],"layerId":0,"direction":"Left","range":"Two"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-35","dependencies":[],"layerId":0,"direction":"Left","range":"One"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-36","dependencies":[],"layerId":0,"direction":"Left","range":"Zero"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-37","dependencies":[],"layerId":0,"direction":"Right","range":"Four"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-38","dependencies":[],"layerId":0,"direction":"Right","range":"Three"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-39","dependencies":[],"layerId":0,"direction":"Right","range":"Two"},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-40","dependencies":[],"layerId":0,"direction":"Right","range":"One"},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-42","dependencies":[{"neuronId":"neuron-1","weight":0.701046422706548,"targetId":"neuron-42"},{"neuronId":"neuron-2","weight":0.7343278930836018,"targetId":"neuron-42"},{"neuronId":"neuron-3","weight":0.9997498611565221,"targetId":"neuron-42"},{"neuronId":"neuron-4","weight":0.6244220970335382,"targetId":"neuron-42"},{"neuronId":"neuron-5","weight":0.22954666333542062,"targetId":"neuron-42"},{"neuronId":"neuron-6","weight":0.6536439328791167,"targetId":"neuron-42"},{"neuronId":"neuron-7","weight":0.9364973840855554,"targetId":"neuron-42"},{"neuronId":"neuron-8","weight":0.7228741491756809,"targetId":"neuron-42"},{"neuronId":"neuron-9","weight":0.0360318174746701,"targetId":"neuron-42"},{"neuronId":"neuron-10","weight":0.1814948361483093,"targetId":"neuron-42"},{"neuronId":"neuron-11","weight":0.08897741135998338,"targetId":"neuron-42"},{"neuronId":"neuron-12","weight":0.37933978159312154,"targetId":"neuron-42"},{"neuronId":"neuron-13","weight":0.4791710554596591,"targetId":"neuron-42"},{"neuronId":"neuron-14","weight":0.9279730388672187,"targetId":"neuron-42"},{"neuronId":"neuron-15","weight":0.35214795934025656,"targetId":"neuron-42"},{"neuronId":"neuron-16","weight":0.060913781221737184,"targetId":"neuron-42"},{"neuronId":"neuron-17","weight":0.6258468493587851,"targetId":"neuron-42"},{"neuronId":"neuron-18","weight":0.09614490214407156,"targetId":"neuron-42"},{"neuronId":"neuron-19","weight":0.3479960886692586,"targetId":"neuron-42"},{"neuronId":"neuron-20","weight":0.9237414029662907,"targetId":"neuron-42"},{"neuronId":"neuron-21","weight":0.28456603136477765,"targetId":"neuron-42"},{"neuronId":"neuron-22","weight":0.38129639967460405,"targetId":"neuron-42"},{"neuronId":"neuron-23","weight":0.8851105519300287,"targetId":"neuron-42"},{"neuronId":"neuron-24","weight":0.011847037767755197,"targetId":"neuron-42"},{"neuronId":"neuron-25","weight":0.8035979308343801,"targetId":"neuron-42"},{"neuronId":"neuron-26","weight":0.7933827811692379,"targetId":"neuron-42"},{"neuronId":"neuron-27","weight":0.8484079000785102,"targetId":"neuron-42"},{"neuronId":"neuron-28","weight":0.6663803745730635,"targetId":"neuron-42"},{"neuronId":"neuron-29","weight":0.030446079154436978,"targetId":"neuron-42"},{"neuronId":"neuron-30","weight":0.800248556178668,"targetId":"neuron-42"},{"neuronId":"neuron-31","weight":0.8633420839201646,"targetId":"neuron-42"},{"neuronId":"neuron-32","weight":0.7728356447851679,"targetId":"neuron-42"},{"neuronId":"neuron-33","weight":0.491395033158075,"targetId":"neuron-42"},{"neuronId":"neuron-34","weight":0.681845980729048,"targetId":"neuron-42"},{"neuronId":"neuron-35","weight":0.8270962077453622,"targetId":"neuron-42"},{"neuronId":"neuron-36","weight":0.3404738644444646,"targetId":"neuron-42"},{"neuronId":"neuron-37","weight":0.031052957480165677,"targetId":"neuron-42"},{"neuronId":"neuron-38","weight":0.1864215141742378,"targetId":"neuron-42"},{"neuronId":"neuron-39","weight":0.5761483554628952,"targetId":"neuron-42"},{"neuronId":"neuron-40","weight":0.9401035836446564,"targetId":"neuron-42"},{"neuronId":"neuron-54","weight":0.48306595068960734,"targetId":"neuron-42"}],"layerId":1},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-43","dependencies":[{"neuronId":"neuron-1","weight":0.1979526966023074,"targetId":"neuron-43"},{"neuronId":"neuron-2","weight":0.04852191739060807,"targetId":"neuron-43"},{"neuronId":"neuron-3","weight":0.3054737385039029,"targetId":"neuron-43"},{"neuronId":"neuron-4","weight":0.26229994476252183,"targetId":"neuron-43"},{"neuronId":"neuron-5","weight":0.34637293352659115,"targetId":"neuron-43"},{"neuronId":"neuron-6","weight":0.4317784949139636,"targetId":"neuron-43"},{"neuronId":"neuron-7","weight":0.8134310997647456,"targetId":"neuron-43"},{"neuronId":"neuron-8","weight":0.21888168256800666,"targetId":"neuron-43"},{"neuronId":"neuron-9","weight":0.6171571814645278,"targetId":"neuron-43"},{"neuronId":"neuron-10","weight":0.5865226966226214,"targetId":"neuron-43"},{"neuronId":"neuron-11","weight":0.45795382800870277,"targetId":"neuron-43"},{"neuronId":"neuron-12","weight":0.13719010536406118,"targetId":"neuron-43"},{"neuronId":"neuron-13","weight":0.37191836031489345,"targetId":"neuron-43"},{"neuronId":"neuron-14","weight":0.8671890132971098,"targetId":"neuron-43"},{"neuronId":"neuron-15","weight":0.9920090032620874,"targetId":"neuron-43"},{"neuronId":"neuron-16","weight":0.4820529358336886,"targetId":"neuron-43"},{"neuronId":"neuron-17","weight":0.931835870957996,"targetId":"neuron-43"},{"neuronId":"neuron-18","weight":0.2779017897033471,"targetId":"neuron-43"},{"neuronId":"neuron-19","weight":0.5661209396558432,"targetId":"neuron-43"},{"neuronId":"neuron-20","weight":0.7307699973419038,"targetId":"neuron-43"},{"neuronId":"neuron-21","weight":0.18038684282126105,"targetId":"neuron-43"},{"neuronId":"neuron-22","weight":0.04743549061541874,"targetId":"neuron-43"},{"neuronId":"neuron-23","weight":0.6392356587599977,"targetId":"neuron-43"},{"neuronId":"neuron-24","weight":0.9322230696296433,"targetId":"neuron-43"},{"neuronId":"neuron-25","weight":0.30047507244563687,"targetId":"neuron-43"},{"neuronId":"neuron-26","weight":0.45600594167062525,"targetId":"neuron-43"},{"neuronId":"neuron-27","weight":0.8872619608619676,"targetId":"neuron-43"},{"neuronId":"neuron-28","weight":0.40610177508863443,"targetId":"neuron-43"},{"neuronId":"neuron-29","weight":0.9928864215198444,"targetId":"neuron-43"},{"neuronId":"neuron-30","weight":0.3659287468337068,"targetId":"neuron-43"},{"neuronId":"neuron-31","weight":0.07051135478228132,"targetId":"neuron-43"},{"neuronId":"neuron-32","weight":0.02132664957207986,"targetId":"neuron-43"},{"neuronId":"neuron-33","weight":0.375930133758156,"targetId":"neuron-43"},{"neuronId":"neuron-34","weight":0.21426912473370752,"targetId":"neuron-43"},{"neuronId":"neuron-35","weight":0.8843255568628406,"targetId":"neuron-43"},{"neuronId":"neuron-36","weight":0.8088500791439778,"targetId":"neuron-43"},{"neuronId":"neuron-37","weight":0.5192269488518867,"targetId":"neuron-43"},{"neuronId":"neuron-38","weight":0.2368032861374606,"targetId":"neuron-43"},{"neuronId":"neuron-39","weight":0.7714088307835394,"targetId":"neuron-43"},{"neuronId":"neuron-40","weight":0.4085782049432066,"targetId":"neuron-43"},{"neuronId":"neuron-54","weight":0.9155541915491708,"targetId":"neuron-43"}],"layerId":1},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-44","dependencies":[{"neuronId":"neuron-1","weight":0.36167160307988644,"targetId":"neuron-44"},{"neuronId":"neuron-2","weight":0.1580151378659348,"targetId":"neuron-44"},{"neuronId":"neuron-3","weight":0.005053698487415992,"targetId":"neuron-44"},{"neuronId":"neuron-4","weight":0.9265503120093618,"targetId":"neuron-44"},{"neuronId":"neuron-5","weight":0.4523410465209611,"targetId":"neuron-44"},{"neuronId":"neuron-6","weight":0.056242455840893935,"targetId":"neuron-44"},{"neuronId":"neuron-7","weight":0.7052094385671213,"targetId":"neuron-44"},{"neuronId":"neuron-8","weight":0.12141292357866729,"targetId":"neuron-44"},{"neuronId":"neuron-9","weight":0.2620553305791249,"targetId":"neuron-44"},{"neuronId":"neuron-10","weight":0.3726104516456489,"targetId":"neuron-44"},{"neuronId":"neuron-11","weight":0.7523432233232211,"targetId":"neuron-44"},{"neuronId":"neuron-12","weight":0.2766978382413837,"targetId":"neuron-44"},{"neuronId":"neuron-13","weight":0.7569598665839034,"targetId":"neuron-44"},{"neuronId":"neuron-14","weight":0.8859783185252369,"targetId":"neuron-44"},{"neuronId":"neuron-15","weight":0.46591846876964416,"targetId":"neuron-44"},{"neuronId":"neuron-16","weight":0.257441146071952,"targetId":"neuron-44"},{"neuronId":"neuron-17","weight":0.41881331037273506,"targetId":"neuron-44"},{"neuronId":"neuron-18","weight":0.07835730288843745,"targetId":"neuron-44"},{"neuronId":"neuron-19","weight":0.22794694766980017,"targetId":"neuron-44"},{"neuronId":"neuron-20","weight":0.28667654644054485,"targetId":"neuron-44"},{"neuronId":"neuron-21","weight":0.02813248615388586,"targetId":"neuron-44"},{"neuronId":"neuron-22","weight":0.5695832717182608,"targetId":"neuron-44"},{"neuronId":"neuron-23","weight":0.28372895957620037,"targetId":"neuron-44"},{"neuronId":"neuron-24","weight":0.07604397869594837,"targetId":"neuron-44"},{"neuronId":"neuron-25","weight":0.4620196406577459,"targetId":"neuron-44"},{"neuronId":"neuron-26","weight":0.7981594759968519,"targetId":"neuron-44"},{"neuronId":"neuron-27","weight":0.3452992659362575,"targetId":"neuron-44"},{"neuronId":"neuron-28","weight":0.9883386554734883,"targetId":"neuron-44"},{"neuronId":"neuron-29","weight":0.6803004971618177,"targetId":"neuron-44"},{"neuronId":"neuron-30","weight":0.872101561928386,"targetId":"neuron-44"},{"neuronId":"neuron-31","weight":0.02350022404363461,"targetId":"neuron-44"},{"neuronId":"neuron-32","weight":0.5165141269241261,"targetId":"neuron-44"},{"neuronId":"neuron-33","weight":0.3359412400556304,"targetId":"neuron-44"},{"neuronId":"neuron-34","weight":0.9364873507871421,"targetId":"neuron-44"},{"neuronId":"neuron-35","weight":0.984573091309567,"targetId":"neuron-44"},{"neuronId":"neuron-36","weight":0.3076249725013377,"targetId":"neuron-44"},{"neuronId":"neuron-37","weight":0.46159988653497697,"targetId":"neuron-44"},{"neuronId":"neuron-38","weight":0.04378981820682237,"targetId":"neuron-44"},{"neuronId":"neuron-39","weight":0.4678852928042492,"targetId":"neuron-44"},{"neuronId":"neuron-40","weight":0.011087873380681956,"targetId":"neuron-44"},{"neuronId":"neuron-54","weight":0.575991023169795,"targetId":"neuron-44"}],"layerId":1},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-45","dependencies":[{"neuronId":"neuron-1","weight":0.8302047008070017,"targetId":"neuron-45"},{"neuronId":"neuron-2","weight":0.7490601161282302,"targetId":"neuron-45"},{"neuronId":"neuron-3","weight":0.2524825942126945,"targetId":"neuron-45"},{"neuronId":"neuron-4","weight":0.28177529102293364,"targetId":"neuron-45"},{"neuronId":"neuron-5","weight":0.34324705512877507,"targetId":"neuron-45"},{"neuronId":"neuron-6","weight":0.7233266299505012,"targetId":"neuron-45"},{"neuronId":"neuron-7","weight":0.26325496977840224,"targetId":"neuron-45"},{"neuronId":"neuron-8","weight":0.5275854800283329,"targetId":"neuron-45"},{"neuronId":"neuron-9","weight":0.979014955430198,"targetId":"neuron-45"},{"neuronId":"neuron-10","weight":0.8901379967458511,"targetId":"neuron-45"},{"neuronId":"neuron-11","weight":0.6625987075379808,"targetId":"neuron-45"},{"neuronId":"neuron-12","weight":0.17983525650227739,"targetId":"neuron-45"},{"neuronId":"neuron-13","weight":0.5526270828659764,"targetId":"neuron-45"},{"neuronId":"neuron-14","weight":0.1942084512866057,"targetId":"neuron-45"},{"neuronId":"neuron-15","weight":0.8764867784504351,"targetId":"neuron-45"},{"neuronId":"neuron-16","weight":0.1522617844193631,"targetId":"neuron-45"},{"neuronId":"neuron-17","weight":0.6383875925271193,"targetId":"neuron-45"},{"neuronId":"neuron-18","weight":0.1171707511850878,"targetId":"neuron-45"},{"neuronId":"neuron-19","weight":0.4802630455597299,"targetId":"neuron-45"},{"neuronId":"neuron-20","weight":0.5890791383828099,"targetId":"neuron-45"},{"neuronId":"neuron-21","weight":0.34708153729486957,"targetId":"neuron-45"},{"neuronId":"neuron-22","weight":0.27822898478164015,"targetId":"neuron-45"},{"neuronId":"neuron-23","weight":0.7525159695412351,"targetId":"neuron-45"},{"neuronId":"neuron-24","weight":0.28588028794401354,"targetId":"neuron-45"},{"neuronId":"neuron-25","weight":0.6167167738202778,"targetId":"neuron-45"},{"neuronId":"neuron-26","weight":0.7452088751355084,"targetId":"neuron-45"},{"neuronId":"neuron-27","weight":0.3617620228418871,"targetId":"neuron-45"},{"neuronId":"neuron-28","weight":0.0006465847280576753,"targetId":"neuron-45"},{"neuronId":"neuron-29","weight":0.6609712598656194,"targetId":"neuron-45"},{"neuronId":"neuron-30","weight":0.1803844303744273,"targetId":"neuron-45"},{"neuronId":"neuron-31","weight":0.8277094686084503,"targetId":"neuron-45"},{"neuronId":"neuron-32","weight":0.3991135415605801,"targetId":"neuron-45"},{"neuronId":"neuron-33","weight":0.5046186487327582,"targetId":"neuron-45"},{"neuronId":"neuron-34","weight":0.8867030043966264,"targetId":"neuron-45"},{"neuronId":"neuron-35","weight":0.5365905605934757,"targetId":"neuron-45"},{"neuronId":"neuron-36","weight":0.77061689606523,"targetId":"neuron-45"},{"neuronId":"neuron-37","weight":0.7762821909522706,"targetId":"neuron-45"},{"neuronId":"neuron-38","weight":0.7525667887816991,"targetId":"neuron-45"},{"neuronId":"neuron-39","weight":0.47753106949499935,"targetId":"neuron-45"},{"neuronId":"neuron-40","weight":0.26413656004691477,"targetId":"neuron-45"},{"neuronId":"neuron-54","weight":0.814484170646394,"targetId":"neuron-45"}],"layerId":1},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-46","dependencies":[{"neuronId":"neuron-1","weight":0.02491615247579093,"targetId":"neuron-46"},{"neuronId":"neuron-2","weight":0.5307697746695246,"targetId":"neuron-46"},{"neuronId":"neuron-3","weight":0.7581181034373521,"targetId":"neuron-46"},{"neuronId":"neuron-4","weight":0.6862721039065748,"targetId":"neuron-46"},{"neuronId":"neuron-5","weight":0.62046035951179,"targetId":"neuron-46"},{"neuronId":"neuron-6","weight":0.6085825152158755,"targetId":"neuron-46"},{"neuronId":"neuron-7","weight":0.02182738106933846,"targetId":"neuron-46"},{"neuronId":"neuron-8","weight":0.027460875704222287,"targetId":"neuron-46"},{"neuronId":"neuron-9","weight":0.4155345080863707,"targetId":"neuron-46"},{"neuronId":"neuron-10","weight":0.5363079264239667,"targetId":"neuron-46"},{"neuronId":"neuron-11","weight":0.27212133418425055,"targetId":"neuron-46"},{"neuronId":"neuron-12","weight":0.5838601549230069,"targetId":"neuron-46"},{"neuronId":"neuron-13","weight":0.1476402115782396,"targetId":"neuron-46"},{"neuronId":"neuron-14","weight":0.993795505299283,"targetId":"neuron-46"},{"neuronId":"neuron-15","weight":0.28245010760942235,"targetId":"neuron-46"},{"neuronId":"neuron-16","weight":0.023350999376970827,"targetId":"neuron-46"},{"neuronId":"neuron-17","weight":0.772298343559666,"targetId":"neuron-46"},{"neuronId":"neuron-18","weight":0.8368635490846017,"targetId":"neuron-46"},{"neuronId":"neuron-19","weight":0.6451653437853523,"targetId":"neuron-46"},{"neuronId":"neuron-20","weight":0.33387530780314734,"targetId":"neuron-46"},{"neuronId":"neuron-21","weight":0.6177597131603493,"targetId":"neuron-46"},{"neuronId":"neuron-22","weight":0.9905633414084737,"targetId":"neuron-46"},{"neuronId":"neuron-23","weight":0.47571525775813495,"targetId":"neuron-46"},{"neuronId":"neuron-24","weight":0.5931932295222323,"targetId":"neuron-46"},{"neuronId":"neuron-25","weight":0.2424361078757814,"targetId":"neuron-46"},{"neuronId":"neuron-26","weight":0.9909093671001832,"targetId":"neuron-46"},{"neuronId":"neuron-27","weight":0.8227364483767181,"targetId":"neuron-46"},{"neuronId":"neuron-28","weight":0.44863107262076063,"targetId":"neuron-46"},{"neuronId":"neuron-29","weight":0.1677094631705499,"targetId":"neuron-46"},{"neuronId":"neuron-30","weight":0.7840972221878353,"targetId":"neuron-46"},{"neuronId":"neuron-31","weight":0.9739586533646867,"targetId":"neuron-46"},{"neuronId":"neuron-32","weight":0.142968623660938,"targetId":"neuron-46"},{"neuronId":"neuron-33","weight":0.7898679830604852,"targetId":"neuron-46"},{"neuronId":"neuron-34","weight":0.6612178306394778,"targetId":"neuron-46"},{"neuronId":"neuron-35","weight":0.8928873645178751,"targetId":"neuron-46"},{"neuronId":"neuron-36","weight":0.6243471244759308,"targetId":"neuron-46"},{"neuronId":"neuron-37","weight":0.8094491196814851,"targetId":"neuron-46"},{"neuronId":"neuron-38","weight":0.09495106750049442,"targetId":"neuron-46"},{"neuronId":"neuron-39","weight":0.743575696933088,"targetId":"neuron-46"},{"neuronId":"neuron-40","weight":0.9579504485317137,"targetId":"neuron-46"},{"neuronId":"neuron-54","weight":0.0930126845567103,"targetId":"neuron-46"}],"layerId":1},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-47","dependencies":[{"neuronId":"neuron-1","weight":0.45781132911951683,"targetId":"neuron-47"},{"neuronId":"neuron-2","weight":0.09938431212183552,"targetId":"neuron-47"},{"neuronId":"neuron-3","weight":0.007341642407939553,"targetId":"neuron-47"},{"neuronId":"neuron-4","weight":0.8240983352175268,"targetId":"neuron-47"},{"neuronId":"neuron-5","weight":0.2728613951743777,"targetId":"neuron-47"},{"neuronId":"neuron-6","weight":0.44162600683356035,"targetId":"neuron-47"},{"neuronId":"neuron-7","weight":0.00846252637623679,"targetId":"neuron-47"},{"neuronId":"neuron-8","weight":0.7285106302174637,"targetId":"neuron-47"},{"neuronId":"neuron-9","weight":0.005240915449113537,"targetId":"neuron-47"},{"neuronId":"neuron-10","weight":0.8769228513088497,"targetId":"neuron-47"},{"neuronId":"neuron-11","weight":0.43368882319923463,"targetId":"neuron-47"},{"neuronId":"neuron-12","weight":0.8019870207864332,"targetId":"neuron-47"},{"neuronId":"neuron-13","weight":0.6386324575426388,"targetId":"neuron-47"},{"neuronId":"neuron-14","weight":0.21653477486030848,"targetId":"neuron-47"},{"neuronId":"neuron-15","weight":0.4070145124107484,"targetId":"neuron-47"},{"neuronId":"neuron-16","weight":0.32430584471508084,"targetId":"neuron-47"},{"neuronId":"neuron-17","weight":0.3766372890776505,"targetId":"neuron-47"},{"neuronId":"neuron-18","weight":0.2192860716789924,"targetId":"neuron-47"},{"neuronId":"neuron-19","weight":0.480390354961422,"targetId":"neuron-47"},{"neuronId":"neuron-20","weight":0.7175801951608817,"targetId":"neuron-47"},{"neuronId":"neuron-21","weight":0.21790964104570987,"targetId":"neuron-47"},{"neuronId":"neuron-22","weight":0.8314141458956458,"targetId":"neuron-47"},{"neuronId":"neuron-23","weight":0.2001256141981742,"targetId":"neuron-47"},{"neuronId":"neuron-24","weight":0.4985962656405126,"targetId":"neuron-47"},{"neuronId":"neuron-25","weight":0.8537819786997703,"targetId":"neuron-47"},{"neuronId":"neuron-26","weight":0.11354321209932794,"targetId":"neuron-47"},{"neuronId":"neuron-27","weight":0.20010659899682937,"targetId":"neuron-47"},{"neuronId":"neuron-28","weight":0.593374331584146,"targetId":"neuron-47"},{"neuronId":"neuron-29","weight":0.24915566589473992,"targetId":"neuron-47"},{"neuronId":"neuron-30","weight":0.7554384595868106,"targetId":"neuron-47"},{"neuronId":"neuron-31","weight":0.8573585069986878,"targetId":"neuron-47"},{"neuronId":"neuron-32","weight":0.503343200183651,"targetId":"neuron-47"},{"neuronId":"neuron-33","weight":0.7000387686037969,"targetId":"neuron-47"},{"neuronId":"neuron-34","weight":0.4294283039203045,"targetId":"neuron-47"},{"neuronId":"neuron-35","weight":0.23996922760463157,"targetId":"neuron-47"},{"neuronId":"neuron-36","weight":0.8059946195929623,"targetId":"neuron-47"},{"neuronId":"neuron-37","weight":0.05129933740271164,"targetId":"neuron-47"},{"neuronId":"neuron-38","weight":0.125054965175861,"targetId":"neuron-47"},{"neuronId":"neuron-39","weight":0.8262460803805688,"targetId":"neuron-47"},{"neuronId":"neuron-40","weight":0.7609904341290329,"targetId":"neuron-47"},{"neuronId":"neuron-54","weight":0.5892349130909608,"targetId":"neuron-47"}],"layerId":1},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-48","dependencies":[{"neuronId":"neuron-1","weight":0.7482710338930596,"targetId":"neuron-48"},{"neuronId":"neuron-2","weight":0.17046232388674998,"targetId":"neuron-48"},{"neuronId":"neuron-3","weight":0.7021647725692033,"targetId":"neuron-48"},{"neuronId":"neuron-4","weight":0.2915710085449902,"targetId":"neuron-48"},{"neuronId":"neuron-5","weight":0.3984602607957892,"targetId":"neuron-48"},{"neuronId":"neuron-6","weight":0.558178772616618,"targetId":"neuron-48"},{"neuronId":"neuron-7","weight":0.6505795332986626,"targetId":"neuron-48"},{"neuronId":"neuron-8","weight":0.24590599127362656,"targetId":"neuron-48"},{"neuronId":"neuron-9","weight":0.47804839523517895,"targetId":"neuron-48"},{"neuronId":"neuron-10","weight":0.35928876967591206,"targetId":"neuron-48"},{"neuronId":"neuron-11","weight":0.3337945170698321,"targetId":"neuron-48"},{"neuronId":"neuron-12","weight":0.18522483308455284,"targetId":"neuron-48"},{"neuronId":"neuron-13","weight":0.37538450405611257,"targetId":"neuron-48"},{"neuronId":"neuron-14","weight":0.15107605960655668,"targetId":"neuron-48"},{"neuronId":"neuron-15","weight":0.3888829127399075,"targetId":"neuron-48"},{"neuronId":"neuron-16","weight":0.6266855299770072,"targetId":"neuron-48"},{"neuronId":"neuron-17","weight":0.7800431738760158,"targetId":"neuron-48"},{"neuronId":"neuron-18","weight":0.18194577116963695,"targetId":"neuron-48"},{"neuronId":"neuron-19","weight":0.7509907969163744,"targetId":"neuron-48"},{"neuronId":"neuron-20","weight":0.7413912941316009,"targetId":"neuron-48"},{"neuronId":"neuron-21","weight":0.04661574431666193,"targetId":"neuron-48"},{"neuronId":"neuron-22","weight":0.15602184227005578,"targetId":"neuron-48"},{"neuronId":"neuron-23","weight":0.2837279202319143,"targetId":"neuron-48"},{"neuronId":"neuron-24","weight":0.42656537446101517,"targetId":"neuron-48"},{"neuronId":"neuron-25","weight":0.08984733004732404,"targetId":"neuron-48"},{"neuronId":"neuron-26","weight":0.36342905910543766,"targetId":"neuron-48"},{"neuronId":"neuron-27","weight":0.8547770951151367,"targetId":"neuron-48"},{"neuronId":"neuron-28","weight":0.7514444810489759,"targetId":"neuron-48"},{"neuronId":"neuron-29","weight":0.14685045825719245,"targetId":"neuron-48"},{"neuronId":"neuron-30","weight":0.25708606649654797,"targetId":"neuron-48"},{"neuronId":"neuron-31","weight":0.7806379677490579,"targetId":"neuron-48"},{"neuronId":"neuron-32","weight":0.081156760209801,"targetId":"neuron-48"},{"neuronId":"neuron-33","weight":0.7988360535282347,"targetId":"neuron-48"},{"neuronId":"neuron-34","weight":0.4442855604200998,"targetId":"neuron-48"},{"neuronId":"neuron-35","weight":0.7496803342690398,"targetId":"neuron-48"},{"neuronId":"neuron-36","weight":0.03163651507861287,"targetId":"neuron-48"},{"neuronId":"neuron-37","weight":0.8431628950077319,"targetId":"neuron-48"},{"neuronId":"neuron-38","weight":0.24910307790944264,"targetId":"neuron-48"},{"neuronId":"neuron-39","weight":0.16219043619431694,"targetId":"neuron-48"},{"neuronId":"neuron-40","weight":0.5127966454200313,"targetId":"neuron-48"},{"neuronId":"neuron-54","weight":0.32009164379639354,"targetId":"neuron-48"}],"layerId":1},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-49","dependencies":[{"neuronId":"neuron-1","weight":0.02627495754249698,"targetId":"neuron-49"},{"neuronId":"neuron-2","weight":0.10179361009149901,"targetId":"neuron-49"},{"neuronId":"neuron-3","weight":0.7810303844579545,"targetId":"neuron-49"},{"neuronId":"neuron-4","weight":0.41988445414161835,"targetId":"neuron-49"},{"neuronId":"neuron-5","weight":0.9086654909240633,"targetId":"neuron-49"},{"neuronId":"neuron-6","weight":0.6616411561725591,"targetId":"neuron-49"},{"neuronId":"neuron-7","weight":0.3331445189334211,"targetId":"neuron-49"},{"neuronId":"neuron-8","weight":0.4252706080731875,"targetId":"neuron-49"},{"neuronId":"neuron-9","weight":0.46764280715720286,"targetId":"neuron-49"},{"neuronId":"neuron-10","weight":0.47036979899712095,"targetId":"neuron-49"},{"neuronId":"neuron-11","weight":0.4380736017186664,"targetId":"neuron-49"},{"neuronId":"neuron-12","weight":0.13933368511088173,"targetId":"neuron-49"},{"neuronId":"neuron-13","weight":0.15478946406577432,"targetId":"neuron-49"},{"neuronId":"neuron-14","weight":0.32839221172356714,"targetId":"neuron-49"},{"neuronId":"neuron-15","weight":0.05612973509670938,"targetId":"neuron-49"},{"neuronId":"neuron-16","weight":0.9343696836733666,"targetId":"neuron-49"},{"neuronId":"neuron-17","weight":0.2544511377691461,"targetId":"neuron-49"},{"neuronId":"neuron-18","weight":0.36902680666855736,"targetId":"neuron-49"},{"neuronId":"neuron-19","weight":0.8935240299044447,"targetId":"neuron-49"},{"neuronId":"neuron-20","weight":0.9882675320267759,"targetId":"neuron-49"},{"neuronId":"neuron-21","weight":0.14976819218186177,"targetId":"neuron-49"},{"neuronId":"neuron-22","weight":0.775896524921891,"targetId":"neuron-49"},{"neuronId":"neuron-23","weight":0.933699096340873,"targetId":"neuron-49"},{"neuronId":"neuron-24","weight":0.5537895378999028,"targetId":"neuron-49"},{"neuronId":"neuron-25","weight":0.5781380824557867,"targetId":"neuron-49"},{"neuronId":"neuron-26","weight":0.7514636961329308,"targetId":"neuron-49"},{"neuronId":"neuron-27","weight":0.5882440188779611,"targetId":"neuron-49"},{"neuronId":"neuron-28","weight":0.0007225372643842043,"targetId":"neuron-49"},{"neuronId":"neuron-29","weight":0.6623258139763358,"targetId":"neuron-49"},{"neuronId":"neuron-30","weight":0.9173041456756181,"targetId":"neuron-49"},{"neuronId":"neuron-31","weight":0.9281726418002519,"targetId":"neuron-49"},{"neuronId":"neuron-32","weight":0.2105602234790881,"targetId":"neuron-49"},{"neuronId":"neuron-33","weight":0.9012148441162638,"targetId":"neuron-49"},{"neuronId":"neuron-34","weight":0.2269267809953215,"targetId":"neuron-49"},{"neuronId":"neuron-35","weight":0.7369679999053996,"targetId":"neuron-49"},{"neuronId":"neuron-36","weight":0.2961824336642831,"targetId":"neuron-49"},{"neuronId":"neuron-37","weight":0.9486979508044284,"targetId":"neuron-49"},{"neuronId":"neuron-38","weight":0.051086904370980846,"targetId":"neuron-49"},{"neuronId":"neuron-39","weight":0.8144990304252613,"targetId":"neuron-49"},{"neuronId":"neuron-40","weight":0.32310275658588716,"targetId":"neuron-49"},{"neuronId":"neuron-54","weight":0.9015423331148917,"targetId":"neuron-49"}],"layerId":1},{"$TYPE":"Move","_base_type":"output","id":"neuron-50","dependencies":[{"neuronId":"neuron-42","weight":0.8437706124022717,"targetId":"neuron-50"},{"neuronId":"neuron-43","weight":0.1877982572897211,"targetId":"neuron-50"},{"neuronId":"neuron-44","weight":0.992137998032539,"targetId":"neuron-50"},{"neuronId":"neuron-45","weight":0.13775923324578343,"targetId":"neuron-50"},{"neuronId":"neuron-46","weight":0.7953930850883226,"targetId":"neuron-50"},{"neuronId":"neuron-47","weight":0.7445107829890539,"targetId":"neuron-50"},{"neuronId":"neuron-48","weight":0.8966028855811344,"targetId":"neuron-50"},{"neuronId":"neuron-49","weight":0.27691048457318235,"targetId":"neuron-50"}],"layerId":2,"direction":"Left"},{"$TYPE":"Move","_base_type":"output","id":"neuron-51","dependencies":[{"neuronId":"neuron-42","weight":0.8748388660676476,"targetId":"neuron-51"},{"neuronId":"neuron-43","weight":0.24218489373165952,"targetId":"neuron-51"},{"neuronId":"neuron-44","weight":0.8383469456938694,"targetId":"neuron-51"},{"neuronId":"neuron-45","weight":0.5638646041547063,"targetId":"neuron-51"},{"neuronId":"neuron-46","weight":0.869027226166385,"targetId":"neuron-51"},{"neuronId":"neuron-47","weight":0.06140285591887751,"targetId":"neuron-51"},{"neuronId":"neuron-48","weight":0.13890087203674284,"targetId":"neuron-51"},{"neuronId":"neuron-49","weight":0.33045548374302514,"targetId":"neuron-51"}],"layerId":2,"direction":"Right"},{"$TYPE":"Jump","_base_type":"output","id":"neuron-52","dependencies":[{"neuronId":"neuron-42","weight":0.12115546306660607,"targetId":"neuron-52"},{"neuronId":"neuron-43","weight":0.10297823199478096,"targetId":"neuron-52"},{"neuronId":"neuron-44","weight":0.6020954815232108,"targetId":"neuron-52"},{"neuronId":"neuron-45","weight":0.22426334486568544,"targetId":"neuron-52"},{"neuronId":"neuron-46","weight":0.8720925087531186,"targetId":"neuron-52"},{"neuronId":"neuron-47","weight":0.45772453856333506,"targetId":"neuron-52"},{"neuronId":"neuron-48","weight":0.38281310375426447,"targetId":"neuron-52"},{"neuronId":"neuron-49","weight":0.5578748985504294,"targetId":"neuron-52"}],"layerId":2},{"$TYPE":"Gaussian","_base_type":"middle","id":"neuron-53","dependencies":[{"neuronId":"neuron-1","weight":0.5108985551046074,"targetId":"neuron-53"},{"neuronId":"neuron-2","weight":0.7575271578418297,"targetId":"neuron-53"},{"neuronId":"neuron-3","weight":0.43162699066495547,"targetId":"neuron-53"},{"neuronId":"neuron-4","weight":0.5161329402877469,"targetId":"neuron-53"},{"neuronId":"neuron-5","weight":0.7521134306932974,"targetId":"neuron-53"},{"neuronId":"neuron-6","weight":0.3859642024627774,"targetId":"neuron-53"},{"neuronId":"neuron-7","weight":0.8745564337578091,"targetId":"neuron-53"},{"neuronId":"neuron-8","weight":0.6334229821814319,"targetId":"neuron-53"},{"neuronId":"neuron-9","weight":0.7266678626721147,"targetId":"neuron-53"},{"neuronId":"neuron-10","weight":0.38165868690351246,"targetId":"neuron-53"},{"neuronId":"neuron-11","weight":0.2953267732977337,"targetId":"neuron-53"},{"neuronId":"neuron-12","weight":0.6651696614340087,"targetId":"neuron-53"},{"neuronId":"neuron-13","weight":0.7692147744571088,"targetId":"neuron-53"},{"neuronId":"neuron-14","weight":0.6665350414180201,"targetId":"neuron-53"},{"neuronId":"neuron-15","weight":0.3040218480460515,"targetId":"neuron-53"},{"neuronId":"neuron-16","weight":0.7253779777048579,"targetId":"neuron-53"},{"neuronId":"neuron-17","weight":0.27047828374686034,"targetId":"neuron-53"},{"neuronId":"neuron-18","weight":0.9303287847089778,"targetId":"neuron-53"},{"neuronId":"neuron-19","weight":0.5035333902246963,"targetId":"neuron-53"},{"neuronId":"neuron-20","weight":0.21707640977516784,"targetId":"neuron-53"},{"neuronId":"neuron-21","weight":0.42831971233183874,"targetId":"neuron-53"},{"neuronId":"neuron-22","weight":0.4936034656770759,"targetId":"neuron-53"},{"neuronId":"neuron-23","weight":0.2477362185103763,"targetId":"neuron-53"},{"neuronId":"neuron-24","weight":0.45731358259277655,"targetId":"neuron-53"},{"neuronId":"neuron-25","weight":0.83629983964886,"targetId":"neuron-53"},{"neuronId":"neuron-26","weight":0.25506288708684033,"targetId":"neuron-53"},{"neuronId":"neuron-27","weight":0.8128554685105067,"targetId":"neuron-53"},{"neuronId":"neuron-28","weight":0.7003214354713653,"targetId":"neuron-53"},{"neuronId":"neuron-29","weight":0.19932654705970176,"targetId":"neuron-53"},{"neuronId":"neuron-30","weight":0.44647483066033455,"targetId":"neuron-53"},{"neuronId":"neuron-31","weight":0.952401021500144,"targetId":"neuron-53"},{"neuronId":"neuron-32","weight":0.3213150453837518,"targetId":"neuron-53"},{"neuronId":"neuron-33","weight":0.7717545753044092,"targetId":"neuron-53"},{"neuronId":"neuron-34","weight":0.00380800569124351,"targetId":"neuron-53"},{"neuronId":"neuron-35","weight":0.8635827445906112,"targetId":"neuron-53"},{"neuronId":"neuron-36","weight":0.7723128545806038,"targetId":"neuron-53"},{"neuronId":"neuron-37","weight":0.09329845525484981,"targetId":"neuron-53"},{"neuronId":"neuron-38","weight":0.7840494586631426,"targetId":"neuron-53"},{"neuronId":"neuron-39","weight":0.7602239251316314,"targetId":"neuron-53"},{"neuronId":"neuron-40","weight":0.23666118374522815,"targetId":"neuron-53"},{"neuronId":"neuron-54","weight":0.26303317046267716,"targetId":"neuron-53"}],"layerId":1},{"$TYPE":"BlockInput","_base_type":"input","id":"neuron-54","dependencies":[],"layerId":0,"direction":"Right","range":"Zero"}]}
+{
+    "neurons":
+    [
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-1",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Top",
+            "range": "Four"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-2",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Top",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-3",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Top",
+            "range": "Two"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-4",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Top",
+            "range": "One"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-5",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Top",
+            "range": "Zero"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-6",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopLeft",
+            "range": "Four"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-7",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopLeft",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-8",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopLeft",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-9",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopLeft",
+            "range": "Two"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-10",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopLeft",
+            "range": "One"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-11",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopLeft",
+            "range": "Zero"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-12",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopRight",
+            "range": "Four"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-13",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopRight",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-14",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopRight",
+            "range": "Two"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-15",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "range": "One",
+            "direction": "TopRight"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-16",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "TopRight",
+            "range": "Zero"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-17",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Bottom",
+            "range": "Four"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-18",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Bottom",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-19",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Bottom",
+            "range": "Two"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-20",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Bottom",
+            "range": "One"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-21",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Bottom",
+            "range": "Zero"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-22",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomLeft",
+            "range": "Four"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-23",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomLeft",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-24",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomLeft",
+            "range": "Two"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-25",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomLeft",
+            "range": "One"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-26",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomLeft",
+            "range": "Zero"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-27",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomRight",
+            "range": "Four"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-28",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomRight",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-29",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomRight",
+            "range": "Two"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-30",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomRight",
+            "range": "One"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-31",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "BottomRight",
+            "range": "Zero"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-32",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Left",
+            "range": "Four"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-33",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Left",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-34",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Left",
+            "range": "Two"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-35",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Left",
+            "range": "One"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-36",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Left",
+            "range": "Zero"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-37",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Right",
+            "range": "Four"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-38",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Right",
+            "range": "Three"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-39",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Right",
+            "range": "Two"
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-40",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Right",
+            "range": "One"
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-42",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.5862293311403343,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.9761449417985876,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.16852772705140517,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.7009820727881656,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.8866620245936486,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.0076315785951472925,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.6050997003737865,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.021234038026273883,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.12112783605669253,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.05171725250402126,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.6059099363370709,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.2758802402952317,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.23191570748064227,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.2451548539212991,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.5242861812017193,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.3171953098590634,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.699870368251386,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.9638539677088767,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.6544289471135936,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.654763503688045,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.07382657649347146,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.5624735073216263,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.9015847359732838,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.668836303761121,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.9750277687702354,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.20689588502086254,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.31569809333329946,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.11672860513486427,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.6786714916761464,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.02542567210152813,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.4607649499565222,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.796750302999712,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.14817720956249913,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.6546347079253947,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.3526409118977637,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.5499073362432146,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.9787231848297832,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.757001825136624,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.1734870186197014,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.843283765651044,
+                    "targetId": "neuron-42"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.8590443248845111,
+                    "targetId": "neuron-42"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-43",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.9176713328904209,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.44232517820386086,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.9905843745108176,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.20219475003993848,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.6056616816687529,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.869463936630709,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.2340791254584197,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.8405888272824602,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.7983650066585405,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.9648524454504259,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.6824857539410835,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.4200374553362817,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.16564928665466105,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.8896406076370421,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.8510985200369736,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.3861800160084473,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.576504125669033,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.46814002998880067,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.7374307708101254,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.629098868986098,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.17683220577739878,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.5631739939540424,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.03734082014190876,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.43230277168597786,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.5710993125687487,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.42238134937030114,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.366364019140736,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.17970649267925154,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.9717182400523691,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.8621288718441732,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.675533559739082,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.07940419501583851,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.6638379406941759,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.9376343976315008,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.8781051946942926,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.8649368621097517,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.4752913402681165,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.7338400384071522,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.3731659482986478,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.8153686364919357,
+                    "targetId": "neuron-43"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.8014868500419272,
+                    "targetId": "neuron-43"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-44",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.3164059844903272,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.33519071598696637,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.7693654000648532,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.06213279175200326,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.8516747198074671,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.5562587270318279,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.9309131190140169,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.8758336827360975,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.24807123312084955,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.17147323668069092,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.022876561589388,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.3323806667433342,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.8957156678665651,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.6653389078665316,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.5803367980447358,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.23862314312866995,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.668820027752796,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.5963029012297508,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.17744647940479563,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.3623686058512362,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.31348548952202226,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.35538982091046134,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.06782987697639331,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.06848283262726651,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.7437106679465297,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.6889362722642108,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.5032997113926142,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.5424835310683814,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.18438216283629216,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.6002366446216434,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.6897736656055237,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.2324301078824883,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.008472064174431804,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.2112700584524272,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.8926763127116126,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.2217183857396151,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.679435270736668,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.5404138538123944,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.8546619918435564,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.019857423525773465,
+                    "targetId": "neuron-44"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.7158824167739732,
+                    "targetId": "neuron-44"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-45",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.43800836021868716,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.4957304219110956,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.7533732832506613,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.36919567063629055,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.7913618850499365,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.8094857219617551,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.6789893063641563,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.12813679389778776,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.3647134313989917,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.4015013218968805,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.8507168798018768,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.47431216862889747,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.6758707829111334,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.5957635026281592,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.08268212351149584,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.6074812056292211,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.22338843533228459,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.04909762896561809,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.6052313799049055,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.7752590460240351,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.22316391028708593,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.42770581351611126,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.5313095037684998,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.1241290133714158,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.4472807260165228,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.8217358725121532,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.9656846658741917,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.192110477658178,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.3126891271331951,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.8772371553622786,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.1530485326618839,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.5509790092350707,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.09427929323398054,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.18207661619303328,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.2722057739038819,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.6258746697417934,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.44745481669186127,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.4718970558453691,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.5976650762123271,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.3206661126448538,
+                    "targetId": "neuron-45"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.91270055657246,
+                    "targetId": "neuron-45"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-46",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.35762055074397336,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.6919614863657646,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.7315737379780975,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.39113922897732023,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.5643196276116704,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.6075890645711177,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.014946944482757463,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.06629110271840433,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.021234097179004707,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.86706868346587,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.37665811026694307,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.2682268259250232,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.654936236038224,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.8371532956497681,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.906295272057408,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.3686589774431972,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.5625276464700326,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.31477021140385186,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.4529316191355408,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.7324456097461345,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.8358793731349579,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.4774721773248213,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.17850627919938078,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.6672451757776325,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.43375320555559915,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.5799511428305004,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.47081325868941537,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.8365395008458208,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.31545161162593116,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.36994888356504707,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.3358864630556022,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.1353793096031426,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.15634018743875377,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.6444189031830642,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.2907298811593704,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.037418437810571525,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.7637027484241932,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.9198804543154497,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.4403447439819802,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.44846911702641234,
+                    "targetId": "neuron-46"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.16141628996967272,
+                    "targetId": "neuron-46"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-47",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.2800178599503571,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.39693126298131487,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.802391193498035,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.28968257437624634,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.13415890886713444,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.13817614156852986,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.20399007137068914,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.8537088620439105,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.553321851084472,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.7300443555890178,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.8637640175704085,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.5140854070496779,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.9081981885662156,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.718777102441135,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.7097013522025942,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.056355562988552155,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.3263523887819636,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.9975150166293525,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.12739133604241815,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.26209113642764936,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.17396854707134057,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.7108058056820459,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.2803420567326985,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.062286224852725725,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.18655128819512778,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.8571817917758162,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.39707676710344153,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.12939511337718013,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.09866605135944939,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.350863936813157,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.8137636918696627,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.619680798191714,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.09600683922908138,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.3231054535283202,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.5488753539293987,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.17195261037025078,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.2654680038123176,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.8671838245748187,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.9338485302139203,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.6929614252350516,
+                    "targetId": "neuron-47"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.43874858450836196,
+                    "targetId": "neuron-47"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-48",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.7488489798759455,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.35942791598460255,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.8769719856875604,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.33023162555995444,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.17285833468663026,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.0006506169199003153,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.17550686219844325,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.8413108250092022,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.12180689346495477,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.5365184084441229,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.7286327222780739,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.5552836877877807,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.47678878968381777,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.9885884102408672,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.04501668859933905,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.9078068205574769,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.1754579256380966,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.7763913285953357,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.37363536058780855,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.9233709995032586,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.98038560271871,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.9059040791440461,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.5246388312672507,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.15954097508252285,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.37567631501807175,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.9506393708806801,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.7889540483284354,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.34210972867594547,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.7087355190520396,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.3932999235717285,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.3498034833535779,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.5310329679956598,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.5146886699521432,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.2228972327969606,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.2640574831599214,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.2431341741944344,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.5003371641239268,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.48115689684969376,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.9302996282625292,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.11835032380672961,
+                    "targetId": "neuron-48"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.1834487794495684,
+                    "targetId": "neuron-48"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-49",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.9170517944068916,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.6568944991684755,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.6431096222434624,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.5957174521867828,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.5433100020447609,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.34499626969415353,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.7097214520393659,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.970510865393715,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.6758605475235392,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.735440230819719,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.6208443313751925,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.9583784272069248,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.1398319543583293,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.8859106440885709,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.02297897342603461,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.5519455587688163,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.10039894473430855,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.22807537880181028,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.26635870144974316,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.5804947792199405,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.8833151953411249,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.9287300578413645,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.630730297796308,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.867187010480015,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.29010518585355527,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.13006692118040186,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.9806222806701201,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.14526457995319875,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.21969873510608817,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.06314939157213673,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.6612905394596915,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.6762746139199132,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.6549968314044337,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.9065942789842902,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.029573251001148937,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.4907469169041079,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.2131677977222045,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.5482599503297475,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.2508844792159731,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.6956830601622296,
+                    "targetId": "neuron-49"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.3644459385643839,
+                    "targetId": "neuron-49"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "Move",
+            "_base_type": "output",
+            "id": "neuron-50",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-42",
+                    "weight": 0.3165919828168302,
+                    "targetId": "neuron-50"
+                },
+                {
+                    "neuronId": "neuron-43",
+                    "weight": 0.8821529436461029,
+                    "targetId": "neuron-50"
+                },
+                {
+                    "neuronId": "neuron-44",
+                    "weight": 0.9669428919506555,
+                    "targetId": "neuron-50"
+                },
+                {
+                    "neuronId": "neuron-45",
+                    "weight": 0.6114875023639224,
+                    "targetId": "neuron-50"
+                },
+                {
+                    "neuronId": "neuron-46",
+                    "weight": 0.5454342183955041,
+                    "targetId": "neuron-50"
+                },
+                {
+                    "neuronId": "neuron-47",
+                    "weight": 0.08656359992364426,
+                    "targetId": "neuron-50"
+                },
+                {
+                    "neuronId": "neuron-48",
+                    "weight": 0.17671568933317772,
+                    "targetId": "neuron-50"
+                },
+                {
+                    "neuronId": "neuron-49",
+                    "weight": 0.6395572613284873,
+                    "targetId": "neuron-50"
+                },
+                {
+                    "neuronId": "neuron-53",
+                    "weight": 0.3345599949785618,
+                    "targetId": "neuron-50"
+                }
+            ],
+            "layerId": 2,
+            "direction": "Left"
+        },
+        {
+            "$TYPE": "Move",
+            "_base_type": "output",
+            "id": "neuron-51",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-42",
+                    "weight": 0.24678364557751764,
+                    "targetId": "neuron-51"
+                },
+                {
+                    "neuronId": "neuron-43",
+                    "weight": 0.4415317009532975,
+                    "targetId": "neuron-51"
+                },
+                {
+                    "neuronId": "neuron-44",
+                    "weight": 0.6893077232852883,
+                    "targetId": "neuron-51"
+                },
+                {
+                    "neuronId": "neuron-45",
+                    "weight": 0.9511271351784768,
+                    "targetId": "neuron-51"
+                },
+                {
+                    "neuronId": "neuron-46",
+                    "weight": 0.2914292533252253,
+                    "targetId": "neuron-51"
+                },
+                {
+                    "neuronId": "neuron-47",
+                    "weight": 0.8465093614656547,
+                    "targetId": "neuron-51"
+                },
+                {
+                    "neuronId": "neuron-48",
+                    "weight": 0.5780926223228986,
+                    "targetId": "neuron-51"
+                },
+                {
+                    "neuronId": "neuron-49",
+                    "weight": 0.6467156694581256,
+                    "targetId": "neuron-51"
+                },
+                {
+                    "neuronId": "neuron-53",
+                    "weight": 0.5084221078343258,
+                    "targetId": "neuron-51"
+                }
+            ],
+            "layerId": 2,
+            "direction": "Right"
+        },
+        {
+            "$TYPE": "Jump",
+            "_base_type": "output",
+            "id": "neuron-52",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-42",
+                    "weight": 0.8993378217626402,
+                    "targetId": "neuron-52"
+                },
+                {
+                    "neuronId": "neuron-43",
+                    "weight": 0.8076196293112525,
+                    "targetId": "neuron-52"
+                },
+                {
+                    "neuronId": "neuron-44",
+                    "weight": 0.7085524266023946,
+                    "targetId": "neuron-52"
+                },
+                {
+                    "neuronId": "neuron-45",
+                    "weight": 0.2956445256726953,
+                    "targetId": "neuron-52"
+                },
+                {
+                    "neuronId": "neuron-46",
+                    "weight": 0.6143750695504261,
+                    "targetId": "neuron-52"
+                },
+                {
+                    "neuronId": "neuron-47",
+                    "weight": 0.6544562491121981,
+                    "targetId": "neuron-52"
+                },
+                {
+                    "neuronId": "neuron-48",
+                    "weight": 0.6182354243351316,
+                    "targetId": "neuron-52"
+                },
+                {
+                    "neuronId": "neuron-49",
+                    "weight": 0.15897549598405658,
+                    "targetId": "neuron-52"
+                },
+                {
+                    "neuronId": "neuron-53",
+                    "weight": 0.5720719878440785,
+                    "targetId": "neuron-52"
+                }
+            ],
+            "layerId": 2
+        },
+        {
+            "$TYPE": "Gaussian",
+            "_base_type": "middle",
+            "id": "neuron-53",
+            "dependencies":
+            [
+                {
+                    "neuronId": "neuron-1",
+                    "weight": 0.8695492509379226,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-2",
+                    "weight": 0.38258424633678056,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-3",
+                    "weight": 0.7894842133420964,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-4",
+                    "weight": 0.6632720702144493,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-5",
+                    "weight": 0.19291257225424963,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-6",
+                    "weight": 0.051271595553972094,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-7",
+                    "weight": 0.30491064604417817,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-8",
+                    "weight": 0.3606313518815969,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-9",
+                    "weight": 0.2824762712303449,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-10",
+                    "weight": 0.5553000717658507,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-11",
+                    "weight": 0.11182478153597919,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-12",
+                    "weight": 0.20826473866350215,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-13",
+                    "weight": 0.8984332617987166,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-14",
+                    "weight": 0.5092884467107677,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-15",
+                    "weight": 0.8132108002160472,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-16",
+                    "weight": 0.19600496681013457,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-17",
+                    "weight": 0.17217369632159818,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-18",
+                    "weight": 0.9450251967909652,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-19",
+                    "weight": 0.21511291730219273,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-20",
+                    "weight": 0.2643317436315149,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-21",
+                    "weight": 0.4086447453553478,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-22",
+                    "weight": 0.6934338938682246,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-23",
+                    "weight": 0.6053243918857826,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-24",
+                    "weight": 0.9116722953903627,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-25",
+                    "weight": 0.3194544933871081,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-26",
+                    "weight": 0.1460573281963934,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-27",
+                    "weight": 0.9419691548181215,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-28",
+                    "weight": 0.1534160894726394,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-29",
+                    "weight": 0.9423317058884803,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-30",
+                    "weight": 0.042008609349322934,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-31",
+                    "weight": 0.6062363551510569,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-32",
+                    "weight": 0.48873591521832505,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-33",
+                    "weight": 0.6350788415938892,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-34",
+                    "weight": 0.23006364667670365,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-35",
+                    "weight": 0.979399659228161,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-36",
+                    "weight": 0.9782414997026627,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-37",
+                    "weight": 0.05579268636181256,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-38",
+                    "weight": 0.5363040465723309,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-39",
+                    "weight": 0.4138934150669079,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-40",
+                    "weight": 0.9691311540675034,
+                    "targetId": "neuron-53"
+                },
+                {
+                    "neuronId": "neuron-54",
+                    "weight": 0.5103990486650897,
+                    "targetId": "neuron-53"
+                }
+            ],
+            "layerId": 1
+        },
+        {
+            "$TYPE": "BlockInput",
+            "_base_type": "input",
+            "id": "neuron-54",
+            "dependencies":
+            [],
+            "layerId": 0,
+            "direction": "Right",
+            "range": "Zero"
+        }
+    ]
+}
