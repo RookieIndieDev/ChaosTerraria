@@ -62,5 +62,18 @@ namespace ChaosTerraria.Config
         [Label("Roles")]
         [Tooltip("Allow you configure various things such as inventory, etc., Look at Example Roles for reference")]
         public List<Role> roles;
+        [Label("Noise Standard Deviation")]
+        [Tooltip("Standard deviation of the noise added to the weights training. With default values, noise should follow std normal dist")]
+        [DefaultValue(1f)]
+        [Range(-10f,10f)]
+        public float std;
+        [Label("Noise Mean")]
+        [Tooltip("Mean of the noise added to the weights during training. With default values, noise should follow std normal dist")]
+        [DefaultValue(0.0f)]
+        [Range(-10f, 10f)]
+        public float mean;
+        [Label("Learning Rate")]
+        [DefaultValue(0.01f)]
+        public float learningRate;
     }
 }

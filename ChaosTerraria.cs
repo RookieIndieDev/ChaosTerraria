@@ -132,7 +132,7 @@ namespace ChaosTerraria
                 };
                 organism.nNet.neurons = new(nNet.neurons);
                 organism.nNet.id = i;
-                organism.nNet.AssignWeight(weight, ES.GenerateGaussianNoise());
+                organism.nNet.AssignWeight();
                 SessionManager.Organisms.Add(organism);
             }
         }

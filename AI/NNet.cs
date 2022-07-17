@@ -4,6 +4,11 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using log4net;
+using Terraria.ModLoader;
+using System.IO;
+using Newtonsoft.Json;
+using ChaosTerraria.Config;
 
 namespace ChaosTerraria.AI
 {
@@ -14,7 +19,8 @@ namespace ChaosTerraria.AI
         private double inputMagnitude;
         Type coordType = typeof(Coord);
         internal int id;
-        
+        private ILog logger = ModContent.GetInstance<ChaosTerraria>().Logger;
+
         public int GetOutput(Point center, List<Item> inventory, out int direction, out string itemToCraft, out string blockToPlace, out int x, out int y)
         {
             inputMagnitude = 0;
@@ -242,19 +248,26 @@ namespace ChaosTerraria.AI
             outputNeuron = null;
         }
 
-        internal void AssignWeight(Weight weight, double random)
+        internal void AssignWeight()
         {
-            int counter = 0;
-            foreach (Neuron neuron in neurons)
+            try
             {
-                if (neuron.baseType != "input")
+                int counter = 0;
+                foreach (Neuron neuron in neurons)
                 {
-                    foreach (Dependency dependency in neuron.dependencies)
+                    if (neuron.baseType != "input")
                     {
-                        dependency.weight = weight.values[counter] + 0.1 * random;
-                        counter++;
+                        foreach (Dependency dependency in neuron.dependencies)
+                        {
+                            dependency.weight = ChaosTerraria.weight.values[counter] + ModContent.GetInstance<ChaosTerrariaConfig>().learningRate  * ES.GenerateGaussianNoise();
+                            counter++;
+                        }
                     }
                 }
+            }
+            catch(Exception e)
+            {
+                logger.Error(e.Message);
             }
         }
 

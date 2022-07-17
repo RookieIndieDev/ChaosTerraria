@@ -1,21 +1,23 @@
-﻿using ChaosTerraria.Managers;
+﻿using ChaosTerraria.Config;
+using ChaosTerraria.Managers;
 using System;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 
 namespace ChaosTerraria.AI
 {
     internal static class ES
     {
-        private static readonly double learningRate = 0.01;
-        private static readonly double noiseStd = 0.1;
         private static Random rand = new();
         private static double totalScore = 0;
-        private static List<double> noise = new();
-        internal static double GenerateGaussianNoise()
+        private static List<float> noise = new();
+
+        internal static float GenerateGaussianNoise()
         {
-            double u1 = 1.0 - rand.NextDouble();
-            double u2 = 1.0 - rand.NextDouble();
-            return Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+            float u1 = 1 - rand.NextSingle();
+            float u2 = 1- rand.NextSingle();
+            float num = (float)Math.Sqrt(-2.0 * (float)Math.Log(u1)) * (float)Math.Sin(2 * (float)Math.PI * u2);
+            return num * ModContent.GetInstance<ChaosTerrariaConfig>().std + ModContent.GetInstance<ChaosTerrariaConfig>().mean;
         }
 
         internal static void UpdateWeights()
@@ -49,21 +51,19 @@ namespace ChaosTerraria.AI
             //}
             foreach((string, int) score in SessionManager.Scores)
             {
-                var random = GenerateGaussianNoise();
-                totalScore += score.Item2 * random;
-                noise.Add(random);
+                totalScore += score.Item2;
             }
 
             for (int i = 0; i < ChaosTerraria.weight.values.Count; i++)
             {
                 //ChaosTerraria.weight.values[i] *= score.Item2;
-                ChaosTerraria.weight.values[i] += learningRate * totalScore/(SessionManager.Organisms.Count * noiseStd);
+                ChaosTerraria.weight.values[i] += ModContent.GetInstance<ChaosTerrariaConfig>().learningRate * totalScore;
             }
 
             for (int i = 0; i < SessionManager.Organisms.Count; i++)
             {
                 SessionManager.Organisms[i].assigned = false;
-                SessionManager.Organisms[i].nNet.AssignWeight(ChaosTerraria.weight, noise[i]);
+                SessionManager.Organisms[i].nNet.AssignWeight();
             }
             ChaosTerraria.weight.epoch++;
             noise.Clear();
