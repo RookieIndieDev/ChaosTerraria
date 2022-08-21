@@ -27,7 +27,7 @@ namespace ChaosTerraria.UI
 
         public override void Update(GameTime gameTime)
         {
-            Vector2 mousePosition = new Vector2(Main.mouseX, Main.mouseY);
+            Vector2 mousePosition = new(Main.mouseX, Main.mouseY);
             if (!ContainsPoint(mousePosition) && Main.mouseLeft)
             {
                 Unfocus();

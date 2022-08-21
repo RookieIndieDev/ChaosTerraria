@@ -29,7 +29,7 @@ namespace ChaosTerraria.NPCs
         internal Organism organism;
         private Building houseBlocksFromFile;
         private int lifeTicks = 600;
-        private List<Item> inventory = new List<Item>();
+        private List<Item> inventory = new();
         internal SpawnBlockTileEntity spawnBlockTileEntity;
         int lastItemIndex;
         HitTile hitTile = new();
@@ -121,7 +121,7 @@ namespace ChaosTerraria.NPCs
                 SpawnManager.AdamZeroCount--;
                 timeLeft = 0;
                 NPC.life = 0;
-                //TODO: Remove, going to use Novelty search for building stuff
+                //TODO: Remove, going to use Novelty search for building stuff or some other way to represent what to build
                 foreach (BuildingBlock houseBlock in houseBlocksFromFile.houseBlocks)
                 {
                     Vector2 pos = new((float)(spawnBlockTileEntity.Position.X + houseBlock.x) * 16, (float)(spawnBlockTileEntity.Position.Y - houseBlock.y) * 16);

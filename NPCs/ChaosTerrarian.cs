@@ -8,7 +8,6 @@ using ChaosTerraria.Structs;
 using ChaosTerraria.TileEntities;
 using ChaosTerraria.Tiles;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -230,6 +229,7 @@ namespace ChaosTerraria.NPCs
 
                 SpawnManager.ActiveBotCount--;
                 SpawnManager.TotalSpawned++;
+                SessionManager.PercentCompleted = ((float)SpawnManager.TotalSpawned / SessionManager.Organisms.Count) * 100f;
                 NPC.life = 0;
                 for (int i = 0; i < SessionManager.Scores.Count; i++)
                 {
@@ -865,8 +865,6 @@ namespace ChaosTerraria.NPCs
             return true;
         }
 
-
-        //TODO: Add score back in
         public override string GetChat()
         {
             string inventoryItems = "";

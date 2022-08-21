@@ -35,6 +35,8 @@ namespace ChaosTerraria.World
 
         public override void PostUpdateWorld()
         {
+            if(!SessionManager.SessionStarted)
+                SessionManager.SessionStarted = true;
             SpawnManager.SpawnTerrarians();
         }
 

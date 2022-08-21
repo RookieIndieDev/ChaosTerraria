@@ -64,6 +64,7 @@ namespace ChaosTerraria.Managers
                     {
                         ES.UpdateWeights();
                         TotalSpawned = 0;
+                        SessionManager.PercentCompleted = 0;
                     }
 
                     if (SessionManager.Organisms != null)
