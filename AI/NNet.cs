@@ -1,14 +1,13 @@
-﻿using ChaosTerraria.Classes;
-using ChaosTerraria.Enums;
+﻿using ChaosTerraria.Enums;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using log4net;
 using Terraria.ModLoader;
-using System.IO;
-using Newtonsoft.Json;
 using ChaosTerraria.Config;
+using ChaosTerraria.Managers;
+using System.Linq;
 
 namespace ChaosTerraria.AI
 {
@@ -17,6 +16,7 @@ namespace ChaosTerraria.AI
     {
         public List<Neuron> neurons;
         private double inputMagnitude;
+        private double midMagnitude;
         Type coordType = typeof(Coord);
         internal int id;
         private ILog logger = ModContent.GetInstance<ChaosTerraria>().Logger;
@@ -121,6 +121,22 @@ namespace ChaosTerraria.AI
                 }
             }
             NormalizeInputs();
+            for(int i = 1; i <= SessionManager.MidLayerCount; i++)
+            {
+                IEnumerable<Neuron> midNeurons = from neuron in neurons where neuron.baseType == "middle" && neuron.layerId == i select neuron;
+                foreach(Neuron neuron in midNeurons)
+                {
+                    neuron.value = SetValue(neuron);
+                    midMagnitude += neuron.value;
+                    neuron.evaluated = true;
+                }
+                midMagnitude = Math.Sqrt(midMagnitude);
+                foreach(Neuron neuron in midNeurons)
+                {
+                    neuron.value /= midMagnitude;
+                }
+                midMagnitude = 0;
+            }
             foreach (Neuron neuron in neurons)
             {
                 if (neuron.baseType == "output")
@@ -259,7 +275,7 @@ namespace ChaosTerraria.AI
                     {
                         foreach (Dependency dependency in neuron.dependencies)
                         {
-                            dependency.weight = ChaosTerraria.weight.values[counter] + ModContent.GetInstance<ChaosTerrariaConfig>().learningRate  * ES.GenerateGaussianNoise();
+                            dependency.weight = ChaosTerraria.weight.values[counter] + ES.GenerateGaussianNoise() * ModContent.GetInstance<ChaosTerrariaConfig>().std;
                             counter++;
                         }
                     }

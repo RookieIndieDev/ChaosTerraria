@@ -20,6 +20,7 @@ namespace ChaosTerraria.World
         internal static SessionScreen sessionScreen;
         internal static SpawnBlockScreen spawnBlockScreen;
         internal static GenProgressBar progressBar;
+        internal static NNetDisplay nNetDisplay;
         private GameTime _lastUpdateUiGameTime;
 
         public override void Load()
@@ -30,6 +31,7 @@ namespace ChaosTerraria.World
             spawnBlockScreen = new SpawnBlockScreen();
             progressBar = new GenProgressBar();
             spawnBlocks = new HashSet<Point>();
+            nNetDisplay = new();
             base.Load();
         }
 
@@ -80,7 +82,7 @@ namespace ChaosTerraria.World
         {
             _lastUpdateUiGameTime = gameTime;
 
-            if (!UIHandler.IsLoginUiVisible && !UIHandler.IsSessionUIVisible && !UIHandler.IsSpawnBlockScreenVisible)
+            if (!UIHandler.IsLoginUiVisible && !UIHandler.IsSessionUIVisible && !UIHandler.IsSpawnBlockScreenVisible && !UIHandler.NNetDisplay)
             {
                 UIHandler.HideUI();
             }
@@ -92,7 +94,7 @@ namespace ChaosTerraria.World
 
             if (SessionManager.SessionStarted)
             {
-                UIHandler.ShowProgressBar();
+                //UIHandler.ShowProgressBar();
                 progressBar.Update(gameTime);
             }
         }

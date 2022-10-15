@@ -12,12 +12,14 @@ namespace ChaosTerraria.UI
         private static bool isSessionUIVisible = false;
         private static bool isSpawnBlockScreenVisible = false;
         private static bool isInObserverMode = false;
+        private static bool nNetDisplay = false;
         internal static int currentOrgIndex;
 
         public static bool IsLoginUiVisible { get => isLoginUiVisible; set => isLoginUiVisible = value; }
         public static bool IsSessionUIVisible { get => isSessionUIVisible; set => isSessionUIVisible = value; }
         public static bool IsSpawnBlockScreenVisible { get => isSpawnBlockScreenVisible; set => isSpawnBlockScreenVisible = value; }
         public static bool IsInObserverMode { get => isInObserverMode; set => isInObserverMode = value; }
+        public static bool NNetDisplay { get => nNetDisplay; set => nNetDisplay = value; }
 
         public static void ShowLoginScreen()
         {
@@ -60,6 +62,11 @@ namespace ChaosTerraria.UI
         {
             if(!IsSpawnBlockScreenVisible && !IsLoginUiVisible && !IsSessionUIVisible)
                 ChaosSystem.mainInterface.SetState(ChaosSystem.progressBar);
+        }
+
+        internal static void ShowNNetDisplay()
+        {
+            ChaosSystem.mainInterface.SetState(ChaosSystem.nNetDisplay);
         }
     }
 }

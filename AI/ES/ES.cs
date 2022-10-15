@@ -15,7 +15,7 @@ namespace ChaosTerraria.AI
         internal static float GenerateGaussianNoise()
         {
             float u1 = 1 - rand.NextSingle();
-            float u2 = 1- rand.NextSingle();
+            float u2 = 1 - rand.NextSingle();
             float num = (float)Math.Sqrt(-2.0 * (float)Math.Log(u1)) * (float)Math.Sin(2 * (float)Math.PI * u2);
             return num * ModContent.GetInstance<ChaosTerrariaConfig>().std + ModContent.GetInstance<ChaosTerrariaConfig>().mean;
         }

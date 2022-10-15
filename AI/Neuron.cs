@@ -24,5 +24,6 @@ namespace ChaosTerraria.AI
         public double value;
         [JsonIgnore]
         public bool evaluated;
+        public int layerId;
     }
 }

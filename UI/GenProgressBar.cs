@@ -13,6 +13,7 @@ namespace ChaosTerraria.UI
     {
         UIText percent;
         UIText content;
+        UIText epoch;
         UIPanel mainPanel;
         Texture2D progressBar;
         Rectangle target;
@@ -25,13 +26,16 @@ namespace ChaosTerraria.UI
             };
             percent = new UIText("");
             content = new UIText("Generation Progress");
+            epoch = new("Epoch: ");
             progressBar = ModContent.Request<Texture2D>("ChaosTerraria/UI/ProgressBar", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             mainPanel.Width.Set(Main.screenWidth * 0.20f, 0f);
             mainPanel.Height.Set(100f, 0f);
-            mainPanel.Top.Set(Main.screenHeight * 0.55f, 0f);
+            mainPanel.Top.Set(Main.screenHeight * 0.70f, 0f);
             mainPanel.Left.Set(Main.screenWidth * 0.70f, 0f);
             content.Top.Set(mainPanel.Top.Pixels * 0.1f, 0f);
+            epoch.Top.Set(mainPanel.Top.Pixels * 0.2f, 0f);
             percent.Top.Set(mainPanel.Top.Pixels * 0.01f, 0f);
+            mainPanel.Append(epoch);
             mainPanel.Append(percent);
             mainPanel.Append(content);
             Append(mainPanel);
@@ -46,6 +50,7 @@ namespace ChaosTerraria.UI
         {
             target.Width = (int)Math.Min(target.Width + 5, (mainPanel.GetInnerDimensions().ToRectangle().Width * 0.85 * (SessionManager.PercentCompleted/100f)));
             percent.SetText(SessionManager.PercentCompleted + " %");
+            epoch.SetText("Epoch: " + ChaosTerraria.weight.epoch);
             spriteBatch.Draw(progressBar,target, Color.White); 
             base.DrawSelf(spriteBatch);
         }

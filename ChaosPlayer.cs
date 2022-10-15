@@ -49,6 +49,14 @@ namespace ChaosTerraria
                     }
                 }
             }
+            if (ChaosTerraria.nNetDisplay.JustPressed)
+            {
+                UIHandler.NNetDisplay = !UIHandler.NNetDisplay;
+                if (UIHandler.NNetDisplay)
+                {
+                    UIHandler.ShowNNetDisplay();
+                }
+            }
         }
 
         public override void ModifyScreenPosition()

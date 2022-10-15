@@ -22,18 +22,28 @@ namespace ChaosTerraria
         internal static ModKeybind sessionHotkey;
         internal static ModKeybind observerModeHotkey;
         internal static ModKeybind cycleOrgs;
+        internal static ModKeybind nNetDisplay;
         internal static NNet nNet;
         internal static Weight weight;
         internal static List<Weight> weights;
         readonly static Random rand = new();
         internal static Weight sum;
+
         public override void Load()
         {
             loginHotkey = KeybindLoader.RegisterKeybind(this, "Login", "P");
             sessionHotkey = KeybindLoader.RegisterKeybind(this, "Session", "O");
             observerModeHotkey = KeybindLoader.RegisterKeybind(this, "Observe Mode", "N");
             cycleOrgs = KeybindLoader.RegisterKeybind(this, "Cycle Orgs", "]");
+            nNetDisplay = KeybindLoader.RegisterKeybind(this, "Display nNet", "`");
             nNet = JsonConvert.DeserializeObject<NNet>(Encoding.UTF8.GetString(GetFileBytes("testNNet.json")));
+            foreach(Neuron neuron in nNet.neurons)
+            {
+                if(neuron.baseType == "output")
+                {
+                    SessionManager.MidLayerCount = neuron.layerId-1;
+                }
+            }
             ChaosTerrariaConfig config = (ChaosTerrariaConfig)GetConfig("ChaosTerrariaConfig");
             SessionManager.InitializeSession();
             weights = new List<Weight>();

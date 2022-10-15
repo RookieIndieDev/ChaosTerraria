@@ -21,6 +21,7 @@ namespace ChaosTerraria.Managers
         private static List<ModNPC> observableNPCs;
         private static List<(string, int)> scores;
         private static float percentCompleted;
+        private static int midLayerCount;
         public static bool SessionStarted { get => sessionStarted; set => sessionStarted = value; }
         public static List<Report> Reports { get => reports; set => reports = value; }
         public static List<(string, int)> Scores { get => scores; set => scores = value; }
@@ -33,6 +34,7 @@ namespace ChaosTerraria.Managers
         public static Package Package { get => package; set => package = value; }
         public static List<ModNPC> ObservableNPCs { get => observableNPCs; set => observableNPCs = value; }
         public static float PercentCompleted { get => percentCompleted; set => percentCompleted = value; }
+        public static int MidLayerCount { get => midLayerCount; set => midLayerCount = value; }
 
         public static void InitializeSession()
         {
