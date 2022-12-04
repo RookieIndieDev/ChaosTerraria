@@ -1,0 +1,138 @@
+{
+    "inputNeurons":
+    [
+        {
+            "$TYPE": "BiasInput",
+            "weight": "{{rndFloat '-5:5' }}"
+        },
+        {
+            "$TYPE": "BlockInput"
+        },
+        {
+            "$TYPE": "HasInInventory",
+            "attributeId": "ITEM_ID"
+        },
+        {
+            "$TYPE": "HowManyInInventory",
+            "attributeId": "ITEM_ID"
+        }
+    ],
+    "outputNeurons":
+    [
+        {
+            "$TYPE": "Move",
+            "$OUTPUT_GROUP": "BASIC",
+            "direction": "Left"
+        },
+        {
+            "$TYPE": "Move",
+            "$OUTPUT_GROUP": "BASIC",
+            "direction": "Right"
+        },
+        {
+            "$TYPE": "MineBlock",
+            "$OUTPUT_GROUP": "BASIC",
+            "direction":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "DIRECTIONS"
+            },
+            "x":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "COORD"
+            },
+            "y":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "COORD"
+            }
+        },
+        {
+            "$TYPE": "PlaceBlock",
+            "$OUTPUT_GROUP": "BASIC",
+            "attributeId": "ITEM_ID",
+            "attributeValue":
+            {
+                "$SOURCE": "oa",
+                "$ATTRIBUTE_ID": "ITEM_ID"
+            },
+            "direction":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "DIRECTIONS"
+            },
+            "x":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "COORD"
+            },
+            "y":
+            {
+                "$SOURCE": "enum",
+                "$ENUM": "COORD"
+            }
+        },
+        {
+            "$TYPE": "CraftItem",
+            "$OUTPUT_GROUP": "BASIC",
+            "attributeId": "RECIPE_ID",
+            "attributeValue":
+            {
+                "$SOURCE": "oa",
+                "$ATTRIBUTE_ID": "RECIPE_ID"
+            }
+        },
+        {
+            "$TYPE": "Jump",
+            "$OUTPUT_GROUP": "BASIC"
+        }
+    ],
+    "enum":
+    {
+        "AXIS":
+        [
+            "X",
+            "Y"
+        ],
+        "DIRECTIONS":
+        [
+            "Top",
+            "TopLeft",
+            "TopRight",
+            "Bottom",
+            "BottomLeft",
+            "BottomRight",
+            "Left",
+            "Right"
+        ],
+        "MOVE_DIRECTIONS":
+        [
+            "Left",
+            "Right"
+        ],
+        "COORD":
+        [
+            "Zero",
+            "One",
+            "Two",
+            "Three",
+            "Four"
+        ],
+        "RANGE":
+        [
+            "Zero",
+            "One",
+            "Two",
+            "Three",
+            "Four"
+        ]
+    },
+    "activators":
+    [
+        "Gaussian",
+        "Sigmoid",
+        "BinaryStep",
+        "Relu"
+    ]
+}

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Terraria;
 using Terraria.ID;
@@ -36,7 +37,7 @@ namespace ChaosTerraria
             observerModeHotkey = KeybindLoader.RegisterKeybind(this, "Observe Mode", "N");
             cycleOrgs = KeybindLoader.RegisterKeybind(this, "Cycle Orgs", "]");
             nNetDisplay = KeybindLoader.RegisterKeybind(this, "Display nNet", "`");
-            nNet = JsonConvert.DeserializeObject<NNet>(Encoding.UTF8.GetString(GetFileBytes("testNNet.json")));
+            nNet = JsonConvert.DeserializeObject<NNet>(Encoding.UTF8.GetString(GetFileBytes("currentNNet.json")));
             foreach(Neuron neuron in nNet.neurons)
             {
                 if(neuron.baseType == "output")
@@ -143,6 +144,9 @@ namespace ChaosTerraria
                 organism.nNet.neurons = new(nNet.neurons);
                 organism.nNet.id = i;
                 organism.nNet.AssignWeight();
+                IEnumerable<Neuron> query = from Neuron blockInput in organism.nNet.neurons where blockInput.type == "BlockInput" select blockInput;
+                organism.nNet.blockInputNeurons = query.ToList<Neuron>();
+                organism.nNet.blockCountSqrt = Math.Sqrt(organism.nNet.blockInputNeurons.Count);
                 SessionManager.Organisms.Add(organism);
             }
         }
